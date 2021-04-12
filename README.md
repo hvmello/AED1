@@ -11,7 +11,7 @@ A aplicação se trata da simulação de um jogo de cartas baseado em Yugioh. Em
 | Linguagem de programação  | Java SE 11.0.10 |
 | Java Runtime Environment  | OpenJDK 11.0.10  |
 | Compilador  | Java Compiler 11.0.10 |
-| Integrated Development Environment  | Apache NetBeans  |
+| Integrated Development Environment  | Apache NetBeans 12.3 |
 
 # Guia de instalação
 Inicialmente, digite o comando `git clone https://github.com/hvmello/AED1` no terminal.
