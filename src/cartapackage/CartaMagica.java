@@ -1,4 +1,4 @@
-package CartaPackage;
+package cartapackage;
 
 public class CartaMagica extends Carta {
     

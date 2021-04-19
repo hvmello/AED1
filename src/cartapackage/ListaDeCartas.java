@@ -1,5 +1,5 @@
 
-package CartaPackage;
+package cartapackage;
 
 import java.io.Serializable;
 import java.util.Arrays;
