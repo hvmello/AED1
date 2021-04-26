@@ -1,7 +1,7 @@
 package cartapackage;
 
 public class CartaMagica extends Carta {
-    
+
     public static enum TipoEfeitoMagico {
         CAMPO(0), TRAP(1);
         
@@ -25,8 +25,6 @@ public class CartaMagica extends Carta {
 
     public TipoEfeitoMagico getTipoEfeitoMagico() {
         return tipoEfeitoMagico;
-    }
-    
-    
+    }    
 }
 
