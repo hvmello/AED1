@@ -14,8 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileManager {
-    private static String decksPath = "./Files/Decks";
-    private static String cartasPath = "./Files/Cartas";
+    private static final String DECKS_PATH = "./Files/Decks";
+    private static final String CARTAS_PATH = "./Files/Cartas";
     
     private static FileInputStream fileInStream;   private static ObjectInputStream objInStream;
     private static FileOutputStream fileOutStream;   private static ObjectOutputStream objOutStream;
@@ -23,7 +23,7 @@ public class FileManager {
     public static void writeCarta(Carta carta){
         
         try {
-            fileOutStream = new FileOutputStream(cartasPath +"/"+ carta.getNome() + ".ser");
+            fileOutStream = new FileOutputStream(CARTAS_PATH +"/"+ carta.getNome() + ".ser");
             objOutStream = new ObjectOutputStream(fileOutStream);
             
             if(carta instanceof CartaMonstro)   objOutStream.writeObject((CartaMonstro)carta);
@@ -52,7 +52,7 @@ public class FileManager {
 
                 
         try {
-        fileInStream = new FileInputStream(cartasPath+"/"+nome+".ser");
+        fileInStream = new FileInputStream(CARTAS_PATH+"/"+nome+".ser");
         objInStream = new ObjectInputStream(fileInStream);
         Carta cartaLida = (Carta)objInStream.readObject();
 
@@ -73,13 +73,13 @@ public class FileManager {
     
     public static ListaDeCartas readAllCartas() throws InvalidClassException{
         
-        String cartaFiles[] = new File(cartasPath).list();
+        String cartaFiles[] = new File(CARTAS_PATH).list();
         ListaDeCartas todasCartas = new ListaDeCartas(); //TODO SETAR O MAXIMO DE CARTAS QUANDO O O PACOTE DE PROJETO ESTIVER PRONTO
         Carta cartaLida;
         
         try {
             for(String file: cartaFiles){
-                    fileInStream = new FileInputStream(cartasPath+"/"+file);
+                    fileInStream = new FileInputStream(CARTAS_PATH+"/"+file);
                     objInStream = new ObjectInputStream(fileInStream);
                     cartaLida = (Carta)objInStream.readObject();
                     todasCartas.addCarta(cartaLida);
@@ -103,7 +103,7 @@ public class FileManager {
     
     public static void writeDeck(Deck deck){
         try {
-            fileOutStream = new FileOutputStream(decksPath +"/"+ deck.getNome() + ".ser");
+            fileOutStream = new FileOutputStream(DECKS_PATH +"/"+ deck.getNome() + ".ser");
             objOutStream = new ObjectOutputStream(fileOutStream);
             
             objOutStream.writeObject(deck);
@@ -127,13 +127,13 @@ public class FileManager {
     
     
     public static Deck readDeck(String nome, ListaDeCartas todasAsCartas) throws InvalidClassException{
-        String deckFiles[] = new File(decksPath).list();
+        String deckFiles[] = new File(DECKS_PATH).list();
        
         for(String nomeArq: deckFiles){
             if (nomeArq.equals(nome)){
                 
                 try {
-                    fileInStream = new FileInputStream(decksPath+"/"+nomeArq);
+                    fileInStream = new FileInputStream(DECKS_PATH+"/"+nomeArq);
                     objInStream = new ObjectInputStream(fileInStream);
                     Deck deckLido = (Deck)objInStream.readObject();
 
@@ -157,11 +157,11 @@ public class FileManager {
     
     public static ArrayList<Deck> readAllDecks(ListaDeCartas todasAsCartas) throws InvalidClassException{
         
-        String deckFiles[] = new File(decksPath).list();
+        String deckFiles[] = new File(DECKS_PATH).list();
         ArrayList<Deck> decksLidos = new ArrayList<Deck>(deckFiles.length);
         try {
             for(String file: deckFiles){
-                fileInStream = new FileInputStream(decksPath+"/"+file);
+                fileInStream = new FileInputStream(DECKS_PATH+"/"+file);
                 objInStream = new ObjectInputStream(fileInStream);
                 Deck deck = (Deck)objInStream.readObject();
 
@@ -183,7 +183,7 @@ public class FileManager {
     }
     
     
-    public static String getDecksPath(){ return decksPath; }
-    public static String getCartasPath(){ return cartasPath; }
+    public static String getDecksPath(){ return DECKS_PATH; }
+    public static String getCartasPath(){ return CARTAS_PATH; }
     
 }

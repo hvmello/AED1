@@ -33,8 +33,8 @@ public class DeckJogavel extends Deck {
         
         mapper.map(fonte, this);
         
-        Carta cartasNovas[] = new Carta[deckSize];
-        for(int i=0; i<deckSize; i++){
+        Carta cartasNovas[] = new Carta[DECK_SIZE];
+        for(int i=0; i<DECK_SIZE; i++){
             
             
             //aqui tenta clonar o objeto primeiro, se nao conseguir, cria um novo lendo direto do arquivo.

@@ -2,6 +2,7 @@ package cartapackage;
 
 public class CartaMonstro extends Carta {
 
+  
     public static enum TipoMonstro {
         BESTA, HUMANO, ANJO, DEMONIO;
     }
