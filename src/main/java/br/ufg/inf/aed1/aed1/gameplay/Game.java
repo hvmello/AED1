@@ -1,10 +1,10 @@
-package gameplay;
+package br.ufg.inf.aed1.aed1.gameplay;
 
-import cartapackage.Carta;
-import cartapackage.CartaMagica;
-import cartapackage.CartaMonstro;
-import cartapackage.Deck;
-import cartapackage.DeckJogavel;
+import br.ufg.inf.aed1.aed1.carta.Carta;
+import br.ufg.inf.aed1.aed1.carta.CartaMagica;
+import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
+import br.ufg.inf.aed1.aed1.carta.Deck;
+import br.ufg.inf.aed1.aed1.carta.DeckJogavel;
 import java.util.Arrays;
 import java.util.Scanner;
 

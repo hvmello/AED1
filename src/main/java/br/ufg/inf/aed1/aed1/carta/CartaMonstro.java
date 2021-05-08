@@ -1,4 +1,4 @@
-package cartapackage;
+package br.ufg.inf.aed1.aed1.carta;
 
 public class CartaMonstro extends Carta {
 

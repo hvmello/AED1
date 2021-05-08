@@ -1,8 +1,8 @@
 
-package gameplay;
+package br.ufg.inf.aed1.aed1.gameplay;
 
-import cartapackage.Carta;
-import cartapackage.ListaDeCartas;
+import br.ufg.inf.aed1.aed1.carta.Carta;
+import br.ufg.inf.aed1.aed1.carta.ListaDeCartas;
 
 
 public class Mao extends ListaDeCartas{

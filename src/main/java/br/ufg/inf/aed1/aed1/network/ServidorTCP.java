@@ -1,6 +1,6 @@
-package networkpackage;
+package br.ufg.inf.aed1.aed1.network;
 
-import cartapackage.Carta;
+import br.ufg.inf.aed1.aed1.carta.Carta;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;

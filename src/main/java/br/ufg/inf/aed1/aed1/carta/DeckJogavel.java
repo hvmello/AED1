@@ -1,5 +1,4 @@
-
-package cartapackage;
+package br.ufg.inf.aed1.aed1.carta;
 
 import java.io.InvalidClassException;
 import java.util.Random;

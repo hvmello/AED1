@@ -1,8 +1,8 @@
-package gameplay;
+package br.ufg.inf.aed1.aed1.gameplay;
 
-import cartapackage.Carta;
-import cartapackage.CartaMagica;
-import cartapackage.CartaMonstro;
+import br.ufg.inf.aed1.aed1.carta.Carta;
+import br.ufg.inf.aed1.aed1.carta.CartaMagica;
+import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
 import static cartapackage.Deck.DECK_SIZE;
 import java.util.ArrayList;
 

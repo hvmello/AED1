@@ -1,5 +1,5 @@
+package br.ufg.inf.aed1.aed1.carta;
 
-package cartapackage;
 import java.io.Serializable;
 
 

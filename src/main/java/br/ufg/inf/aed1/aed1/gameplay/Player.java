@@ -1,11 +1,9 @@
+package br.ufg.inf.aed1.aed1.gameplay;
 
-package gameplay;
+import br.ufg.inf.aed1.aed1.carta.DeckJogavel;
 
-import cartaPackage.*;
-import cartapackage.DeckJogavel;
-
-import cartapackage.Carta;
-import cartapackage.CartaMonstro;
+import br.ufg.inf.aed1.aed1.carta.Carta;
+import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
 import java.awt.Color;
 import javax.swing.JLabel;
 

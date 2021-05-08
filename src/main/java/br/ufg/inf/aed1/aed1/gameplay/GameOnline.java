@@ -1,16 +1,14 @@
+package br.ufg.inf.aed1.aed1.gameplay;
 
-package gameplay;
-
-import cartapackage.Carta;
-import cartapackage.CartaMagica;
-import cartapackage.CartaMonstro;
-import cartapackage.Deck;
-import cartapackage.DeckJogavel;
-import networkpackage.ClienteTCP;
-import networkpackage.ServidorTCP;
+import br.ufg.inf.aed1.aed1.carta.Carta;
+import br.ufg.inf.aed1.aed1.carta.CartaMagica;
+import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
+import br.ufg.inf.aed1.aed1.carta.Deck;
+import br.ufg.inf.aed1.aed1.carta.DeckJogavel;
+import br.ufg.inf.aed1.aed1.network.ClienteTCP;
+import br.ufg.inf.aed1.aed1.network.ServidorTCP;
 import java.io.IOException;
 import java.util.Arrays;
-
 
 
 public class GameOnline extends Game {

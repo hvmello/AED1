@@ -1,5 +1,4 @@
-package cartapackage;
-
+package br.ufg.inf.aed1.aed1.carta;
 
 import java.io.File;
 import java.io.FileInputStream;
