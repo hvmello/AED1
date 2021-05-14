@@ -50,9 +50,9 @@ public class Game {
         player1 = new Player(deckP1, "Player 1");
         player2 = new Player(deckP2, "Player 2");
         
-        todasCartas = new Carta[Deck.deckSize*2];   //vai possui as cartas dos dois decks dos jogadores
-        System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.deckSize);
-        System.arraycopy(player2.deck.getCartasArray(), 0, todasCartas, Deck.deckSize, Deck.deckSize);
+        todasCartas = new Carta[Deck.DECK_SIZE*2];   //vai possui as cartas dos dois decks dos jogadores
+        System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.DECK_SIZE);
+        System.arraycopy(player2.deck.getCartasArray(), 0, todasCartas, Deck.DECK_SIZE, Deck.DECK_SIZE);
 
         player1.inicializar();
         player2.inicializar();

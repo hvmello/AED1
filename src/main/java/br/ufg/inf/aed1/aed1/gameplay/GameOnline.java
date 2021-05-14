@@ -40,8 +40,8 @@ public class GameOnline extends Game {
         
         player1 = new Player(deckP1, "Player 1");//você
         player2 = new Player("Player 2");       //oponente
-        todasCartas = new Carta[Deck.deckSize + Mesa.mesaSize];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
-        System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.deckSize);
+        todasCartas = new Carta[Deck.DECK_SIZE + Mesa.mesaSize];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
+        System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.DECK_SIZE);
 
         player1.inicializar();
         turno =0;
@@ -85,8 +85,8 @@ public class GameOnline extends Game {
         
         player1 = new Player(deckP1, "Player 2");//você
         player2 = new Player("Player 1");       //oponente
-        todasCartas = new Carta[Deck.deckSize + Mesa.mesaSize];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
-        System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.deckSize);
+        todasCartas = new Carta[Deck.DECK_SIZE + Mesa.mesaSize];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
+        System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.DECK_SIZE);
         
         player1.inicializar();
         turno =0;
@@ -280,7 +280,7 @@ public class GameOnline extends Game {
             if(cartaMon != null && cartaIndex != -1){
                 System.out.println("inimigo colocou carta Monstro "+cartaMon.getNome()+" na posição "+cartaIndex);
                 playerInimigo.mesa.cartasMonstros[cartaIndex] = cartaMon;
-                this.todasCartas[Deck.deckSize + cartaIndex] = cartaMon;
+                this.todasCartas[Deck.DECK_SIZE + cartaIndex] = cartaMon;
             }
         }
         if(cartaInimiga instanceof CartaMagica){
