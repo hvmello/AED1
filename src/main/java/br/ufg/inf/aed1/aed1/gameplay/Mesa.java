@@ -39,7 +39,7 @@ public class Mesa {
     //retorna o índice do primeiro encontro de uma carta mágica Trap ( armadilha), e -1 se não houver
     public int TrapMagicIndex(){
         for(int i=0; i<mesaSize; i++){
-            if(cartasMagicas[i]!= null && cartasMagicas[i].getTipoEfeito() == TipoEfeito.Trap)
+            if(cartasMagicas[i]!= null && cartasMagicas[i].getTipoEfeitoMagico()== CartaMagica.TipoEfeitoMagico.TRAP)
                 return i;
         }
         return -1;

@@ -188,7 +188,7 @@ public class Game {
             for(int i=0;i<Mesa.mesaSize;i++){
                 cartaMag = playerMain.mesa.cartasMagicas[i];
                 if(cartaMag != null){
-                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeito()+"-"+cartaMag.getSubEfeitoStr());
+                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico()+"-"+cartaMag.getSubEfeitoStr());
                 }else{
                     System.out.println("    "+(i+Mesa.mesaSize)+" . ...");
                 }
@@ -201,7 +201,7 @@ public class Game {
             if(cartaIndex >= Mesa.mesaSize){
                 cartaIndex -= Mesa.mesaSize;
                 cartaMag = playerMain.mesa.cartasMagicas[cartaIndex];
-                if(cartaMag.getTipoEfeito() == CartaMagica.TipoEfeito.Campo){
+                if(cartaMag.getTipoEfeitoMagico() == CartaMagica.TipoEfeitoMagico.CAMPO){
                     cartaMag.ativaEfeito(this, playerMain, -1);
                     playerMain.mesa.removeMagica(cartaIndex);
                 }else{
@@ -287,7 +287,7 @@ public class Game {
                 if(showCartaParaBaixo)
                     System.out.println("    "+i+". ???");
                 else
-                    System.out.println("    "+i+". "+carta.getNome()+"  "+cartaMag.getTipoEfeito()+"-"+cartaMag.getSubEfeitoStr());
+                    System.out.println("    "+i+". "+carta.getNome()+"  "+cartaMag.getTipoEfeitoMagico()+"-"+cartaMag.getSubEfeitoStr());
             }
 
         }

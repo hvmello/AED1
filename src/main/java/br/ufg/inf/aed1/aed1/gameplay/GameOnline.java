@@ -200,7 +200,7 @@ public class GameOnline extends Game {
             for(int i=0;i<Mesa.mesaSize;i++){
                 cartaMag = playerMain.mesa.cartasMagicas[i];
                 if(cartaMag != null){
-                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeito()+"-"+cartaMag.getSubEfeitoStr());
+                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico()+"-"+cartaMag.getSubEfeitoStr());
                 }else{
                     System.out.println("    "+(i+Mesa.mesaSize)+" . ...");
                 }
@@ -213,7 +213,7 @@ public class GameOnline extends Game {
             if(cartaIndex >= Mesa.mesaSize){
                 cartaIndex -= Mesa.mesaSize;
                 cartaMag = playerMain.mesa.cartasMagicas[cartaIndex];
-                if(cartaMag.getTipoEfeito() == CartaMagica.TipoEfeito.Campo){
+                if(cartaMag.getTipoEfeitoMagico() == CartaMagica.TipoEfeitoMagico.CAMPO){
                     cartaMag.ativaEfeito(this, playerMain, -1);
                     playerMain.mesa.removeMagica(cartaIndex);
                     
