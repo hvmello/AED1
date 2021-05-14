@@ -15,4 +15,8 @@ A aplicação se trata da simulação de um jogo de cartas baseado em Yugioh. Em
 
 # Guia de instalação
 Inicialmente, digite o comando `git clone https://github.com/hvmello/AED1` no terminal.
-Após este passo, será gerado um diretório chamado AED1 contendo os arquivos e diretórios do repositório. Este diretório é reconhecível como um projeto "Java with Ant" pela IDE Apache NetBeans e pode ser aberto ao clicar em `Open Project...`.
+Após este passo, será gerado um diretório chamado AED1 contendo os arquivos e diretórios do repositório. Este diretório é feito com maven, então para tal é necessário instalar o maven antes de abrir a IDE, como no caso utilizamos o Ubuntu 20.04.2LTS é recomendável seguir o passo a passo do link abaixo:
+
+https://linuxize.com/post/how-to-install-apache-maven-on-ubuntu-20-04/
+
+pela IDE Apache NetBeans e pode ser aberto ao clicar em `Open Project...`.
