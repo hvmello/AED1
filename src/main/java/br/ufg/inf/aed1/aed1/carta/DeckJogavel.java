@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //https://github.com/orika-mapper/orika  --> orika source code / git repo
-//http://grepcode.com/snapshot/repo1.maven.org/maven2/ma.glasnost.orika/orika-core/1.4.6   --> orika jar files
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
