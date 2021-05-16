@@ -114,7 +114,7 @@ public class Game {
         System.out.println("HP "+ playerMain.nickName + " : "+playerMain.HP + "          HP "+playerInimigo.nickName +": "+playerInimigo.HP);
         System.out.println("Jogador "+ playerMain.nickName + ", Escolha uma carta da mao para colocar na mesa (-1 para nao colocar):");
 
-        imprimeCartas(playerMain.mao.getCartasArray(), Mao.handSize, false, false);
+        imprimeCartas(playerMain.mao.getCartasArray(), Mao.HAND_SIZE, false, false);
         
         cartaIndex = scanner.nextInt();
         if(cartaIndex == -1){
@@ -188,7 +188,7 @@ public class Game {
             for(int i=0;i<Mesa.mesaSize;i++){
                 cartaMag = playerMain.mesa.cartasMagicas[i];
                 if(cartaMag != null){
-                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico()+"-"+cartaMag.getSubEfeitoStr());
+                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico());
                 }else{
                     System.out.println("    "+(i+Mesa.mesaSize)+" . ...");
                 }
@@ -222,7 +222,7 @@ public class Game {
                         System.out.println("A carta deve estar em modo de ataque para atacar!");
                     }
                 }else{
-                    cartaMon.giraCarta();
+                    giraCarta(cartaMon);
                 }
             }else{
                 System.out.println("Carta já atacou! escolha outra ou finalize o turno.");
@@ -230,6 +230,10 @@ public class Game {
 
         }
         
+    }
+    
+    public void giraCarta(CartaMonstro cartaMonstro){
+        cartaMonstro.setModoCarta(CartaMonstro.ModoCarta.ATAQUE_PARA_CIMA);
     }
     
     //retorna o indice da carta inimiga atacada
@@ -269,13 +273,13 @@ public class Game {
             
             if(carta instanceof CartaMonstro){
                 cartaMon = (CartaMonstro) carta;
-                if(showCartaParaBaixo && cartaMon.isParaBaixo())
+                if(showCartaParaBaixo && (cartaMon.getModoCarta().isAtaqueBaixo() || cartaMon.getModoCarta().isDefesaBaixo()))
                     System.out.print("    "+i+". ???");
                 else
                     System.out.print("    "+i+". "+carta.getNome()+"  "+cartaMon.getATK()+"/"+cartaMon.getDEF());
 
                 if(showCartaMode){
-                    if(cartaMon.modoCarta == Ataque_paraBaixo || cartaMon.modoCarta == Ataque_paraCima)
+                    if(cartaMon.getModoCarta().isAtaqueBaixo() || cartaMon.getModoCarta().isAtaqueCima())
                         System.out.print("   - A");
                     else
                         System.out.print("   - D");
@@ -287,7 +291,7 @@ public class Game {
                 if(showCartaParaBaixo)
                     System.out.println("    "+i+". ???");
                 else
-                    System.out.println("    "+i+". "+carta.getNome()+"  "+cartaMag.getTipoEfeitoMagico()+"-"+cartaMag.getSubEfeitoStr());
+                    System.out.println("    "+i+". "+carta.getNome()+"  "+cartaMag.getTipoEfeitoMagico());
             }
 
         }

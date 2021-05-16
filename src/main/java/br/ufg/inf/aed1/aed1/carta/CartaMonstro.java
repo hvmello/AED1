@@ -31,6 +31,8 @@ public class CartaMonstro extends Carta {
         }
     }
     
+    
+    
     private TipoMonstro tipoMonstro;
     private TipoAtributo tipoAtributo;
     private ModoCarta modoCarta;
