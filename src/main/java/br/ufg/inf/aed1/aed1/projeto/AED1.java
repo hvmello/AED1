@@ -3,6 +3,7 @@ package br.ufg.inf.aed1.aed1.projeto;
 import br.ufg.inf.aed1.aed1.carta.*; 
 import br.ufg.inf.aed1.aed1.gameplay.*; 
 import br.ufg.inf.aed1.aed1.network.*; 
+import br.ufg.inf.aed1.aed1.gui.utils.*; 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -325,15 +326,15 @@ public class AED1 {
         ServidorTCP partidaHost = new ServidorTCP();
         
         try {
-            System.out.println("Aguardando conexão...(lim "+ServidorTCP.TimeOut/1000 +"seg)");
+            System.out.println("Aguardando conexão...(lim "+ServidorTCP.TIME_OUT/1000 +"seg)");
             partidaHost.initialize();
         }catch (java.io.InterruptedIOException e) {
             //System.err.println( "Timed Out ("+ServidorTCP.TimeOut+" ms)!" );
-            JOptionPane.showMessageDialog(null, "Tempo exedido ("+ServidorTCP.TimeOut+" ms)!", "Erro de conexão", JOptionPane.WARNING_MESSAGE, UIManager.getIcon("OptionPane.warningIcon"));
+            JOptionPane.showMessageDialog(null, "Tempo exedido ("+ServidorTCP.TIME_OUT+" ms)!", "Erro de conexão", JOptionPane.WARNING_MESSAGE, UIManager.getIcon("OptionPane.warningIcon"));
             try {
                 partidaHost.close();
             } catch (IOException ex) {
-                Logger.getLogger(ATPGC.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
             }
               return null;
         }catch (IOException ex) {
@@ -372,7 +373,7 @@ public class AED1 {
         
                 ClienteTCP partidaGuest = new ClienteTCP();
                 System.out.println("Digite o ip do Host da partida");
-                for(String ip:partidaGuest.getNetworkIPs() ){
+                for(String ip:partidaGuest.getNetworkIP()){
                     System.out.println(ip+" foi encontrado na rede");
                 }
                 try {
@@ -460,7 +461,7 @@ public class AED1 {
         System.out.println("Decricao: "); descricao = scanner.nextLine();
         System.out.print("Url da Imagem: "); path= scanner.nextLine();
         
-        if(tipoMagicaStr.equals( CartaMagica.TipoEfeito.Campo.name()) )
+        if(tipoMagicaStr.equals( CartaMagica.TipoEfeitoMagico.CAMPO.name()) )
             todasAsCartas.addCarta(new CartaMagica(nome, set, id, Game.TipoCampo.valueOf(tipoSubMagicaStr), path, ""));
         if(tipoMagicaStr.equals( CartaMagica.TipoEfeito.Trap.name()) )
             todasAsCartas.addCarta(new CartaMagica(nome, set, id, Game.TipoTrap.valueOf(tipoSubMagicaStr), path, ""));
