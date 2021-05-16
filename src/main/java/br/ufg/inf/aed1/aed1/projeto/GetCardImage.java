@@ -170,47 +170,49 @@ public class GetCardImage {
     //https://stackoverflow.com/questions/17173435/send-image-file-using-java-http-post-connections
     private static String httpPostImage(String src) throws Exception{
         
-        String url = null;
+//        String url = null;
+//
+//        HttpClient httpclient = new HttpClient();
+//        httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+//
+//    
+//        //HttpPost httppost = new HttpPost("http://localhost:9000/upload");
+//        HttpPost httppost = new HttpPost("https://www.yugiohcardmaker.net/ycmaker/uploadimage.php");
+//        File file = new File(src);
+//        
+//        if( !file.isFile() ) {
+//            System.out.println("File \""+ file.getPath() +" \" not found!");
+//            return "";
+//        }
+//
+//        MultipartEntity mpEntity = new MultipartEntity();
+//        ContentBody cbFile = new FileBody(file, "image/png");
+//        mpEntity.addPart("userfile", cbFile);
+//
+//
+//        httppost.setEntity(mpEntity);
+//        //System.out.println("executing request " + httppost.getRequestLine());
+//        HttpResponse response = httpclient.execute(httppost);
+//        HttpEntity resEntity = response.getEntity();
+//            
+//        if (resEntity != null) {
+//            String temp = toString(resEntity);
+//         
+//            int index = temp.indexOf("document.getElementById(\"picture\").value=");
+//            if(index < 0) index = temp.indexOf("document.getElementById('picture').value=");
+//            
+//            //obtém o endereço url / do servidor de onde foi armazenada (através do método POST) a imagem da carta, ex: "tempimages/051333317.png"
+//            url = temp.substring( index+42, temp.indexOf("\";", index+42) );
+//        }
+//        if (resEntity != null) {
+//            resEntity.consumeContent();
+//        }
+//
+//        httpclient.getConnectionManager().shutdown();
+//  
+//        return url;
 
-        HttpClient httpclient = new HttpClient();
-        httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-
-    
-        //HttpPost httppost = new HttpPost("http://localhost:9000/upload");
-        HttpPost httppost = new HttpPost("https://www.yugiohcardmaker.net/ycmaker/uploadimage.php");
-        File file = new File(src);
-        
-        if( !file.isFile() ) {
-            System.out.println("File \""+ file.getPath() +" \" not found!");
-            return "";
-        }
-
-        MultipartEntity mpEntity = new MultipartEntity();
-        ContentBody cbFile = new FileBody(file, "image/png");
-        mpEntity.addPart("userfile", cbFile);
-
-
-        httppost.setEntity(mpEntity);
-        //System.out.println("executing request " + httppost.getRequestLine());
-        HttpResponse response = httpclient.execute(httppost);
-        HttpEntity resEntity = response.getEntity();
-            
-        if (resEntity != null) {
-            String temp = toString(resEntity);
-         
-            int index = temp.indexOf("document.getElementById(\"picture\").value=");
-            if(index < 0) index = temp.indexOf("document.getElementById('picture').value=");
-            
-            //obtém o endereço url / do servidor de onde foi armazenada (através do método POST) a imagem da carta, ex: "tempimages/051333317.png"
-            url = temp.substring( index+42, temp.indexOf("\";", index+42) );
-        }
-        if (resEntity != null) {
-            resEntity.consumeContent();
-        }
-
-        httpclient.getConnectionManager().shutdown();
-  
-        return url;
+        return null;
     }
     
 }
