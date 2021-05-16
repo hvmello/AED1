@@ -9,8 +9,10 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 public class Player {
-    public Mesa mesa; public MesaJLabel mesaJLabel;
-    public Mao mao; public MaoJLabel maoJLabel;
+    public Mesa mesa; 
+    public MesaJLabel mesaJLabel;
+    public Mao mao; 
+    public MaoJLabel maoJLabel;
     private JLabel caixaHP;
     
     public DeckJogavel deck;
