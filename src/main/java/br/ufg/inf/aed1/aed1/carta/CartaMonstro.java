@@ -13,6 +13,22 @@ public class CartaMonstro extends Carta {
     
     public static enum ModoCarta {
         ATAQUE_PARA_CIMA, ATAQUE_PARA_BAIXO, DEFESA_PARA_CIMA, DEFESA_PARA_BAIXO;
+        
+        public boolean isAtaqueCima() {
+            return this.equals(ModoCarta.ATAQUE_PARA_CIMA);
+        }
+        
+        public boolean isAtaqueBaixo() {
+            return this.equals(ModoCarta.ATAQUE_PARA_BAIXO);
+        }
+        
+        public boolean isDefesaCima() {
+            return this.equals(ModoCarta.DEFESA_PARA_CIMA);
+        }
+        
+        public boolean isDefesaBaixo() {
+            return this.equals(ModoCarta.DEFESA_PARA_BAIXO);
+        }
     }
     
     private TipoMonstro tipoMonstro;

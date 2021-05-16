@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.aed1.aed1.projeto;
 
 import br.ufg.inf.aed1.aed1.carta.*; 
@@ -14,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -51,7 +47,7 @@ public class GetCardImage {
             urlImg = httpPostImage(src);
         }
         String url = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name="+ carta.getNome() +
-                "&cardtype=Monster&subtype=normal&attribute="+carta.getAtributo()+
+                "&cardtype=Monster&subtype=normal&attribute="+carta.getTipoAtributo()+
                 "&level="+ carta.getQuantidadeEstrelas()+
                 "&rarity=Common&picture="+urlImg+
                 "&circulation=&set1="+ carta.getSet()+
@@ -117,11 +113,11 @@ public class GetCardImage {
         if( !src.contains(".http") && !src.contains(".com") && !src.contains(".net") && !src.contains("www.") ){
             urlImg = httpPostImage(src);
         }
-        if(cartaMagica.getTipoEfeitoMagico()== CartaMagica.TipoEfeito.Trap){
+        if(cartaMagica.getTipoEfeitoMagico()== CartaMagica.TipoEfeitoMagico.TRAP){
             cardType = "Trap";
             trap_spell_Type = "Counter";
         }
-        if(cartaMagica.getTipoEfeitoMagico()== CartaMagica.TipoEfeito.Campo){
+        if(cartaMagica.getTipoEfeitoMagico()== CartaMagica.TipoEfeitoMagico.CAMPO){
             cardType = "Spell";
             trap_spell_Type = "Field";
         }
@@ -200,7 +196,7 @@ public class GetCardImage {
         HttpEntity resEntity = response.getEntity();
             
         if (resEntity != null) {
-            String temp = EntityUtils.toString(resEntity);
+            String temp = toString(resEntity);
          
             int index = temp.indexOf("document.getElementById(\"picture\").value=");
             if(index < 0) index = temp.indexOf("document.getElementById('picture').value=");

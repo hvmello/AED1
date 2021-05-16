@@ -171,7 +171,7 @@ public class Game {
                 
                 if( cartaMon != null){ 
                     System.out.print("    "+i+". "+cartaMon.getNome()+"  "+cartaMon.getATK()+"/"+cartaMon.getDEF());
-                    if(cartaMon.getModoCarta().ATAQUE_PARA_BAIXO || cartaMon.getModoCarta().ATAQUE_PARA_CIMA){
+                    if(cartaMon.getModoCarta().isAtaqueBaixo() || cartaMon.getModoCarta().isAtaqueCima()){
                         System.out.print("   - A");
                     }else{
                         System.out.print("   - D");
@@ -214,7 +214,7 @@ public class Game {
                 cartaMon = playerMain.mesa.cartasMonstros[cartaIndex];
                 System.out.println("Digite 1 para usa-la para atacar e 0 para mudar seu modo defesa-ataque");
                 if(scanner.nextInt() == 1){
-                    if(cartaMon.isModoAtaque()){
+                    if(cartaMon.getModoCarta().isAtaqueBaixo() || cartaMon.getModoCarta().isAtaqueCima()){
                         _jogaEstado_atacaMesaInimiga(playerMain, playerInimigo, cartaIndex);
                         cartasQueAtacaram[cartaIndex]=true;
                         if(playerMain.perdeu() || playerInimigo.perdeu()) break;

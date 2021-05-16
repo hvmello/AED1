@@ -4,6 +4,7 @@ import br.ufg.inf.aed1.aed1.carta.DeckJogavel;
 
 import br.ufg.inf.aed1.aed1.carta.Carta;
 import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
+import gui.utils.AdvancedBevelBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 
@@ -21,7 +22,7 @@ public class Player {
 
     public Player(DeckJogavel deck, String nickName){
             this.deck = deck;
-            this.mao = new gameplay.Mao();
+            this.mao = new Mao();
             this.mesa = new Mesa();
             this.mesaJLabel = new MesaJLabel();
             this.maoJLabel = new MaoJLabel();
