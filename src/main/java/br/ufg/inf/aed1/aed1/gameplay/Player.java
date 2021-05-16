@@ -88,8 +88,8 @@ public class Player {
         int resultado;
         
         //A carta atacante deve ser revelada
-        if(cartaAtacante.isParaBaixo()){
-            cartaAtacante.modoCarta = Ataque_paraCima;
+        if(cartaAtacante.getModoCarta().isAtaqueBaixo() || cartaAtacante.getModoCarta().isDefesaBaixo()){
+            cartaAtacante.setModoCarta(CartaMonstro.ModoCarta.ATAQUE_PARA_CIMA);
         }
 
         if(playerAlvo.mesa.isCartasMonstrosEmpty()){
@@ -98,13 +98,13 @@ public class Player {
         }
         
         //A carta atacada tb deve ser revelada
-        if(cartaAlvo.isParaBaixo()){
-            if(cartaAlvo.isModoAtaque()) cartaAlvo.modoCarta = Ataque_paraCima;
-            if(cartaAlvo.isModoDefesa()) cartaAlvo.modoCarta = Defesa_paraCima;
-        }
+       
+        if(cartaAlvo.getModoCarta().isAtaqueBaixo()) cartaAlvo.setModoCarta(CartaMonstro.ModoCarta.ATAQUE_PARA_CIMA);
+        if(cartaAlvo.getModoCarta().isDefesaBaixo()) cartaAlvo.setModoCarta(CartaMonstro.ModoCarta.DEFESA_PARA_CIMA);
+      
         
         //se carta atacada em modo de ataque
-        if( cartaAlvo.isModoAtaque() ) {
+        if(cartaAlvo.getModoCarta().isAtaqueBaixo() || cartaAlvo.getModoCarta().isAtaqueCima()){
             int diferenca = cartaAtacante.getATK() - cartaAlvo.getATK();
             if(diferenca >= 0){     //caso o carta atacante ganhe
                 int index;
@@ -180,7 +180,7 @@ public class Player {
     // inicializa as coisas do jogador, embaralhando o deck e comprando 5 cartas 
     public void inicializar(){
         deck.embaralha();
-        for(int i=0; i<gameplay.Mao.handSize; i++){
+        for(int i=0; i< Mao.HAND_SIZE; i++){
             //System.out.println("sacando uma carta");
             draw(); //saca uma carta do deck, adicionando-a à mão e removendo do topo do deck.
         }
@@ -191,8 +191,8 @@ public class Player {
     }
 
 
-    public void setMao(gameplay.Mao mao){ this.mao = mao;}
-    public gameplay.Mao getMao(){ return mao;}
+    public void setMao(Mao mao){ this.mao = mao;}
+    public Mao getMao(){ return mao;}
     public void setDeck(DeckJogavel deck){ this.deck = deck;}
     public DeckJogavel getDeckJogavel(){ return deck;}
     public int getHP(){ return HP;}

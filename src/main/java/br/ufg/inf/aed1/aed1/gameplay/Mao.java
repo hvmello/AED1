@@ -7,11 +7,11 @@ import br.ufg.inf.aed1.aed1.carta.ListaDeCartas;
 
 public class Mao extends ListaDeCartas{
     
-    public static final short handSize = 5;
+    public static final short HAND_SIZE = 5;
     
 
     public Mao(){
-        super(handSize);
+        super(HAND_SIZE);
     }
 
     
@@ -38,7 +38,7 @@ public class Mao extends ListaDeCartas{
     @Override
     public void addCarta( Carta newCarta){
         int i=0;
-        while(cartas[i]!= null && i < handSize){
+        while(cartas[i]!= null && i < HAND_SIZE){
             i++;
         }
         cartas[i] = newCarta;
@@ -50,7 +50,7 @@ public class Mao extends ListaDeCartas{
      * @return índice do objeto carta 
      */
     public int indexOf(Carta carta){
-        for(int i=0;i<Mao.handSize;i++){
+        for(int i=0;i<Mao.HAND_SIZE;i++){
             if(carta == this.cartas[i])
                 return i;
         }
@@ -59,7 +59,7 @@ public class Mao extends ListaDeCartas{
     
     
     public boolean isFull(){
-        return (length >= handSize);
+        return (length >= HAND_SIZE);
     }
     
     private int indexOf(int id){
