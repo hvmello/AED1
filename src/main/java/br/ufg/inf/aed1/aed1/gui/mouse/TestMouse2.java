@@ -1,5 +1,5 @@
 
-package br.ufg.inf.aed1.ae1.gui.mouse;
+package br.ufg.inf.aed1.aed1.gui.mouse;
 
 
 import java.awt.*;
