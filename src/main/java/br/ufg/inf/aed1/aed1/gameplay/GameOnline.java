@@ -182,7 +182,7 @@ public class GameOnline extends Game {
                 
                 if( carta != null){ 
                     System.out.print("    "+i+". "+carta.getNome()+"  "+carta.getATK()+"/"+carta.getDEF());
-                    if(carta.modoCarta == Ataque_paraBaixo || carta.modoCarta == Ataque_paraCima){
+                    if(carta.getModoCarta().isAtaqueBaixo()|| carta.getModoCarta().isAtaqueCima()){
                         System.out.print("   - A");
                     }else{
                         System.out.print("   - D");
@@ -230,7 +230,7 @@ public class GameOnline extends Game {
                 carta = playerMain.mesa.cartasMonstros[cartaIndex];
                 System.out.println("Digite 1 para usa-la para atacar e 0 para mudar seu modo defesa-ataque");
                 if(scanner.nextInt() == 1){
-                    if(carta.isModoAtaque()){
+                    if(carta.getModoCarta().isAtaqueBaixo() || carta.getModoCarta().isAtaqueCima()){
                         int cartaInimigaIndex = _jogaEstado_atacaMesaInimiga(playerMain, playerInimigo, cartaIndex);
                         cartasQueAtacaram[cartaIndex]=true;
                         
@@ -245,7 +245,7 @@ public class GameOnline extends Game {
                         System.out.println("A carta deve estar em modo de ataque para atacar!");
                     }
                 }else{
-                    carta.giraCarta();
+                    giraCarta(carta);
                     comandosFeitos[totalDeComandos*3 ] = (byte)cartaIndex;
                     comandosFeitos[totalDeComandos*3 +1] = 2;
                     comandosFeitos[totalDeComandos*3 +2] = 0;
@@ -325,12 +325,16 @@ public class GameOnline extends Game {
                 playerInimigo.ataca(indiceDaCartaUsada, playerMain, indiceDaCartaAtacada);
             }
             if(listaComandos[i*3 +1] == 2){
-                System.out.print(" para girar do modo "+playerInimigo.mesa.cartasMonstros[indiceDaCartaUsada].modoCarta);
-                playerInimigo.mesa.cartasMonstros[indiceDaCartaUsada].giraCarta();
-                System.out.println(" para "+playerInimigo.mesa.cartasMonstros[indiceDaCartaUsada].modoCarta);
+                System.out.print(" para girar do modo "+playerInimigo.mesa.cartasMonstros[indiceDaCartaUsada].getModoCarta());
+                giraCarta(playerInimigo.mesa.cartasMonstros[indiceDaCartaUsada]);
+                System.out.println(" para "+playerInimigo.mesa.cartasMonstros[indiceDaCartaUsada].getModoCarta());
             }
         }
         
+    }
+     
+    public void giraCarta(CartaMonstro cartaMonstro){
+        cartaMonstro.setModoCarta(CartaMonstro.ModoCarta.ATAQUE_PARA_CIMA);
     }
     
 }
