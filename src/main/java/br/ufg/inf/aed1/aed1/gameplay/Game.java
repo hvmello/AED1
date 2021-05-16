@@ -104,15 +104,15 @@ public class Game {
     
     
     
-                /********** Escolhendo a carta***************/
+                /********** Escolhendo a carta**************/
     protected Struct_MovimentoMao _jogaEstado_mao(Player playerMain, Player playerInimigo){
         Carta cartaP1;
         CartaMonstro cartaMon=null;
         CartaMagica cartaMag=null;
         int cartaIndex;
         
-        System.out.println("HP "+playerMain.nickName +" : "+playerMain.HP+"          HP "+playerInimigo.nickName +": "+playerInimigo.HP);
-        System.out.println("Jogador "+playerMain.nickName+ ", Escolha uma carta da mao para colocar na mesa (-1 para nao colocar):");
+        System.out.println("HP "+ playerMain.nickName + " : "+playerMain.HP + "          HP "+playerInimigo.nickName +": "+playerInimigo.HP);
+        System.out.println("Jogador "+ playerMain.nickName + ", Escolha uma carta da mao para colocar na mesa (-1 para nao colocar):");
 
         imprimeCartas(playerMain.mao.getCartasArray(), Mao.handSize, false, false);
         
