@@ -136,14 +136,14 @@ public class Game {
         //Escolhendo onde colocar a carta
         System.out.println("Escolha onde deseja colocar a carta (colocar em cima de uma carta irá exclui-la)");
         if(cartaP1 instanceof CartaMonstro){
-            imprimeCartas(playerMain.mesa.cartasMonstros, Mesa.mesaSize, true, false);
+            imprimeCartas(playerMain.mesa.cartasMonstros, Mesa.MESA_SIZE, true, false);
             cartaIndex = scanner.nextInt();
             playerMain.mesa.putMonstro(cartaIndex, cartaMon);
         }
         
         if(cartaP1 instanceof CartaMagica){
             cartaMag = (CartaMagica)cartaP1;
-            imprimeCartas(playerMain.mesa.cartasMagicas, Mesa.mesaSize, false, false);
+            imprimeCartas(playerMain.mesa.cartasMagicas, Mesa.MESA_SIZE, false, false);
             cartaIndex = scanner.nextInt();
             playerMain.mesa.putMagica(cartaIndex, cartaMag);
         }
@@ -158,7 +158,7 @@ public class Game {
         CartaMonstro cartaMon;
         CartaMagica cartaMag;
         
-        boolean cartasQueAtacaram[] = new boolean[playerMain.mesa.mesaSize];
+        boolean cartasQueAtacaram[] = new boolean[playerMain.mesa.MESA_SIZE];
         int cartaIndex;
         
         Arrays.fill(cartasQueAtacaram, false);
@@ -166,7 +166,7 @@ public class Game {
         /* o jogador ainda quiser atacar (se possivel) ou mudar a carta para modo defesa-ataque */
         while(true){
             System.out.println("Jogador "+ playerMain.nickName + ", Escolha uma carta da sua mesa que deseja usar ( -1 para finalizar o turno )");
-            for(int i=0 ; i < Mesa.mesaSize;i++){
+            for(int i=0 ; i < Mesa.MESA_SIZE;i++){
                 cartaMon = playerMain.mesa.cartasMonstros[i];
                 
                 if( cartaMon != null){ 
@@ -185,12 +185,12 @@ public class Game {
                     System.out.println("    "+i+". ...");
                 }
             }
-            for(int i=0;i<Mesa.mesaSize;i++){
+            for(int i=0;i<Mesa.MESA_SIZE;i++){
                 cartaMag = playerMain.mesa.cartasMagicas[i];
                 if(cartaMag != null){
-                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico());
+                    System.out.println("    "+(i+Mesa.MESA_SIZE)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico());
                 }else{
-                    System.out.println("    "+(i+Mesa.mesaSize)+" . ...");
+                    System.out.println("    "+(i+Mesa.MESA_SIZE)+" . ...");
                 }
             }
             
@@ -198,8 +198,8 @@ public class Game {
             if(cartaIndex == -1 ) break;
             
             //usando as cartas magicas
-            if(cartaIndex >= Mesa.mesaSize){
-                cartaIndex -= Mesa.mesaSize;
+            if(cartaIndex >= Mesa.MESA_SIZE){
+                cartaIndex -= Mesa.MESA_SIZE;
                 cartaMag = playerMain.mesa.cartasMagicas[cartaIndex];
                 if(cartaMag.getTipoEfeitoMagico() == CartaMagica.TipoEfeitoMagico.CAMPO){
                     cartaMag.ativaEfeito(this, playerMain, -1);
@@ -243,7 +243,7 @@ public class Game {
 
         System.out.println("Jogador "+ playerMain.nickName + ", Escolha uma carta da mesa inimiga que deseja atacar");
 
-        imprimeCartas(playerInimigo.mesa.cartasMonstros,Mesa.mesaSize, true, true);
+        imprimeCartas(playerInimigo.mesa.cartasMonstros,Mesa.MESA_SIZE, true, true);
         
         cartaIndex = scanner.nextInt();
         if(playerInimigo.mesa.isCartasMonstrosEmpty())

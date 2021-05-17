@@ -13,11 +13,11 @@ public class Mesa {
     
     public ArrayList<Carta> cemiterio;     //atualmente não esta em uso
     
-    public static final int mesaSize = 5;
+    public static final int MESA_SIZE = 5;
     
     public Mesa(){
-        cartasMonstros = new CartaMonstro[mesaSize];
-        cartasMagicas = new CartaMagica[mesaSize];
+        cartasMonstros = new CartaMonstro[MESA_SIZE];
+        cartasMagicas = new CartaMagica[MESA_SIZE];
         cemiterio = new ArrayList<Carta>(DECK_SIZE);
     }
     
@@ -29,7 +29,7 @@ public class Mesa {
     }
     
     public boolean isCartasMonstrosEmpty(){
-        for(int i=0;i<mesaSize; i++){
+        for(int i=0;i<MESA_SIZE; i++){
             if(cartasMonstros[i] != null) return false;
         }
         return true;
@@ -38,7 +38,7 @@ public class Mesa {
     
     //retorna o índice do primeiro encontro de uma carta mágica Trap ( armadilha), e -1 se não houver
     public int TrapMagicIndex(){
-        for(int i=0; i<mesaSize; i++){
+        for(int i=0; i<MESA_SIZE; i++){
             if(cartasMagicas[i]!= null && cartasMagicas[i].getTipoEfeitoMagico()== CartaMagica.TipoEfeitoMagico.TRAP)
                 return i;
         }
@@ -55,7 +55,7 @@ public class Mesa {
     
     //remove primeira ocorrencia encontrada da carta
     public void removeMonstro(Carta cartaMonstro){
-        for(int i=0;i<mesaSize; i++){
+        for(int i=0;i<MESA_SIZE; i++){
             if(cartasMonstros[i] != cartaMonstro){
                 cemiterio.add(cartasMonstros[i]);
                 cartasMonstros[i] = null;

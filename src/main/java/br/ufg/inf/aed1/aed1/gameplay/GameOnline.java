@@ -40,7 +40,7 @@ public class GameOnline extends Game {
         
         player1 = new Player(deckP1, "Player 1");//você
         player2 = new Player("Player 2");       //oponente
-        todasCartas = new Carta[Deck.DECK_SIZE + Mesa.mesaSize];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
+        todasCartas = new Carta[Deck.DECK_SIZE + Mesa.MESA_SIZE];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
         System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.DECK_SIZE);
 
         player1.inicializar();
@@ -85,7 +85,7 @@ public class GameOnline extends Game {
         
         player1 = new Player(deckP1, "Player 2");//você
         player2 = new Player("Player 1");       //oponente
-        todasCartas = new Carta[Deck.DECK_SIZE + Mesa.mesaSize];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
+        todasCartas = new Carta[Deck.DECK_SIZE + Mesa.MESA_SIZE];   //vai possui as cartas do seu deck + as cartas monstro da mesa do inimigo
         System.arraycopy(player1.deck.getCartasArray(), 0, todasCartas, 0, Deck.DECK_SIZE);
         
         player1.inicializar();
@@ -169,7 +169,7 @@ public class GameOnline extends Game {
         byte comandosFeitos[] = new byte[25 * 3];    //os comandos(até 25) são armazenados na ordem que são realizados
         int totalDeComandos = 0;
         
-        boolean cartasQueAtacaram[] = new boolean[playerMain.mesa.mesaSize];
+        boolean cartasQueAtacaram[] = new boolean[playerMain.mesa.MESA_SIZE];
         int cartaIndex;
         
         Arrays.fill(cartasQueAtacaram, false);
@@ -177,7 +177,7 @@ public class GameOnline extends Game {
         /* o jogador ainda quiser atacar (se possivel) ou mudar a carta para modo defesa-ataque */
         while(true){
             System.out.println("Jogador "+ playerMain.nickName + ", Escolha uma carta da sua mesa que deseja usar ( -1 para finalizar o turno )");
-            for(int i=0 ; i<Mesa.mesaSize;i++){
+            for(int i=0 ; i<Mesa.MESA_SIZE;i++){
                 carta = playerMain.mesa.cartasMonstros[i];
                 
                 if( carta != null){ 
@@ -197,12 +197,12 @@ public class GameOnline extends Game {
                 }
             }
             
-            for(int i=0;i<Mesa.mesaSize;i++){
+            for(int i=0;i<Mesa.MESA_SIZE;i++){
                 cartaMag = playerMain.mesa.cartasMagicas[i];
                 if(cartaMag != null){
-                    System.out.println("    "+(i+Mesa.mesaSize)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico()+"-"+cartaMag.getSubEfeitoStr());
+                    System.out.println("    "+(i+Mesa.MESA_SIZE)+". "+cartaMag.getNome()+"  "+cartaMag.getTipoEfeitoMagico()+"-"+cartaMag.getSubEfeitoStr());
                 }else{
-                    System.out.println("    "+(i+Mesa.mesaSize)+" . ...");
+                    System.out.println("    "+(i+Mesa.MESA_SIZE)+" . ...");
                 }
             }
             
@@ -210,14 +210,14 @@ public class GameOnline extends Game {
             if(cartaIndex == -1 ) break;
             
             //usando as cartas magicas
-            if(cartaIndex >= Mesa.mesaSize){
-                cartaIndex -= Mesa.mesaSize;
+            if(cartaIndex >= Mesa.MESA_SIZE){
+                cartaIndex -= Mesa.MESA_SIZE;
                 cartaMag = playerMain.mesa.cartasMagicas[cartaIndex];
                 if(cartaMag.getTipoEfeitoMagico() == CartaMagica.TipoEfeitoMagico.CAMPO){
                     cartaMag.ativaEfeito(this, playerMain, -1);
                     playerMain.mesa.removeMagica(cartaIndex);
                     
-                    comandosFeitos[totalDeComandos*3 + 0] = (byte)(cartaIndex + Mesa.mesaSize);
+                    comandosFeitos[totalDeComandos*3 + 0] = (byte)(cartaIndex + Mesa.MESA_SIZE);
                     totalDeComandos++;
                 }else{
                     System.out.println("Essa carta Magica não é ativavel manualmente!");
@@ -309,8 +309,8 @@ public class GameOnline extends Game {
             indiceDaCartaUsada = listaComandos[i*3];
             
             //carta Magica
-            if(indiceDaCartaUsada >= Mesa.mesaSize){
-                indiceDaCartaUsada -= Mesa.mesaSize;
+            if(indiceDaCartaUsada >= Mesa.MESA_SIZE){
+                indiceDaCartaUsada -= Mesa.MESA_SIZE;
                 System.out.print("Inimigo escolheu a carta "+playerInimigo.mesa.cartasMagicas[indiceDaCartaUsada]+" da pos "+indiceDaCartaUsada);
                 playerInimigo.mesa.cartasMagicas[indiceDaCartaUsada].ativaEfeito(this, playerMain, -1);
                 playerInimigo.mesa.removeMagica(indiceDaCartaUsada);

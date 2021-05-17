@@ -13,8 +13,8 @@ public class MesaJLabel {
     public CartaJLabel cartasMagicas[];
     
     public MesaJLabel(){
-        cartasMonstros = new CartaJLabel[Mesa.mesaSize];
-        cartasMagicas = new CartaJLabel[Mesa.mesaSize];
+        cartasMonstros = new CartaJLabel[Mesa.MESA_SIZE];
+        cartasMagicas = new CartaJLabel[Mesa.MESA_SIZE];
     }
     
     public void putMonstro(int index, CartaMonstro cartaMonstro){
