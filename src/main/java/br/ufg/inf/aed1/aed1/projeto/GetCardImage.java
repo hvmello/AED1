@@ -1,8 +1,8 @@
 package br.ufg.inf.aed1.aed1.projeto;
 
-import br.ufg.inf.aed1.aed1.carta.*; 
-import br.ufg.inf.aed1.aed1.gameplay.*; 
-import br.ufg.inf.aed1.aed1.network.*; 
+import br.ufg.inf.aed1.aed1.carta.*;
+import br.ufg.inf.aed1.aed1.gameplay.*;
+import br.ufg.inf.aed1.aed1.network.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,38 +20,40 @@ import javax.swing.UIManager;
 import sun.net.www.http.HttpClient;
 
 public class GetCardImage {
-    
+
     //paramaetros: objeto Carta, e fonte da imagem da carta, podendo ser um url ou caminho de diretorio local
     // https://stackoverflow.com/questions/27525874/download-images-from-a-https-url-in-java
-    public static String httpGetImage(CartaMonstro carta,String src) throws Exception{
-        
-        String name = carta.getNome()+".jpg";
+    public static String httpGetImage(CartaMonstro carta, String src) throws Exception {
+
+        String name = carta.getNome() + ".jpg";
         //String folder = "./";
         String folder = "Files/img_Cartas/";
         String urlImg = src;
         File dir = new File(folder);
 
-        if (!dir.exists())
-            if (!dir.mkdir())
+        if (!dir.exists()) {
+            if (!dir.mkdir()) {
                 return null;
+            }
+        }
 
         File file = new File(folder + name);
-        
+
         //checa se src é um arquivo local, e se for, realiza um POST pelo http para o site "yugiohcardmaker.net"
-        if( !src.contains(".http") && !src.contains(".com") && !src.contains(".net") && !src.contains("www.") ){
+        if (!src.contains(".http") && !src.contains(".com") && !src.contains(".net") && !src.contains("www.")) {
             urlImg = httpPostImage(src);
         }
-        String url = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name="+ carta.getNome() +
-                "&cardtype=Monster&subtype=normal&attribute="+carta.getTipoAtributo()+
-                "&level="+ carta.getQuantidadeEstrelas()+
-                "&rarity=Common&picture="+urlImg+
-                "&circulation=&set1="+ carta.getSet()+
-                "&set2="+ String.format("%03d", carta.getId()) +
-                "&type="+ carta.getTipoAtributo()+
-                "&carddescription="+ carta.getDescricao().replace("\n", "%0A") +
-                "&atk="+ carta.getATK() +
-                "&def="+ carta.getDEF()+
-                "&creator=&year=2018&serial=23849947";
+        String url = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name=" + carta.getNome()
+                + "&cardtype=Monster&subtype=normal&attribute=" + carta.getTipoAtributo()
+                + "&level=" + carta.getQuantidadeEstrelas()
+                + "&rarity=Common&picture=" + urlImg
+                + "&circulation=&set1=" + carta.getSet()
+                + "&set2=" + String.format("%03d", carta.getId())
+                + "&type=" + carta.getTipoAtributo()
+                + "&carddescription=" + carta.getDescricao().replace("\n", "%0A")
+                + "&atk=" + carta.getATK()
+                + "&def=" + carta.getDEF()
+                + "&creator=&year=2018&serial=23849947";
 
         url = url.replace(" ", "%20"); // em url espaço da problema, colocando o código do espaço ( 20 )
         try {
@@ -72,8 +74,9 @@ public class GetCardImage {
 
             while (b != -1) {
                 b = in.read();
-                if (b != -1)
+                if (b != -1) {
                     out.write(b);
+                }
             }
 
             out.close();
@@ -85,46 +88,48 @@ public class GetCardImage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return file.getPath();
     }
-    
-    public static String httpGetImage(CartaMagica cartaMagica, String src) throws Exception{
-        
-        String name = cartaMagica.getNome()+".jpg";
-        String cardType="", trap_spell_Type="";
+
+    public static String httpGetImage(CartaMagica cartaMagica, String src) throws Exception {
+
+        String name = cartaMagica.getNome() + ".jpg";
+        String cardType = "", trap_spell_Type = "";
         //String folder = "./";
         String folder = "Files/img_Cartas/";
         String urlImg = src;
         File dir = new File(folder);
 
-        if (!dir.exists())
-            if (!dir.mkdir())
+        if (!dir.exists()) {
+            if (!dir.mkdir()) {
                 return null;
+            }
+        }
 
         File file = new File(folder + name);
-        
+
         //checa se src é um arquivo local, e se for, realiza um POST pelo http para o site "yugiohcardmaker.net"
-        if( !src.contains(".http") && !src.contains(".com") && !src.contains(".net") && !src.contains("www.") ){
+        if (!src.contains(".http") && !src.contains(".com") && !src.contains(".net") && !src.contains("www.")) {
             urlImg = httpPostImage(src);
         }
-        if(cartaMagica.getTipoEfeitoMagico()== CartaMagica.TipoEfeitoMagico.TRAP){
+        if (cartaMagica.getTipoEfeitoMagico() == CartaMagica.TipoEfeitoMagico.TRAP) {
             cardType = "Trap";
             trap_spell_Type = "Counter";
         }
-        if(cartaMagica.getTipoEfeitoMagico()== CartaMagica.TipoEfeitoMagico.CAMPO){
+        if (cartaMagica.getTipoEfeitoMagico() == CartaMagica.TipoEfeitoMagico.CAMPO) {
             cardType = "Spell";
             trap_spell_Type = "Field";
         }
-        String url = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name="+ cartaMagica.getNome() +
-                "&cardtype="+cardType+
-                "&trapmagictype="+trap_spell_Type+
-                "&rarity=Common&picture="+urlImg+
-                "&circulation=&set1="+ cartaMagica.getSet()+
-                "&set2="+ String.format("%03d", cartaMagica.getId()) +
-                "&carddescription="+ cartaMagica.getDescricao().replace("\n", "%0A") +
-                "&creator=&year=2018&serial=23849947";
-        
+        String url = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name=" + cartaMagica.getNome()
+                + "&cardtype=" + cardType
+                + "&trapmagictype=" + trap_spell_Type
+                + "&rarity=Common&picture=" + urlImg
+                + "&circulation=&set1=" + cartaMagica.getSet()
+                + "&set2=" + String.format("%03d", cartaMagica.getId())
+                + "&carddescription=" + cartaMagica.getDescricao().replace("\n", "%0A")
+                + "&creator=&year=2018&serial=23849947";
+
         url = url.replace(" ", "%20"); // em url espaço da problema, colocando o código do espaço ( 20 )
         try {
 
@@ -144,8 +149,9 @@ public class GetCardImage {
 
             while (b != -1) {
                 b = in.read();
-                if (b != -1)
+                if (b != -1) {
                     out.write(b);
+                }
             }
 
             out.close();
@@ -157,14 +163,13 @@ public class GetCardImage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return file.getPath();
     }
-    
-    
+
     //https://stackoverflow.com/questions/17173435/send-image-file-using-java-http-post-connections
-    private static String httpPostImage(String src) throws Exception{
-        
+    private static String httpPostImage(String src) throws Exception {
+
 //        String url = null;
 //
 //        HttpClient httpclient = new HttpClient();
@@ -206,8 +211,7 @@ public class GetCardImage {
 //        httpclient.getConnectionManager().shutdown();
 //  
 //        return url;
-
         return null;
     }
-    
+
 }
