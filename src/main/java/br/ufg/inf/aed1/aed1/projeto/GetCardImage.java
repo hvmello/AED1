@@ -19,11 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import sun.net.www.http.HttpClient;
 
-
-/**
- *
- * @author João Gabriel
- */
 public class GetCardImage {
     
     //paramaetros: objeto Carta, e fonte da imagem da carta, podendo ser um url ou caminho de diretorio local
