@@ -25,7 +25,7 @@ public class Game {
         }
     }
     public static enum TipoTrap { 
-        Miss(0), Counter(1);
+        MISS(0), COUNTER(1);
         
         private final int value;
         private TipoTrap(int value) {
