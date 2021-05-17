@@ -20,6 +20,8 @@ import javax.swing.UIManager;
 import sun.net.www.http.HttpClient;
 
 public class GetCardImage {
+    
+    private static final String BASE_URL = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name=";
 
     //paramaetros: objeto Carta, e fonte da imagem da carta, podendo ser um url ou caminho de diretorio local
     // https://stackoverflow.com/questions/27525874/download-images-from-a-https-url-in-java
@@ -43,7 +45,7 @@ public class GetCardImage {
         if (!src.contains(".http") && !src.contains(".com") && !src.contains(".net") && !src.contains("www.")) {
             urlImg = httpPostImage(src);
         }
-        String url = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name=" + carta.getNome()
+        String url = BASE_URL + carta.getNome()
                 + "&cardtype=Monster&subtype=normal&attribute=" + carta.getTipoAtributo()
                 + "&level=" + carta.getQuantidadeEstrelas()
                 + "&rarity=Common&picture=" + urlImg
@@ -121,7 +123,7 @@ public class GetCardImage {
             cardType = "Spell";
             trap_spell_Type = "Field";
         }
-        String url = "http://www.yugiohcardmaker.net/ycmaker/createcard.php?name=" + cartaMagica.getNome()
+        String url = BASE_URL + cartaMagica.getNome()
                 + "&cardtype=" + cardType
                 + "&trapmagictype=" + trap_spell_Type
                 + "&rarity=Common&picture=" + urlImg
