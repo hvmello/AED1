@@ -13,7 +13,7 @@ public class Game {
     
 
     public static enum TipoCampo { 
-        Normal(0), Florest(1), Ocean(2), Mountain(3), Desert(4);
+        NORMAL(0), FLOREST(1), OCEAN(2), MOUNTAIN(3), DESERT(4);
         
         private final int value;
         private TipoCampo(int value) {
@@ -37,7 +37,7 @@ public class Game {
         }
     }
     
-    public TipoCampo campo = TipoCampo.Normal;
+    public TipoCampo campo = TipoCampo.NORMAL;
     //player main e inimigo respectivamente
     public Player player1, player2;
     public Carta todasCartas[];    //todas as cartas da partida (juncao dos dois decks dos jogadores)
