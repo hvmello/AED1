@@ -1,6 +1,6 @@
 package br.ufg.inf.aed1.aed1.carta;
 
-public class Carta {
+public class Carta implements Cloneable{
 
     protected int id;           // Id da carta em relacao ao seu set
     protected String set = "";  // Fonte: https://forum.yugiohcardmaker.net/topic/7296-set-id/
@@ -45,6 +45,11 @@ public class Carta {
     
     public void setImageSrc(String imageSrc) {
         this.imageSrc = imageSrc;
+    }
+
+    @Override
+    public Carta clone() throws CloneNotSupportedException {
+        return (Carta)super.clone();
     }
     
     
