@@ -46,13 +46,13 @@ public class CartaMonstro extends Carta {
 
         super(id, set, nome, descricao);
 
-        String imgSrcFinal;
-
         this.ATK = ATK;
         this.DEF = DEF;
         this.tipoMonstro = tipoMonstro;
         this.tipoAtributo = tipoAtributo;
 
+        String imgSrcFinal;
+        
         try {
             imgSrcFinal = GetCardImage.httpGetImage(this, imageSrc);
             this.setImageSrc(imgSrcFinal);
