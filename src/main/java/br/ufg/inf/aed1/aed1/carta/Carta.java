@@ -1,6 +1,8 @@
 package br.ufg.inf.aed1.aed1.carta;
 
-public class Carta implements Cloneable{
+import java.io.Serializable;
+
+public class Carta implements Cloneable, Serializable {
 
     protected int id;           // Id da carta em relacao ao seu set
     protected String set = "";  // Fonte: https://forum.yugiohcardmaker.net/topic/7296-set-id/

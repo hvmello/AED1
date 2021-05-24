@@ -1,5 +1,7 @@
 package br.ufg.inf.aed1.aed1.projeto;
 
+import br.ufg.inf.aed1.aed1.carta.filemanager.FileManager;
+import br.ufg.inf.aed1.aed1.carta.ListaDeCartas;
 import br.ufg.inf.aed1.aed1.carta.*; 
 import br.ufg.inf.aed1.aed1.gameplay.*; 
 import br.ufg.inf.aed1.aed1.network.*; 

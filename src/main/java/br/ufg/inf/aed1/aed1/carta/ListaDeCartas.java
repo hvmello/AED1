@@ -1,5 +1,6 @@
 package br.ufg.inf.aed1.aed1.carta;
 
+import br.ufg.inf.aed1.aed1.carta.Carta;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.ArrayList;

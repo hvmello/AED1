@@ -1,10 +1,11 @@
 package br.ufg.inf.aed1.aed1.carta;
 
 import br.ufg.inf.aed1.aed1.projeto.GetCardImage;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CartaMonstro extends Carta {
+public class CartaMonstro extends Carta implements Serializable {
 
     public static enum TipoMonstro {
         BESTA, HUMANO, ANJO, DEMONIO;
