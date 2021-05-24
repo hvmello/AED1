@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CartaMagica extends Carta implements EfeitoInterface {
+public class CartaMagica extends Carta {
 
     public static enum TipoEfeitoMagico {
         CAMPO(0), TRAP(1);
@@ -27,6 +27,10 @@ public class CartaMagica extends Carta implements EfeitoInterface {
     private TipoEfeitoMagico tipoEfeitoMagico;
     private Game.TipoCampo tipoCampo;
     private Game.TipoTrap tipoTrap;
+    
+    public interface EfeitoInterface {
+        void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex);
+    }
 
     private final Map<TipoEfeitoMagico, EfeitoInterface> mapEfeitos = new EnumMap<>(TipoEfeitoMagico.class);
 
@@ -34,7 +38,7 @@ public class CartaMagica extends Carta implements EfeitoInterface {
         super(id, set, nome, descricao);
         this.tipoEfeitoMagico = TipoEfeitoMagico.CAMPO;
         this.tipoCampo = tipoCampo;
-        //_configurarEfeitos();
+        _configurarEfeitos();
 
         String imgSrcFinal;
 
@@ -51,7 +55,7 @@ public class CartaMagica extends Carta implements EfeitoInterface {
         super(id, set, nome, descricao);
         this.tipoEfeitoMagico = TipoEfeitoMagico.TRAP;
         this.tipoTrap = tipoTrap;
-        //_configurarEfeitos();
+        _configurarEfeitos();
 
         String imgSrcFinal;
 
@@ -64,10 +68,126 @@ public class CartaMagica extends Carta implements EfeitoInterface {
 
     }
 
-    @Override
-    public void aplicarEfeito(Game game, Player targetPlayer, int targetIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void _configurarEfeitos(){
+        
+        // Aplica os efeitos de campo
+        mapEfeitos.put(TipoEfeitoMagico.CAMPO, new EfeitoInterface(){
+            @Override
+            public void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex){
+                Game.TipoCampo campoAntigo = game.campo;
+                CartaMonstro cartaMonstro;
+                game.campo = tipoCampo;
+                
+                // Percorre todas cartas monstro                
+                for(Carta carta: game.todasCartas){
+                    
+                    if (carta instanceof CartaMonstro) {
+                        cartaMonstro = (CartaMonstro) carta;
+                        
+                        // Remove o efeito de campo antigo
+                        switch (campoAntigo) {
+                            case FLOREST:
+                                editarEfeitoFlorest(cartaMonstro, -1);
+                                break;
+                            case OCEAN:
+                                editarEfeitoOcean(cartaMonstro, -1);
+                                break;
+                            case MOUNTAIN:
+                                editarEfeitoMountain(cartaMonstro, -1);
+                                break;
+                            case DESERT:
+                                editarEfeitoDesert(cartaMonstro, -1);
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        // Aplica o efeito do campo da carta
+                        switch (tipoCampo) {
+                            case FLOREST:
+                                editarEfeitoFlorest(cartaMonstro, 1);
+                                break;
+                            case OCEAN:
+                                editarEfeitoOcean(cartaMonstro, 1);
+                                break;
+                            case MOUNTAIN:
+                                editarEfeitoMountain(cartaMonstro, 1);
+                                break;
+                            case DESERT:
+                                editarEfeitoDesert(cartaMonstro, 1);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                                       
+                }
+                
+            } 
+        });
+        
+        // Aplica os efeitos de trap
+        mapEfeitos.put(TipoEfeitoMagico.TRAP, new EfeitoInterface(){ 
+            @Override
+            public void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex) {
+                if(tipoTrap == Game.TipoTrap.MISS){
+                    // Nao faz nada
+                }
+                if(tipoTrap == Game.TipoTrap.COUNTER){
+                    // Destroi a carta que esta atacando
+                    targetPlayer.mesa.removeMonstro(targetCartaIndex);
+                }
+            }
+        });
     }    
+
+    public void editarEfeitoFlorest(CartaMonstro cartaMonstro, int peso) {
+        CartaMonstro.TipoAtributo tipoAtributo = cartaMonstro.getTipoAtributo();
+
+        if (tipoAtributo == CartaMonstro.TipoAtributo.DARK || tipoAtributo == CartaMonstro.TipoAtributo.EARTH) {
+            cartaMonstro.setATK(cartaMonstro.getATK() + 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() + 300 * peso);
+        } else if (tipoAtributo == CartaMonstro.TipoAtributo.WIND || tipoAtributo == CartaMonstro.TipoAtributo.LIGHT) {
+            cartaMonstro.setATK(cartaMonstro.getATK() - 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() - 300 * peso);
+        }
+    }
+
+    public void editarEfeitoOcean(CartaMonstro cartaMonstro, int peso) {
+        CartaMonstro.TipoAtributo tipoAtributo = cartaMonstro.getTipoAtributo();
+
+        if (tipoAtributo == CartaMonstro.TipoAtributo.WATER) {
+            cartaMonstro.setATK(cartaMonstro.getATK() + 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() + 300 * peso);
+        } else if (tipoAtributo == CartaMonstro.TipoAtributo.FIRE) {
+            cartaMonstro.setATK(cartaMonstro.getATK() - 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() - 300 * peso);
+        }
+    }
+
+    public void editarEfeitoMountain(CartaMonstro cartaMonstro, int peso) {
+        CartaMonstro.TipoAtributo tipoAtributo = cartaMonstro.getTipoAtributo();
+
+        if (tipoAtributo == CartaMonstro.TipoAtributo.WIND || tipoAtributo == CartaMonstro.TipoAtributo.LIGHT) {
+            cartaMonstro.setATK(cartaMonstro.getATK() + 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() + 300 * peso);
+        } else if (tipoAtributo == CartaMonstro.TipoAtributo.EARTH || tipoAtributo == CartaMonstro.TipoAtributo.DARK) {
+            cartaMonstro.setATK(cartaMonstro.getATK() - 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() - 300 * peso);
+        }
+    }
+
+    public void editarEfeitoDesert(CartaMonstro cartaMonstro, int peso) {
+        CartaMonstro.TipoAtributo tipoAtributo = cartaMonstro.getTipoAtributo();
+
+        if (tipoAtributo == CartaMonstro.TipoAtributo.FIRE) {
+            cartaMonstro.setATK(cartaMonstro.getATK() + 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() + 300 * peso);
+        } else if (tipoAtributo == CartaMonstro.TipoAtributo.WATER) {
+            cartaMonstro.setATK(cartaMonstro.getATK() - 300 * peso);
+            cartaMonstro.setDEF(cartaMonstro.getDEF() - 300 * peso);
+        }
+    }
 
     public TipoEfeitoMagico getTipoEfeitoMagico() {
         return tipoEfeitoMagico;

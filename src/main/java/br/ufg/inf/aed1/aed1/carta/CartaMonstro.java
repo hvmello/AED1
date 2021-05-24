@@ -116,9 +116,17 @@ public class CartaMonstro extends Carta {
     public int getATK() {
         return ATK;
     }
+    
+    public void setATK(int ATK) {
+        this.ATK = ATK;
+    }
 
     public int getDEF() {
         return DEF;
+    }
+    
+    public void setDEF(int DEF) {
+        this.DEF = DEF;
     }
 
 }
