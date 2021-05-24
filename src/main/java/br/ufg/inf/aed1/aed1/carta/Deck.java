@@ -2,24 +2,20 @@ package br.ufg.inf.aed1.aed1.carta;
 
 import java.io.Serializable;
 
-
-//deck usado para vizualizar e editar, não é jogável.
+// Deck usado para visualizar e editar, não é jogável.
 public class Deck extends ListaDeCartas implements Serializable {
 
-    /**
-     *TAMANHO DECK
-     */
-    public static final short DECK_SIZE = 40;   //tamanho definitivo de um deck ( máximo geral, e mínimo para jogar -> podem existir decks incompletos em criação ainda, mas que não podem ser usados em jogo" )
+    public static final short DECK_SIZE = 40;  // Tamanho definitivo de um deck ( máximo geral, e mínimo para jogar -> podem existir decks incompletos em criação ainda, mas que não podem ser usados em jogo" )
     private String nome;
-    
-    
-    public Deck(String nome){
+
+    public Deck(String nome) {
         super(DECK_SIZE);
-        this.nome = nome;    
+        this.nome = nome;
     }
-    public Deck(){
+
+    public Deck() {
         super(DECK_SIZE);
-    };
+    }
 
     @Override
     public void addCarta(Carta newCarta) {
@@ -28,16 +24,19 @@ public class Deck extends ListaDeCartas implements Serializable {
             return;
         }
         super.addCarta(newCarta);
-   
-    }
-    
 
-    
-    public String getNome(){ return nome; }
-    public void setNome(String nome){ this.nome = nome; }
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 }

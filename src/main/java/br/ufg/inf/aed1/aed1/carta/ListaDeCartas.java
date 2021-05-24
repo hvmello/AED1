@@ -4,115 +4,175 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-
-// Classe ListaDeCartas, serve como referencia para as outras classes.
+// Classe ListaDeCartas, serve como referencia abstrata para as outras classes.
 public /*abstract*/ class ListaDeCartas implements Cloneable, Serializable {
-    
+
     public Carta cartas[];
     public short length = 0;
-    
-    public ListaDeCartas(int size){ cartas = new Carta[size]; }
-    public ListaDeCartas(){}
-    
-    
-    
+
+    public ListaDeCartas(int size) {
+        cartas = new Carta[size];
+    }
+
+    public ListaDeCartas() {
+    }
+
     /**
-     * Adiciona carta à lista, mantendo-a ordenada
-     * @param newCarta Carta a ser adicionada
+     * Adiciona uma Carta em `cartas[]`, mantendo este array ainda ordenado de
+     * forma crescente segundo o id de suas Cartas.
+     * <p>
+     * Time Complexity: O(n).
+     *
+     * @param newCarta a Carta a ser adicionada em `cartas[]`
      */
-    public void addCarta( Carta newCarta){
+    public void addCarta(Carta newCarta) {
         int j;
 
-        //Insere carta já na posição ordenada ( ordenada por id ), baseado no insertion sort.
-        for (j = length-1; (j >= 0) && ( newCarta.getId() < cartas[j].getId() ); j--) {
+        /* 
+         * Insere `newCarta` ja na posição ordenada (por id), baseado-se
+         * no algoritmo de ordenacao Insertion Sort.
+         */
+        for (j = length - 1; (j >= 0) && (newCarta.getId() < cartas[j].getId()); j--) {
             cartas[j + 1] = cartas[j];
         }
-        this.cartas[j+1] = newCarta;
+        this.cartas[j + 1] = newCarta;
         length++;
     }
-    
-    //retorna true se a carta foi deletada com sucesso e false caso contrário ( caso não tenha sido encontrada )
-    public void deleteCartaById( int id){
+
+    /**
+     * Deleta a Carta com id igual a `id` e move as Cartas à sua direita para
+     * uma posição à esquerda.
+     * <p>
+     * Time Complexity: O(n).
+     *
+     * @param id o id da Carta que deseja deletar
+     * @see indexOf()
+     * @see deleteCartaAtIndex()
+     */
+    public void deleteCartaById(int id) {
         int index = this.indexOf(id);
         deleteCartaAtIndex(index);
     }
-    
+
     /**
-     * Remove a carta do índice escolhido.
-     * Move todas as cartas a direita da removida uma posição para esquerda.
-     * @param index 
+     * Deleta a Carta na posição `index` e move todas as cartas à direita da
+     * Carta a ser removida para uma posição à esquerda.
+     * <p>
+     * Time Complexity: O(n).
+     *
+     * @param index o index da carta que deseja deletar
      */
-    public void deleteCartaAtIndex( int index){        
-        for(int j=index; j<length-1; j++){
-            cartas[j] = cartas[j+1];
+    public void deleteCartaAtIndex(int index) {
+        for (int j = index; j < length - 1; j++) {
+            cartas[j] = cartas[j + 1];
         }
         cartas[--length] = null;
     }
-    
-    public Carta getCartaAtIndex(int index){
-        if (index >= length || index < 0 ){
+
+    /**
+     * Retorna uma Carta em `cartas[]` na posicao `index`.
+     * <p>
+     * Time Complexity: O(1).
+     *
+     * @throws IndexOutOfBoundsException Se `index` for menor do que 0 ou maior
+     * do que `length` - 1
+     *
+     * @param index
+     * @return uma Carta na posição `index`
+     */
+    public Carta getCartaAtIndex(int index) {
+        if (index < 0 || index > length - 1) {
             throw new IndexOutOfBoundsException();
         }
         return cartas[index];
     }
-    
-    
-    //retorna objeto Carta com o id indicado, e null se não existir
-    public Carta getCartaById(int id){
+
+    /**
+     * Retorna um Carta com o seu id igual a `id` ou null caso ela nao exista em
+     * `cartas[]
+     * <p>
+     * Time Complexity: O(lg(n)).
+     *
+     * @param id o id da Carta que deseja buscar
+     * @return uma Carta com id igual a`id` ou null caso ela nao exista
+     * @see this.indexof()
+     */
+    public Carta getCartaById(int id) {
         int index = this.indexOf(id);
-        if(index < 0) return null;
-        return cartas[index];
+
+        return (index >= 0) ? cartas[index] : null;
     }
-    
-    
-    //retorna nova ListaDeCartas com todas as cartas do SET 'set'
-    public ListaDeCartas getSetCartas(String set){
+
+    /**
+     * Retorna uma ListaDeCartas contendo todas as Cartas com set igual a `set`.
+     * <p>
+     * Time Complexity: O(n).
+     *
+     * @param set o set das Cartas que se deseja buscar
+     * @return uma ListaDeCartas das Cartas com o seu set igual a `set
+     */
+    public ListaDeCartas getSetCartas(String set) {
         ListaDeCartas cartasDoSet = new ListaDeCartas(0);
-        if( this.length ==0) return cartasDoSet;
-        
+        if (this.length == 0) {
+            return cartasDoSet;
+        }
+
         ArrayList<Carta> temp = new ArrayList<>();
-        
-        for(int i=0; i<length;i++){
-            if(cartas[i].getSet().equals(set)){
+
+        for (int i = 0; i < length; i++) {
+            if (cartas[i].getSet().equals(set)) {
                 temp.add(cartas[i]);
             }
         }
-        
-        cartasDoSet.setCartasArray( temp.toArray(cartasDoSet.getCartasArray()) );
+
+        cartasDoSet.setCartasArray(temp.toArray(cartasDoSet.getCartasArray()));
         return cartasDoSet;
     }
-    
-    //passa o id de uma carta e retorna o índice dela no baralho
-    private int indexOf(int id){
-        //usa busca binária O(log n)
-        int sup = length-1, inf = 0, meio;
-        while(inf <= sup){
-            meio = (sup+inf)/2;
-            if(cartas[meio].getId() == id)
+
+    /**
+     * Retorna o index de uma carta de acordo com seu id, fazendo uma busca
+     * binária em `cartas[]`.
+     * <p>
+     * Time Complexity: O(lg(n)).
+     *
+     * @param id o id da carta que deseja buscar
+     * @return o index de uma carta com seu id igual a`id` ou -1 caso ela nao
+     * exista
+     * @see Arrays.sort()
+     */
+    private int indexOf(int id) {
+        int sup = length - 1, inf = 0, meio;
+        while (inf <= sup) {
+            meio = (sup + inf) / 2;
+
+            if (cartas[meio].getId() == id) {
                 return meio;
-            
-            if (id < cartas[meio].getId())
-               sup = meio-1;
-            else
-               inf = meio+1;
+            }
+
+            if (id < cartas[meio].getId()) {
+                sup = meio - 1;
+            } else {
+                inf = meio + 1;
+            }
         }
-        //não encontrou
+
         return -1;
     }
-    
-    public Carta[] getCartasArray(){
+
+    public Carta[] getCartasArray() {
         return cartas;
     }
-    //atualiza o array de cartas, e o seu tamanho para o mesmo do array passado
-    public void setCartasArray(Carta cartas[]){
+
+    // Atualiza o array de cartas e o seu tamanho para o mesmo do array passado
+    public void setCartasArray(Carta cartas[]) {
         this.cartas = cartas;
-        this.length = (short)cartas.length;
+        this.length = (short) cartas.length;
         Arrays.sort(this.cartas);
     }
-    
+
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-    
+
 }
