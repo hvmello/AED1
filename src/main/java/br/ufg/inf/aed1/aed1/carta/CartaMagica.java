@@ -39,7 +39,7 @@ public class CartaMagica extends Carta implements Serializable{
         super(id, set, nome, descricao);
         this.tipoEfeitoMagico = TipoEfeitoMagico.CAMPO;
         this.tipoCampo = tipoCampo;
-        _configurarEfeitos();
+        this.configurarEfeitos();
 
         String imgSrcFinal;
 
@@ -56,7 +56,7 @@ public class CartaMagica extends Carta implements Serializable{
         super(id, set, nome, descricao);
         this.tipoEfeitoMagico = TipoEfeitoMagico.TRAP;
         this.tipoTrap = tipoTrap;
-        _configurarEfeitos();
+        this.configurarEfeitos();
 
         try {
 
@@ -67,7 +67,7 @@ public class CartaMagica extends Carta implements Serializable{
 
     }
 
-    private void _configurarEfeitos(){
+    private void configurarEfeitos(){
         
         // Aplica os efeitos de campo
         mapEfeitos.put(TipoEfeitoMagico.CAMPO, (EfeitoInterface) (Game game, Player targetPlayer, int targetCartaIndex) -> {

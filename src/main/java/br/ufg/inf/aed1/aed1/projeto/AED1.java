@@ -411,11 +411,12 @@ public class AED1 {
     
     public static void criaCartaMonstro() throws Exception{
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        String nome, tipoStr, set, path;
+        String nome, tipoMonstro, set, path, tipoAtributo, descricao;
         int atk, def, id;
         
         System.out.print("Nome: ");   nome = scanner.nextLine();
         System.out.print("Set: ");    set = scanner.next();
+        System.out.print("Descricao: ");    descricao = scanner.next();
         
         do{
             System.out.print("Id:  ");    id = scanner.nextInt();
@@ -429,16 +430,20 @@ public class AED1 {
         System.out.print("Atk: ");    atk = scanner.nextInt();
         System.out.print("Def: ");    def = scanner.nextInt();
         scanner.nextLine();//limpando o buffer
-        System.out.print("Tipo: ");   tipoStr = scanner.nextLine();
+        System.out.print("Tipo Monstro: ");   tipoMonstro = scanner.nextLine(); 
+        System.out.print("Tipo Atributo: ");   tipoAtributo = scanner.nextLine();
         System.out.print("Url da Imagem: "); path= scanner.nextLine();
         
-        todasAsCartas.addCarta(new CartaMonstro(nome, atk, def, tipoStr, "Dark", set, id, path, ""));
+        todasAsCartas.addCarta(new CartaMonstro(id, set, nome, descricao, atk, def, 
+                CartaMonstro.TipoMonstro.valueOf(tipoMonstro), CartaMonstro.TipoAtributo.valueOf(tipoAtributo), path)); 
     }
+    
+   
     
     public static void criaCartaMagica() throws Exception{
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        String nome, tipoMagicaStr,tipoSubMagicaStr, set, path;
-        String descricao;
+        String nome, tipoMagicaStr,tipoSubMagicaStr, set, path, descricao;
+     
         int id;
         
         System.out.print("Nome: ");   nome = scanner.nextLine();
@@ -464,9 +469,9 @@ public class AED1 {
         System.out.print("Url da Imagem: "); path= scanner.nextLine();
         
         if(tipoMagicaStr.equals( CartaMagica.TipoEfeitoMagico.CAMPO.name()) )
-            todasAsCartas.addCarta(new CartaMagica(nome, set, id, Game.TipoCampo.valueOf(tipoSubMagicaStr), path, ""));
-        if(tipoMagicaStr.equals( CartaMagica.TipoEfeito.Trap.name()) )
-            todasAsCartas.addCarta(new CartaMagica(nome, set, id, Game.TipoTrap.valueOf(tipoSubMagicaStr), path, ""));
+            todasAsCartas.addCarta(new CartaMagica(Game.TipoCampo.valueOf(tipoSubMagicaStr), id, set, nome, path, ""));
+        if(tipoMagicaStr.equals( CartaMagica.TipoEfeitoMagico.TRAP.name()) )
+            todasAsCartas.addCarta(new CartaMagica(Game.TipoTrap.valueOf(tipoSubMagicaStr), id, set, nome, path, ""));
     }
     
     //User story criar deck - 2º sprint
