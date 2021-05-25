@@ -58,11 +58,9 @@ public class CartaMagica extends Carta implements Serializable{
         this.tipoTrap = tipoTrap;
         _configurarEfeitos();
 
-        String imgSrcFinal;
-
         try {
-            imgSrcFinal = GetCardImage.httpGetImage(this, imageSrc);
-            this.setImageSrc(imgSrcFinal);
+
+            this.setImageSrc(GetCardImage.httpGetImage(this, imageSrc));
         } catch (Exception exception) {
             Logger.getLogger(Carta.class.getName()).log(Level.SEVERE, null, exception);
         }
@@ -72,56 +70,52 @@ public class CartaMagica extends Carta implements Serializable{
     private void _configurarEfeitos(){
         
         // Aplica os efeitos de campo
-        mapEfeitos.put(TipoEfeitoMagico.CAMPO, new EfeitoInterface(){
-            @Override
-            public void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex){
-                Game.TipoCampo campoAntigo = game.campo;
-                CartaMonstro cartaMonstro;
-                game.campo = tipoCampo;
+        mapEfeitos.put(TipoEfeitoMagico.CAMPO, (EfeitoInterface) (Game game, Player targetPlayer, int targetCartaIndex) -> {
+            Game.TipoCampo campoAntigo = game.campo;
+            CartaMonstro cartaMonstro;
+            game.campo = tipoCampo;
+            
+            // Percorre todas cartas monstro
+            for(Carta carta: game.todasCartas){
                 
-                // Percorre todas cartas monstro                
-                for(Carta carta: game.todasCartas){
+                if (carta instanceof CartaMonstro) {
+                    cartaMonstro = (CartaMonstro) carta;
                     
-                    if (carta instanceof CartaMonstro) {
-                        cartaMonstro = (CartaMonstro) carta;
-                        
-                        // Remove o efeito de campo antigo
-                        switch (campoAntigo) {
-                            case FLOREST:
-                                editarEfeitoFlorest(cartaMonstro, -1);
-                                break;
-                            case OCEAN:
-                                editarEfeitoOcean(cartaMonstro, -1);
-                                break;
-                            case MOUNTAIN:
-                                editarEfeitoMountain(cartaMonstro, -1);
-                                break;
-                            case DESERT:
-                                editarEfeitoDesert(cartaMonstro, -1);
-                                break;
-                            default:
-                                break;
-                        }
-                        
-                        // Aplica o efeito do campo da carta
-                        switch (tipoCampo) {
-                            case FLOREST:
-                                editarEfeitoFlorest(cartaMonstro, 1);
-                                break;
-                            case OCEAN:
-                                editarEfeitoOcean(cartaMonstro, 1);
-                                break;
-                            case MOUNTAIN:
-                                editarEfeitoMountain(cartaMonstro, 1);
-                                break;
-                            case DESERT:
-                                editarEfeitoDesert(cartaMonstro, 1);
-                                break;
-                            default:
-                                break;
-                        }
+                    // Remove o efeito de campo antigo
+                    switch (campoAntigo) {
+                        case FLOREST:
+                            editarEfeitoFlorest(cartaMonstro, -1);
+                            break;
+                        case OCEAN:
+                            editarEfeitoOcean(cartaMonstro, -1);
+                            break;
+                        case MOUNTAIN:
+                            editarEfeitoMountain(cartaMonstro, -1);
+                            break;
+                        case DESERT:
+                            editarEfeitoDesert(cartaMonstro, -1);
+                            break;
+                        default:
+                            break;
                     }
                                        
+                    // Aplica o efeito do campo da carta
+                    switch (tipoCampo) {
+                        case FLOREST:
+                            editarEfeitoFlorest(cartaMonstro, 1);
+                            break;
+                        case OCEAN:
+                            editarEfeitoOcean(cartaMonstro, 1);
+                            break;
+                        case MOUNTAIN:
+                            editarEfeitoMountain(cartaMonstro, 1);
+                            break;
+                        case DESERT:
+                            editarEfeitoDesert(cartaMonstro, 1);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 
             } 
@@ -194,4 +188,13 @@ public class CartaMagica extends Carta implements Serializable{
         return tipoEfeitoMagico;
     }
 
+    public void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex) {
+                if(tipoTrap == Game.TipoTrap.MISS){
+                    // Nao faz nada
+                }
+                if(tipoTrap == Game.TipoTrap.COUNTER){
+                    // Destroi a carta que esta atacando
+                    targetPlayer.mesa.removeMonstro(targetCartaIndex);
+                }
+            }
 }

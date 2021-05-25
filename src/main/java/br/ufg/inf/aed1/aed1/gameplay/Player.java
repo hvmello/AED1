@@ -4,6 +4,8 @@ import br.ufg.inf.aed1.aed1.carta.DeckJogavel;
 
 import br.ufg.inf.aed1.aed1.carta.Carta;
 import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
+import br.ufg.inf.aed1.aed1.gui.jlabels.MaoJLabel;
+import br.ufg.inf.aed1.aed1.gui.jlabels.MesaJLabel;
 import gui.utils.AdvancedBevelBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -113,7 +115,7 @@ public class Player {
                 
                 //verifica se tem trap antes, (ps: só é ativada quando o atacado vai perder, não há sentido em gastar a trap quando ele fosse ganhar)
                 if(( index = playerAlvo.mesa.TrapMagicIndex())>= 0){
-                    playerAlvo.mesa.cartasMagicas[index].ativaEfeito(null, this, cartaAtacanteIndex);
+                    playerAlvo.mesa.cartasMagicas[index].aplicarEfeito(null, this, cartaAtacanteIndex);
                     playerAlvo.mesa.removeMagica(index);
                     return ATACK_CANCELED;     
                 }
@@ -144,7 +146,7 @@ public class Player {
                 
                 //verifica se tem trap antes, (ps: só é ativada quando o atacado vai perder, não há sentido em gastar a trap quando ele fosse ganhar)
                 if(( index = playerAlvo.mesa.TrapMagicIndex())>= 0){
-                    playerAlvo.mesa.cartasMagicas[index].ativaEfeito(null, this, cartaAtacanteIndex);
+                    playerAlvo.mesa.cartasMagicas[index].aplicarEfeito(null, this, cartaAtacanteIndex);
                     playerAlvo.mesa.removeMagica(index);
                     return ATACK_CANCELED;
                 }

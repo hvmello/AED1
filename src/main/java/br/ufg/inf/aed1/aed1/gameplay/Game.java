@@ -202,7 +202,7 @@ public class Game {
                 cartaIndex -= Mesa.MESA_SIZE;
                 cartaMag = playerMain.mesa.cartasMagicas[cartaIndex];
                 if(cartaMag.getTipoEfeitoMagico() == CartaMagica.TipoEfeitoMagico.CAMPO){
-                    cartaMag.ativaEfeito(this, playerMain, -1);
+                    cartaMag.aplicarEfeito(this, playerMain, -1);
                     playerMain.mesa.removeMagica(cartaIndex);
                 }else{
                     System.out.println("Essa carta Magica não é ativavel manualmente!");
