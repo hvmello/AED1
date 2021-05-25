@@ -3,7 +3,8 @@ package br.ufg.inf.aed1.aed1.gameplay;
 import br.ufg.inf.aed1.aed1.carta.Carta;
 import br.ufg.inf.aed1.aed1.carta.CartaMagica;
 import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
-import static cartapackage.Deck.DECK_SIZE;
+import br.ufg.inf.aed1.aed1.carta.Deck;
+
 import java.util.ArrayList;
 
 
@@ -18,7 +19,7 @@ public class Mesa {
     public Mesa(){
         cartasMonstros = new CartaMonstro[MESA_SIZE];
         cartasMagicas = new CartaMagica[MESA_SIZE];
-        cemiterio = new ArrayList<Carta>(DECK_SIZE);
+        cemiterio = new ArrayList<Carta>(Deck.DECK_SIZE);
     }
     
     public void putMonstro(int index, CartaMonstro cartaMonstro){
