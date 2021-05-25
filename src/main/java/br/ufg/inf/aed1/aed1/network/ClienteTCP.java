@@ -57,6 +57,10 @@ public class ClienteTCP {
         objectOutputStream.writeObject(carta);
         objectOutputStream.flush();
     }
+    
+    public Carta readCarta() throws IOException, ClassNotFoundException {
+        return (Carta) objectInputStream.readObject();
+    }
 
     // Fonte: https://stackoverflow.com/questions/32500182/find-all-ip-addresses-in-local-network
     public String[] getNetworkIP() {
