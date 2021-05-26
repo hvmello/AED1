@@ -72,9 +72,28 @@ public class CartaMonstro extends Carta implements Serializable {
 
     public void virarParaBaixo() {
         if (isModoAtaque()) {
-            modoCarta = ModoCarta.ATAQUE_PARA_BAIXO;
+            modoCarta = ModoCarta.DEFESA_PARA_BAIXO;
         } else {
             modoCarta = ModoCarta.ATAQUE_PARA_BAIXO;
+        }
+    }
+    
+    public void girarCarta() {
+        switch (modoCarta) {
+            case ATAQUE_PARA_BAIXO:
+                modoCarta = ModoCarta.DEFESA_PARA_BAIXO;
+                break;
+            case ATAQUE_PARA_CIMA:
+                modoCarta = ModoCarta.DEFESA_PARA_CIMA;
+                break;
+            case DEFESA_PARA_BAIXO:
+                modoCarta = ModoCarta.ATAQUE_PARA_BAIXO;
+                break;
+            case DEFESA_PARA_CIMA:
+                modoCarta = ModoCarta.ATAQUE_PARA_CIMA;
+                break;
+            default:
+                break;
         }
     }
 
@@ -84,6 +103,14 @@ public class CartaMonstro extends Carta implements Serializable {
 
     public boolean isModoDefesa() {
         return modoCarta == ModoCarta.DEFESA_PARA_BAIXO || modoCarta == ModoCarta.DEFESA_PARA_CIMA;
+    }
+    
+    public boolean isParaCima() {
+        return modoCarta == ModoCarta.ATAQUE_PARA_CIMA || modoCarta == ModoCarta.DEFESA_PARA_CIMA;
+    }
+    
+    public boolean isParaBaixo() {
+        return modoCarta == ModoCarta.ATAQUE_PARA_BAIXO || modoCarta == ModoCarta.DEFESA_PARA_BAIXO;
     }
 
     public TipoMonstro getTipoMonstro() {

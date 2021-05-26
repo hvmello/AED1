@@ -6,11 +6,19 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
+        
         <dependency>
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
             <version>1.4.6</version>
         </dependency>
+        
+        <dependency>
+            <groupId>com.towel</groupId>
+            <artifactId>towel</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -4,6 +4,7 @@ import br.ufg.inf.aed1.aed1.carta.filemanager.FileManager;
 import br.ufg.inf.aed1.aed1.carta.ListaDeCartas;
 import br.ufg.inf.aed1.aed1.carta.*; 
 import br.ufg.inf.aed1.aed1.gameplay.*; 
+import br.ufg.inf.aed1.aed1.gui.jlabels.MenuJFrame;
 import br.ufg.inf.aed1.aed1.network.*; 
 import br.ufg.inf.aed1.aed1.gui.utils.*; 
 import java.io.IOException;
@@ -70,7 +71,6 @@ public class AED1 {
         /*FIM*/
         
         MenuJFrame.main(args);
-        
         
         int input=0;
         do{

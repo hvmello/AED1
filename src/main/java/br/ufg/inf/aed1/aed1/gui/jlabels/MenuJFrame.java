@@ -5,14 +5,10 @@
  */
 package br.ufg.inf.aed1.aed1.gui.jlabels;
 
-import ATPGC.ATPGC;
-import CartaPackage.*;
-import CartaPackage.CartaMonstro.*;
-import CartaPackage.Deck;
-import CartaPackage.DeckJogavel;
-import CartaPackage.FileManager;
-import CartaPackage.ListaDeCartas;
-import GameplayPackage.Game;
+import br.ufg.inf.aed1.aed1.projeto.AED1;
+import br.ufg.inf.aed1.aed1.carta.*;
+import br.ufg.inf.aed1.aed1.carta.filemanager.FileManager;
+import br.ufg.inf.aed1.aed1.gameplay.Game;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -379,8 +375,8 @@ public class MenuJFrame extends javax.swing.JFrame {
             }
         });
 
-        Carta[] listaTodasCartasCriaDeck = new Carta[ATPGC.todasAsCartas.length];
-        System.arraycopy( ATPGC.todasAsCartas.getCartasArray(), 0, listaTodasCartasCriaDeck, 0, listaTodasCartasCriaDeck.length );
+        Carta[] listaTodasCartasCriaDeck = new Carta[AED1.todasAsCartas.length];
+        System.arraycopy( AED1.todasAsCartas.getCartasArray(), 0, listaTodasCartasCriaDeck, 0, listaTodasCartasCriaDeck.length );
         ListaCartasJList.setModel( new javax.swing.DefaultListModel<Carta>() );
         ListaCartasJList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -796,8 +792,8 @@ public class MenuJFrame extends javax.swing.JFrame {
             }
         });
 
-        Deck todosDecksArray[] = new Deck[ ATPGC.todosOsDecks.size()];
-        todosDecksArray = ATPGC.todosOsDecks.toArray(todosDecksArray);
+        Deck todosDecksArray[] = new Deck[ AED1.todosOsDecks.size()];
+        todosDecksArray = AED1.todosOsDecks.toArray(todosDecksArray);
         ListaDecks1JComboBox.setModel(new javax.swing.DefaultComboBoxModel<>( todosDecksArray ));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -806,8 +802,8 @@ public class MenuJFrame extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel19.setText("Escolham seu Deck");
 
-        //Deck todosDecksArray[] = new Deck[ ATPGC.todosOsDecks.size()];
-        //todosDecksArray = ATPGC.todosOsDecks.toArray(todosDecksArray);
+        //Deck todosDecksArray[] = new Deck[ AED1.todosOsDecks.size()];
+        //todosDecksArray = ATAED1.todosOsDecks.toArray(todosDecksArray);
         ListaDecks2JComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(todosDecksArray));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -937,7 +933,7 @@ public class MenuJFrame extends javax.swing.JFrame {
 
     private void PartidaOnlineHostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PartidaOnlineHostBtnActionPerformed
         try {
-            ATPGC.jogaOnlineHost();
+            AED1.jogaOnlineHost();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1008,13 +1004,13 @@ public class MenuJFrame extends javax.swing.JFrame {
 
     private void AdicionarCriaDeckBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarCriaDeckBtnActionPerformed
         Carta cartaSelecionada = ListaCartasJList.getSelectedValue();
-        if(ListaCartas2JList.getModel() instanceof DefaultListModel && qntCartasAdicionadas < Deck.deckSize ){
+        if(ListaCartas2JList.getModel() instanceof DefaultListModel && qntCartasAdicionadas < Deck.DECK_SIZE ){
             DefaultListModel modelo = (DefaultListModel)ListaCartas2JList.getModel();
             modelo.addElement(cartaSelecionada);
             qntCartasAdicionadas++;
             QntCartasAdicionadasCriaDeckJLabel.setText(qntCartasAdicionadas+"");
         }
-        if(qntCartasAdicionadas == Deck.deckSize){
+        if(qntCartasAdicionadas == Deck.DECK_SIZE){
             CriarDeckCriaDeckBtn.setEnabled(true);
         }
 
@@ -1042,14 +1038,14 @@ public class MenuJFrame extends javax.swing.JFrame {
         CriarDeckCriaDeckBtn.setEnabled(false);
         String nome = NomeDeckTxtFiled.getText();
         Deck deck = new Deck(nome);
-        for(int i=0;i< Deck.deckSize;i++){
+        for(int i=0;i< Deck.DECK_SIZE;i++){
             Carta carta;
             carta = ListaCartas2JList.getModel().getElementAt(i);
             deck.addCarta(carta);
         }
         
         FileManager.writeDeck(deck);
-        ATPGC.todosOsDecks.add(deck);
+        AED1.todosOsDecks.add(deck);
         ((DefaultComboBoxModel)ListaDecks1JComboBox.getModel()).addElement(deck);
         ((DefaultComboBoxModel)ListaDecks2JComboBox.getModel()).addElement(deck);
         JOptionPane.showMessageDialog(null, "Deck "+nome+" Criado com sucesso!", "",JOptionPane.INFORMATION_MESSAGE);
@@ -1133,10 +1129,10 @@ public class MenuJFrame extends javax.swing.JFrame {
         if(tipoCartaTxt.equals("Carta Magica")){
 
             int id = Integer.parseInt(idCartaTxtField.getText());
-            CartaMagica.TipoEfeito tipoMagia = ((CartaMagica.TipoEfeito)TipoMagiaJComboBox.getSelectedItem());
+            CartaMagica.TipoEfeitoMagico tipoMagia = ((CartaMagica.TipoEfeitoMagico)TipoMagiaJComboBox.getSelectedItem());
             CartaMagica novaCarta = null;
             
-            if(tipoMagia == CartaMagica.TipoEfeito.Campo){
+            if(tipoMagia == CartaMagica.TipoEfeitoMagico.CAMPO){
                 novaCarta = new CartaMagica(nomeCartaTxtField.getText(),SetCartaTxtField.getText(), id, (Game.TipoCampo)TipoCampoJComboBox.getSelectedItem(), imgPathTxtField.getText(), DescricaoJTextArea.getText());
             }
             if(tipoMagia == CartaMagica.TipoEfeito.Trap){
@@ -1170,10 +1166,10 @@ public class MenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_VoltarJogoLocalBtnActionPerformed
 
     private void IniciarJogoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarJogoBtnActionPerformed
-        DeckJogavel deckP1 = new DeckJogavel(ATPGC.todosOsDecks.get(0));
+        DeckJogavel deckP1 = new DeckJogavel(AED1.todosOsDecks.get(0));
         DeckJogavel deckP2 =  new DeckJogavel ((Deck)ListaDecks2JComboBox.getSelectedItem());
         
-        ATPGC.game.inicializa(deckP1, deckP2);
+        AED1.game.inicializa(deckP1, deckP2);
         /*
         System.out.println(deckP1.getNome());
         System.out.println(deckP2.getNome());
@@ -1181,7 +1177,7 @@ public class MenuJFrame extends javax.swing.JFrame {
             System.out.println(carta);
         }*/
         
-        InGameInterface interfaceJogo = new InGameInterface(ATPGC.game);
+        InGameInterface interfaceJogo = new InGameInterface(AED1.game);
         interfaceJogo.start();
         
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CartaMagica extends Carta implements Serializable{
+public class CartaMagica extends Carta implements Serializable {
 
     public static enum TipoEfeitoMagico {
         CAMPO(0), TRAP(1);
@@ -28,8 +28,9 @@ public class CartaMagica extends Carta implements Serializable{
     private TipoEfeitoMagico tipoEfeitoMagico;
     private Game.TipoCampo tipoCampo;
     private Game.TipoTrap tipoTrap;
-    
+
     public interface EfeitoInterface {
+
         void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex);
     }
 
@@ -67,20 +68,20 @@ public class CartaMagica extends Carta implements Serializable{
 
     }
 
-    private void configurarEfeitos(){
-        
+    private void configurarEfeitos() {
+
         // Aplica os efeitos de campo
         mapEfeitos.put(TipoEfeitoMagico.CAMPO, (EfeitoInterface) (Game game, Player targetPlayer, int targetCartaIndex) -> {
             Game.TipoCampo campoAntigo = game.campo;
             CartaMonstro cartaMonstro;
             game.campo = tipoCampo;
-            
+
             // Percorre todas cartas monstro
-            for(Carta carta: game.todasCartas){
-                
+            for (Carta carta : game.todasCartas) {
+
                 if (carta instanceof CartaMonstro) {
                     cartaMonstro = (CartaMonstro) carta;
-                    
+
                     // Remove o efeito de campo antigo
                     switch (campoAntigo) {
                         case FLOREST:
@@ -98,7 +99,7 @@ public class CartaMagica extends Carta implements Serializable{
                         default:
                             break;
                     }
-                                       
+
                     // Aplica o efeito do campo da carta
                     switch (tipoCampo) {
                         case FLOREST:
@@ -117,24 +118,34 @@ public class CartaMagica extends Carta implements Serializable{
                             break;
                     }
                 }
-                
-            } 
+
+            }
         });
-        
+
         // Aplica os efeitos de trap
-        mapEfeitos.put(TipoEfeitoMagico.TRAP, new EfeitoInterface(){ 
+        mapEfeitos.put(TipoEfeitoMagico.TRAP, new EfeitoInterface() {
             @Override
             public void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex) {
-                if(tipoTrap == Game.TipoTrap.MISS){
+                if (tipoTrap == Game.TipoTrap.MISS) {
                     // Nao faz nada
                 }
-                if(tipoTrap == Game.TipoTrap.COUNTER){
+                if (tipoTrap == Game.TipoTrap.COUNTER) {
                     // Destroi a carta que esta atacando
                     targetPlayer.mesa.removeMonstro(targetCartaIndex);
                 }
             }
         });
-    }    
+    }
+
+    public String getSubEfeitoStr() {
+        if (tipoEfeitoMagico == TipoEfeitoMagico.CAMPO) {
+            return tipoCampo.name();
+        }
+        if (tipoEfeitoMagico == TipoEfeitoMagico.TRAP) {
+            return tipoTrap.name();
+        }
+        return null;
+    }
 
     public void editarEfeitoFlorest(CartaMonstro cartaMonstro, int peso) {
         CartaMonstro.TipoAtributo tipoAtributo = cartaMonstro.getTipoAtributo();
@@ -188,13 +199,24 @@ public class CartaMagica extends Carta implements Serializable{
         return tipoEfeitoMagico;
     }
 
+    public void ativarEfeito(Game game, Player targetPlayer, int targetCartaIndex) {
+        mapEfeitos.get(tipoEfeitoMagico).aplicarEfeito(game, targetPlayer, targetCartaIndex);
+        System.out.print("Carta magica " + tipoEfeitoMagico + " ");
+        if (tipoEfeitoMagico == TipoEfeitoMagico.TRAP) {
+            System.out.println(tipoTrap + " Ativada!");
+        }
+        if (tipoEfeitoMagico == TipoEfeitoMagico.CAMPO) {
+            System.out.println(tipoCampo + " Ativada!");
+        }
+    }
+
     public void aplicarEfeito(Game game, Player targetPlayer, int targetCartaIndex) {
-                if(tipoTrap == Game.TipoTrap.MISS){
-                    // Nao faz nada
-                }
-                if(tipoTrap == Game.TipoTrap.COUNTER){
-                    // Destroi a carta que esta atacando
-                    targetPlayer.mesa.removeMonstro(targetCartaIndex);
-                }
-            }
+        if (tipoTrap == Game.TipoTrap.MISS) {
+            // Nao faz nada
+        }
+        if (tipoTrap == Game.TipoTrap.COUNTER) {
+            // Destroi a carta que esta atacando
+            targetPlayer.mesa.removeMonstro(targetCartaIndex);
+        }
+    }
 }
