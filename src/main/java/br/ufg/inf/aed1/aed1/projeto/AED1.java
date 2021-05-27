@@ -19,6 +19,7 @@ import javax.swing.UIManager;
 public class AED1 {
 
     public static final int MAX_CARTAS = 100;
+
     public static ListaDeCartas todasAsCartas = new ListaDeCartas(MAX_CARTAS);
     public static ArrayList<CartaMagica> todasAsCartasMagicas = new ArrayList<CartaMagica>(MAX_CARTAS);
     public static ArrayList<CartaMonstro> todasAsCartasMonstros = new ArrayList<CartaMonstro>(MAX_CARTAS);
@@ -26,7 +27,22 @@ public class AED1 {
     public static Game game = new Game();
     private static final GameOnline gameOnline = new GameOnline();
 
+    /*public ListaDeCartas todasAsCartas = new ListaDeCartas(MAX_CARTAS);
+    public ArrayList<CartaMagica> todasAsCartasMagicas = new ArrayList<CartaMagica>(MAX_CARTAS);
+    public ArrayList<CartaMonstro> todasAsCartasMonstros = new ArrayList<CartaMonstro>(MAX_CARTAS);
+    public List<Deck> todosOsDecks = new ArrayList<>();
+    public Game game = new Game();/*/
+    
+    /*public static void clearCLI() {
+        try {
+            Runtime.getRuntime().exec("clear");
+        } catch (IOException ex) {
+            Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
+
     public static void main(String[] args) throws Exception {
+
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
 
         /**
@@ -70,8 +86,7 @@ public class AED1 {
         }
         /*FIM*/
 
-        MenuJFrame.main(args);
-
+        //MenuJFrame.main(args);
         int input = 0;
         do {
             int subInput;
@@ -80,7 +95,7 @@ public class AED1 {
             System.out.println("3. Editar Baralhos");
             System.out.println("4. Opcões");
             System.out.println("0. Sair");
-            //input = scanner.nextInt();
+            input = scanner.nextInt();
 
             switch (input) {
                 case 1:
@@ -109,6 +124,7 @@ public class AED1 {
 
                     /*aqui deve limpar a tela para abrir novo submenu*/
                     do {
+                        System.out.close();
                         System.out.println("1. Editar um baralho existente");
                         System.out.println("2. Criar novo baralho");
                         System.out.println("3. Criar nova carta Monstro");
@@ -131,6 +147,7 @@ public class AED1 {
                             break;
                             case 4:
                                 try {
+                                System.out.println("Opção de criar nova carta mágica: \n");
                                 criaCartaMagica();
                             } catch (Exception ex) {
                                 System.err.println(ex);
@@ -145,7 +162,7 @@ public class AED1 {
             }
 
         } while (input != 0);
-
+       
         System.out.println("Salvando todas as cartas");
         FileManager.writeAllCartas(todasAsCartas);
 
@@ -154,6 +171,8 @@ public class AED1 {
 
         System.out.println("num de cartas: " + todasAsCartas.length);
         System.out.println("num de decks: " + todosOsDecks.size());
+
+        System.out.println("Programa encerrado!");
 
         /**
          * **********fim************
@@ -205,7 +224,6 @@ public class AED1 {
                 System.out.println(cartaMag.getDescricao());
             }
             
-
             String temp = serverTest.readMessage();
             System.out.println(temp.getBytes().length);
             
@@ -248,7 +266,6 @@ public class AED1 {
             
             clientTest.close();
         }
-
          */
     }
 
@@ -322,7 +339,8 @@ public class AED1 {
             try {
                 partidaHost.close();
             } catch (IOException ex) {
-                Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AED1.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             return null;
         } catch (IOException ex) {
@@ -344,7 +362,8 @@ public class AED1 {
         try {
             partidaHost.close();
         } catch (IOException ex) {
-            Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AED1.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return playerVencedor;
@@ -432,18 +451,19 @@ public class AED1 {
     }
 
     public static void criaCartaMagica() throws Exception {
+        //System.out.println("Chegou no método criarCartaMagica()");
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         String nome, tipoMagicaStr, tipoSubMagicaStr, set, path, descricao;
 
         int id;
 
-        System.out.print("Nome: ");
+        System.out.println("Nome: ");
         nome = scanner.nextLine();
-        System.out.print("Set: ");
+        System.out.println("Set: ");
         set = scanner.next();
 
         do {
-            System.out.print("Id:  ");
+            System.out.println("Id:  ");
             id = scanner.nextInt();
             ListaDeCartas cartasDoSet = todasAsCartas.getSetCartas(set);
             if (cartasDoSet.length > 0 && cartasDoSet.getCartaById(id) != null) {
@@ -453,28 +473,32 @@ public class AED1 {
             }
         } while (true);
 
-        System.out.print("Tipo de carta magica: ");
+        System.out.println("Tipo de carta magica: ");
         scanner.nextLine();//limpando o buffer
         tipoMagicaStr = scanner.nextLine();
-        if (tipoMagicaStr.equals("Campo")) {
-            System.out.print("Tipo do Campo: ");
+        if (tipoMagicaStr.equalsIgnoreCase("campo")) {
+            System.out.println("Tipo do Campo: ");
         }
-        if (tipoMagicaStr.equals("Trap")) {
-            System.out.print("Tipo da Trap: ");
+        if (tipoMagicaStr.equalsIgnoreCase("trap")) {
+            System.out.println("Tipo da Trap: ");
         }
         tipoSubMagicaStr = scanner.nextLine();
 
         System.out.println("Decricao: ");
         descricao = scanner.nextLine();
-        System.out.print("Url da Imagem: ");
+        System.out.println("Url da Imagem: ");
         path = scanner.nextLine();
 
-        if (tipoMagicaStr.equals(CartaMagica.TipoEfeitoMagico.CAMPO.name())) {
-            todasAsCartas.addCarta(new CartaMagica(Game.TipoCampo.valueOf(tipoSubMagicaStr), id, set, nome, path, ""));
+        CartaMagica newCartaMagica = null;
+
+        if (tipoMagicaStr.equalsIgnoreCase(CartaMagica.TipoEfeitoMagico.CAMPO.name())) {
+            newCartaMagica = new CartaMagica(Game.TipoCampo.valueOf(tipoSubMagicaStr.toUpperCase()), id, set, nome, path, "");
+        } else {
+            newCartaMagica = new CartaMagica(Game.TipoTrap.valueOf(tipoSubMagicaStr.toUpperCase()), id, set, nome, path, "");
         }
-        if (tipoMagicaStr.equals(CartaMagica.TipoEfeitoMagico.TRAP.name())) {
-            todasAsCartas.addCarta(new CartaMagica(Game.TipoTrap.valueOf(tipoSubMagicaStr), id, set, nome, path, ""));
-        }
+
+        //todasAsCartas.addCarta(newCartaMagica);
+        FileManager.writeCarta(newCartaMagica);
     }
 
     //User story criar deck - 2º sprint
@@ -484,7 +508,7 @@ public class AED1 {
         Deck deck;
         int idCarta, tipoCarta;
 
-        System.out.print("Nome: ");
+        System.out.println("Nome: ");
         nome = scanner.nextLine();
         for (Deck deckIt : todosOsDecks) {
             if (deckIt.getNome().equals(nome)) {
@@ -500,7 +524,7 @@ public class AED1 {
             CartaMonstro cartaMon;
 
             //if(scanner.nextInt() == 0){
-            System.out.printf(" SET- ID   ATK  DEF  - Nome\n");
+            System.out.println(" SET- ID   ATK  DEF  - Nome");
             //System.out.println(" SET-ID    Tipo - Efeito ");
             for (int j = 0; j < todasAsCartas.length; j++) {
                 carta = todasAsCartas.getCartaAtIndex(j);
@@ -553,6 +577,46 @@ public class AED1 {
             
         }while(index != -1);
          */
+    }
+
+    public ListaDeCartas getTodasAsCartas() {
+        return todasAsCartas;
+    }
+
+    public void setTodasAsCartas(ListaDeCartas todasAsCartas) {
+        this.todasAsCartas = todasAsCartas;
+    }
+
+    public ArrayList<CartaMagica> getTodasAsCartasMagicas() {
+        return todasAsCartasMagicas;
+    }
+
+    public void setTodasAsCartasMagicas(ArrayList<CartaMagica> todasAsCartasMagicas) {
+        this.todasAsCartasMagicas = todasAsCartasMagicas;
+    }
+
+    public ArrayList<CartaMonstro> getTodasAsCartasMonstros() {
+        return todasAsCartasMonstros;
+    }
+
+    public void setTodasAsCartasMonstros(ArrayList<CartaMonstro> todasAsCartasMonstros) {
+        this.todasAsCartasMonstros = todasAsCartasMonstros;
+    }
+
+    public List<Deck> getTodosOsDecks() {
+        return todosOsDecks;
+    }
+
+    public void setTodosOsDecks(List<Deck> todosOsDecks) {
+        this.todosOsDecks = todosOsDecks;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
 }

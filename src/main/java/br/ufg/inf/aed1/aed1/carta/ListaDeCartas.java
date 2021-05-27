@@ -28,6 +28,8 @@ public /*abstract*/ class ListaDeCartas implements Cloneable, Serializable {
      */
     public void addCarta(Carta newCarta) {
         
+        System.out.println("Chegou no método de adicionar carta");
+        
         // Caso `cartas[]` esteja vazia
         if (length == 0) {
             cartas[0] = newCarta;

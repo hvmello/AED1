@@ -48,8 +48,11 @@ public class InGameInterface extends JFrame {
 
         Dimension dimensaoTela = new Dimension(1757, 1030);
         System.out.println(System.getProperty("user.dir"));
-        File backGroundImage1 = new File("./src/Interface/Pics/Mesa_1030x1757.png");
-        File backGroundImage2 = new File("./src/Interface/Pics/MesaInvertida_1030x1757.png");
+        //File backGroundImage1 = new File("./src/Interface/Pics/Mesa_1030x1757.png");
+        //File backGroundImage2 = new File("./src/Interface/Pics/MesaInvertida_1030x1757.png");
+        
+        File backGroundImage1 = new File(getClass().getResource("/pics/Mesa_1030x1757.png").getPath());
+        File backGroundImage2 = new File(getClass().getResource("/pics/MesaInvertida_1030x1757.png").getPath());
 
         try {
             panelAtual = new JImagePanel(backGroundImage1);

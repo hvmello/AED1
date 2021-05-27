@@ -12,11 +12,16 @@ A aplicação se trata da simulação de um jogo de cartas baseado em Yugioh. Em
 | Java Runtime Environment  | OpenJDK 11.0.10  |
 | Compilador  | Java Compiler 11.0.10 |
 | Integrated Development Environment  | Apache NetBeans 12.3 |
+| Gerenciador de dependências | Maven 3.8.1 |
+| Ferramenta de mapping recursivo | 1.4.6 |
+| Utilitário de GUI | Towel 1.2.2 |
 
-# Guia de instalação
+# Guia de uso
 Inicialmente, digite o comando `git clone https://github.com/hvmello/AED1` no terminal.
 Após este passo, será gerado um diretório chamado AED1 contendo os arquivos e diretórios do repositório. Este diretório é feito com maven, então para tal é necessário instalar o maven antes de abrir a IDE, como no caso utilizamos o Ubuntu 20.04.2LTS é recomendável seguir o passo a passo do link abaixo:
 
 https://linuxize.com/post/how-to-install-apache-maven-on-ubuntu-20-04/
 
-pela IDE Apache NetBeans e pode ser aberto ao clicar em `Open Project...`.
+Após este passo, baixe a dependência **towel** em https://github.com/downloads/MarkyVasconcelos/Towel/towel-v1.2.2.jar e mova ela para o diretório `AED1/lib/`.
+
+Em seguida, pela IDE Apache NetBeans clique em `Open Project...` para abrir o projeto.

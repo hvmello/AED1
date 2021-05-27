@@ -71,6 +71,8 @@ class myDeckCellRenderer extends DefaultListCellRenderer {
 }
 
 public class MenuJFrame extends javax.swing.JFrame {
+    
+    AED1 aed1 = new AED1();
 
     /**
      * Creates new form MenuJFrame
@@ -379,10 +381,10 @@ public class MenuJFrame extends javax.swing.JFrame {
             }
         });
 
-        Carta[] listaTodasCartasCriaDeck = new Carta[AED1.todasAsCartas.length];
+        Carta[] listaTodasCartasCriaDeck = new Carta[aed1.getTodasAsCartas().length];
 
-        if (AED1.todasAsCartas.length > 0) {
-            System.arraycopy(AED1.todasAsCartas.getCartasArray(), 0, listaTodasCartasCriaDeck, 0, listaTodasCartasCriaDeck.length);
+        if (aed1.getTodasAsCartas().length > 0) {
+            System.arraycopy(aed1.getTodasAsCartas().getCartasArray(), 0, listaTodasCartasCriaDeck, 0, listaTodasCartasCriaDeck.length);
         }
 
 
@@ -804,8 +806,8 @@ public class MenuJFrame extends javax.swing.JFrame {
             }
         });
 
-        Deck todosDecksArray[] = new Deck[ AED1.todosOsDecks.size()];
-        todosDecksArray = AED1.todosOsDecks.toArray(todosDecksArray);
+        Deck todosDecksArray[] = new Deck[ aed1.getTodosOsDecks().size()];
+        todosDecksArray = aed1.getTodosOsDecks().toArray(todosDecksArray);
         ListaDecks1JComboBox.setModel(new javax.swing.DefaultComboBoxModel<>( todosDecksArray ));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -945,7 +947,7 @@ public class MenuJFrame extends javax.swing.JFrame {
 
     private void PartidaOnlineHostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PartidaOnlineHostBtnActionPerformed
         try {
-            AED1.jogaOnlineHost();
+            aed1.jogaOnlineHost();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MenuJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1057,7 +1059,7 @@ public class MenuJFrame extends javax.swing.JFrame {
         }
 
         FileManager.writeDeck(deck);
-        AED1.todosOsDecks.add(deck);
+        aed1.todosOsDecks.add(deck);
         ((DefaultComboBoxModel) ListaDecks1JComboBox.getModel()).addElement(deck);
         ((DefaultComboBoxModel) ListaDecks2JComboBox.getModel()).addElement(deck);
         JOptionPane.showMessageDialog(null, "Deck " + nome + " Criado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
@@ -1138,7 +1140,7 @@ public class MenuJFrame extends javax.swing.JFrame {
             ImagemCartajLabel1.setIcon(icone);
 
             ((DefaultListModel) ListaCartasJList.getModel()).addElement(novaCarta);
-            AED1.todasAsCartas.addCarta(novaCarta);
+            aed1.getTodasAsCartas().addCarta(novaCarta);
             FileManager.writeCarta(novaCarta);
             JOptionPane.showMessageDialog(null, "Carta " + nomeCartaTxtField.getText() + " Criada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1164,7 +1166,8 @@ public class MenuJFrame extends javax.swing.JFrame {
             
             System.out.println("Nome da carta criada: " + novaCarta.getNome());
             
-            AED1.todasAsCartas.addCarta(novaCarta);
+            //AED1.todasAsCartas.addCarta(novaCarta);
+            aed1.getTodasAsCartas().addCarta(novaCarta);
             FileManager.writeCarta(novaCarta);
             
             JOptionPane.showMessageDialog(null, "Carta " + nomeCartaTxtField.getText() + " Criada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
@@ -1185,10 +1188,10 @@ public class MenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_VoltarJogoLocalBtnActionPerformed
 
     private void IniciarJogoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarJogoBtnActionPerformed
-        DeckJogavel deckP1 = new DeckJogavel(AED1.todosOsDecks.get(0));
+        DeckJogavel deckP1 = new DeckJogavel(aed1.todosOsDecks.get(0));
         DeckJogavel deckP2 = new DeckJogavel((Deck) ListaDecks2JComboBox.getSelectedItem());
 
-        AED1.game.inicializa(deckP1, deckP2);
+        aed1.game.inicializa(deckP1, deckP2);
         /*
         System.out.println(deckP1.getNome());
         System.out.println(deckP2.getNome());
@@ -1196,7 +1199,7 @@ public class MenuJFrame extends javax.swing.JFrame {
             System.out.println(carta);
         }*/
 
-        InGameInterface interfaceJogo = new InGameInterface(AED1.game);
+        InGameInterface interfaceJogo = new InGameInterface(aed1.game);
         interfaceJogo.start();
 
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
