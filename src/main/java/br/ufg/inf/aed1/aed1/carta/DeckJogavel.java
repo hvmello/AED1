@@ -2,7 +2,6 @@ package br.ufg.inf.aed1.aed1.carta;
 
 import br.ufg.inf.aed1.aed1.carta.filemanager.FileManager;
 import java.io.InvalidClassException;
-import java.io.Serializable;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;

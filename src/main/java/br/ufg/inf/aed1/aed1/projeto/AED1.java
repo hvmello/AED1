@@ -9,15 +9,12 @@ import br.ufg.inf.aed1.aed1.network.*;
 import br.ufg.inf.aed1.aed1.gui.utils.*; 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-
-
-
-
 
 public class AED1 {
     
@@ -25,7 +22,7 @@ public class AED1 {
     public static  ListaDeCartas todasAsCartas = new ListaDeCartas(MAX_CARTAS);
     public static  ArrayList<CartaMagica> todasAsCartasMagicas = new ArrayList<CartaMagica>(MAX_CARTAS);
     public static  ArrayList<CartaMonstro> todasAsCartasMonstros = new ArrayList<CartaMonstro>(MAX_CARTAS);
-    public static  ArrayList<Deck> todosOsDecks = new ArrayList<Deck>();
+    public static  List<Deck> todosOsDecks = new ArrayList<>();
     public static Game game = new Game();
     private static final GameOnline gameOnline = new GameOnline();
     
@@ -40,11 +37,11 @@ public class AED1 {
         System.out.println("Carregando todas as cartas");
         todasAsCartas = FileManager.readAllCartas();
         
-        if (todasAsCartas.length == 0) {
+        /*if (todasAsCartas.length == 0) {
             JOptionPane.showMessageDialog(null, "Nenhuma carta salva.", "ERRO!", JOptionPane.ERROR_MESSAGE);
             
             return;
-        }
+        }*/
         
         for(int i=0;i<todasAsCartas.length;i++){        //imprime todas as cartas carregadas
             Carta carta = todasAsCartas.getCartaAtIndex(i);

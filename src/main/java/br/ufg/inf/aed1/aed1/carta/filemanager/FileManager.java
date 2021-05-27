@@ -6,21 +6,24 @@ import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
 import br.ufg.inf.aed1.aed1.carta.Deck;
 import br.ufg.inf.aed1.aed1.carta.ListaDeCartas;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileManager {
 
-    private static final String DECKS_PATH = "./Files/Decks";
-    private static final String CARTAS_PATH = "./Files/Cartas";
+    private static final String DECKS_PATH = "./files/decks";
+    private static final String CARTAS_PATH = "./files/cartas";
 
     private static FileInputStream fileInStream;
     private static ObjectInputStream objInStream;
@@ -68,6 +71,7 @@ public class FileManager {
 
             fileInStream.close();
             objInStream.close();
+            
             return cartaLida;
 
         } catch (FileNotFoundException ex) {
@@ -83,18 +87,31 @@ public class FileManager {
 
     public static ListaDeCartas readAllCartas() throws InvalidClassException {
 
-        String cartaFiles[] = new File(CARTAS_PATH).list();
+        /*
+         * Salva em `cartaFiles[]` os nomes dos arquivos correspondentes aos 
+         * objetos de Carta serializados e que, portanto, terminam com ".ser".
+         */
+        String cartaFiles[] = new File(CARTAS_PATH).list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String fileName) {
+                return fileName.endsWith(".ser");
+            }
+        });
+
         ListaDeCartas todasCartas = new ListaDeCartas(); //TODO SETAR O MAXIMO DE CARTAS QUANDO O O PACOTE DE PROJETO ESTIVER PRONTO
         Carta cartaLida;
 
         if (cartaFiles == null) {
             return todasCartas;
         }
-        
+
+        System.out.println("Numero de cartas: " + cartaFiles.length);
+
         try {
             for (String file : cartaFiles) {
                 fileInStream = new FileInputStream(CARTAS_PATH + "/" + file);
                 objInStream = new ObjectInputStream(fileInStream);
+                
                 cartaLida = (Carta) objInStream.readObject();
                 todasCartas.addCarta(cartaLida);
 
@@ -129,7 +146,7 @@ public class FileManager {
         }
     }
 
-    public static void writeAllDecks(ArrayList<Deck> decks) {
+    public static void writeAllDecks(List<Deck> decks) {
 
         decks.forEach((deck) -> {
             writeDeck(deck);
@@ -166,10 +183,21 @@ public class FileManager {
         return null;
     }
 
-    public static ArrayList<Deck> readAllDecks(ListaDeCartas todasAsCartas) throws InvalidClassException {
+    public static List<Deck> readAllDecks(ListaDeCartas todasAsCartas) throws InvalidClassException {
 
-        String deckFiles[] = new File(DECKS_PATH).list();
-        ArrayList<Deck> decksLidos = new ArrayList<Deck>(deckFiles.length);
+        /*
+         * Salva em `deckFiles[]` os nomes dos arquivos correspondentes aos 
+         * objetos de Deck serializados e que, portanto, terminam com ".ser".
+         */
+        String deckFiles[] = new File(DECKS_PATH).list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String fileName) {
+                return fileName.endsWith(".ser");
+            }
+
+        });
+
+        List<Deck> decksLidos = new ArrayList<>(deckFiles.length);
         try {
             for (String file : deckFiles) {
                 fileInStream = new FileInputStream(DECKS_PATH + "/" + file);

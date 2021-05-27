@@ -11,7 +11,7 @@ import br.ufg.inf.aed1.aed1.gui.mouse.*;
 import br.ufg.inf.aed1.aed1.gui.utils.ImageEditor;
 
 import com.towel.swing.img.JImagePanel;
-import gui.utils.AdvancedBevelBorder;
+import br.ufg.inf.aed1.aed1.gui.utils.AdvancedBevelBorder;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.utils;
+package br.ufg.inf.aed1.aed1.gui.utils;
 
 import java.awt.Color;
 import java.awt.Component;

@@ -366,7 +366,10 @@ public class MenuJFrame extends javax.swing.JFrame {
         NovoDeckJPanel.setName("NovoDeckJPanel"); // NOI18N
         NovoDeckJPanel.setPreferredSize(new java.awt.Dimension(537, 474));
 
-        ImagemCartajLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Pics/cartaParaBaixo.png"))); // NOI18N
+        //ImagemCartajLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Pics/cartaParaBaixo.png"))); // NOI18N
+        //ImagemCartajLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("../pics/cartaParaBaixo.png"))); // NOI18N
+        ImagemCartajLabel.setIcon(createImageIcon("/pics/cartaParaBaixo.png", "Imagem do icone")); // NOI18N
+        
 
         Voltar_NovoDeckBtn.setText("Cancelar");
         Voltar_NovoDeckBtn.setName("Voltar_NovoDeckBtn"); // NOI18N
@@ -607,8 +610,9 @@ public class MenuJFrame extends javax.swing.JFrame {
 
         TipoTrapJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>( Game.TipoTrap.values() ));
 
-        ImagemCartajLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Pics/cartaParaBaixo.png"))); // NOI18N
-
+        //ImagemCartajLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Pics/cartaParaBaixo.png"))); // NOI18N
+		ImagemCartajLabel1.setIcon(createImageIcon("/pics/cartaParaBaixo.png", "Imagem do icone")); // NOI18N
+		
         CriarCartaBtn.setText("Criar");
         CriarCartaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -629,7 +633,9 @@ public class MenuJFrame extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("Img");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Pics/PastaIconMini.png"))); // NOI18N
+        //jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/Pics/PastaIconMini.png"))); // NOI18N
+        jButton1.setIcon(createImageIcon("/pics/PastaIconMini.png", "Imagem do icone")); // NOI18N
+        
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -1121,7 +1127,7 @@ public class MenuJFrame extends javax.swing.JFrame {
             String atributo = ((CartaMonstro.TipoAtributo) tipoAtributoJComboBox.getSelectedItem()).name();
 
             CartaMonstro novaCarta = new CartaMonstro(nomeCartaTxtField.getText(), atk, def, tipoMonstro, atributo, SetCartaTxtField.getText(), id, imgPathTxtField.getText(), DescricaoJTextArea.getText());
-           
+
             ImageIcon icone = new ImageIcon(novaCarta.getImageSrc());
             icone.setImage(icone.getImage().getScaledInstance(ImagemCartajLabel1.getWidth(), ImagemCartajLabel1.getHeight(), Image.SCALE_SMOOTH));
             ImagemCartajLabel1.setIcon(icone);
@@ -1288,9 +1294,20 @@ public class MenuJFrame extends javax.swing.JFrame {
     }
 
     String tipoCartaTxt = "Carta Monstro";
-    ImageIcon icone = new ImageIcon(getClass().getResource("/Interface/Pics/cartaParaBaixo.png"));
+    ImageIcon icone = createImageIcon("/pics/cartaParaBaixo.png", "Imagem do icone");
     int qntCartasAdicionadas;
-
+    
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    private ImageIcon createImageIcon(String path, String description) {
+        java.net.URL imgUrl = getClass().getResource(path);
+        
+        if (imgUrl != null) {
+            return new ImageIcon(imgUrl, description);
+        } else {
+            return null;
+        }
+    }
+    
     private JFileChooser seletorDeArquivo = new JFileChooser();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ATKTxtField;

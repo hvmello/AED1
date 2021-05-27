@@ -1,9 +1,7 @@
 package br.ufg.inf.aed1.aed1.carta;
 
-import java.io.Serializable;
-
 // Deck usado para visualizar e editar, não é jogável.
-public class Deck extends ListaDeCartas implements Serializable {
+public class Deck extends ListaDeCartas {
 
     public static final short DECK_SIZE = 40;  // Tamanho definitivo de um deck ( máximo geral, e mínimo para jogar -> podem existir decks incompletos em criação ainda, mas que não podem ser usados em jogo" )
     private String nome;

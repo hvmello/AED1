@@ -6,7 +6,8 @@ import br.ufg.inf.aed1.aed1.carta.Carta;
 import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
 import br.ufg.inf.aed1.aed1.gui.jlabels.MaoJLabel;
 import br.ufg.inf.aed1.aed1.gui.jlabels.MesaJLabel;
-import gui.utils.AdvancedBevelBorder;
+import br.ufg.inf.aed1.aed1.gui.utils.AdvancedBevelBorder;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 
