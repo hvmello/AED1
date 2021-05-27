@@ -609,7 +609,7 @@
                                                       <EmptySpace max="32767" attributes="0"/>
                                                       <Component id="DEFTxtField" min="-2" pref="50" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="tiposAtributoJComboBox" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="tipoAtributoJComboBox" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="tiposMonstroJComboBox" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="TipoTrapJComboBox" alignment="0" max="32767" attributes="0"/>
                                               </Group>
@@ -677,7 +677,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="tiposAtributoJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tipoAtributoJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -786,11 +786,11 @@
         <Component class="javax.swing.JComboBox" name="tiposMonstroJComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(CartaMonstro.TiposCarta.values() )" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(CartaMonstro.TipoMonstro.values() )" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CartaMonstro.TiposCarta&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CartaMonstro.TipoMonstro&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -825,14 +825,14 @@
             <Property name="text" type="java.lang.String" value="Atributo"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="tiposAtributoJComboBox">
+        <Component class="javax.swing.JComboBox" name="tipoAtributoJComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(CartaMonstro.TiposAtributo.values() )" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(CartaMonstro.TipoAtributo.values() )" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CartaMonstro.TiposAtributo&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CartaMonstro.TipoAtributo&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
@@ -890,7 +890,7 @@
         <Component class="javax.swing.JComboBox" name="TipoMagiaJComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;( CartaMagica.TipoEfeito.values() )" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;( CartaMagica.TipoEfeitoMagico.values() )" type="code"/>
             </Property>
           </Properties>
           <Events>
@@ -898,7 +898,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TipoMagiaJComboBoxActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CartaMagica.TipoEfeito&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CartaMagica.TipoEfeitoMagico&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="TipoCartaBtn">

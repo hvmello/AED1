@@ -40,6 +40,12 @@ public class AED1 {
         System.out.println("Carregando todas as cartas");
         todasAsCartas = FileManager.readAllCartas();
         
+        if (todasAsCartas.length == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma carta salva.", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            
+            return;
+        }
+        
         for(int i=0;i<todasAsCartas.length;i++){        //imprime todas as cartas carregadas
             Carta carta = todasAsCartas.getCartaAtIndex(i);
             if(carta instanceof CartaMonstro){

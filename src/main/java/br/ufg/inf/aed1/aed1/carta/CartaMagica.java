@@ -65,7 +65,38 @@ public class CartaMagica extends Carta implements Serializable {
         } catch (Exception exception) {
             Logger.getLogger(Carta.class.getName()).log(Level.SEVERE, null, exception);
         }
+    }
 
+    public CartaMagica(String nome, String set, int id, Game.TipoCampo efeito, String imgPath, String descricao) {
+        super(id, set, nome, descricao);
+        this.tipoEfeitoMagico = TipoEfeitoMagico.CAMPO;
+        this.tipoCampo = efeito;
+        this.configurarEfeitos();
+
+        try {
+            String temp;
+            temp = GetCardImage.httpGetImage(this, imgPath);
+            this.setImageSrc(temp);
+        } catch (Exception ex) {
+            Logger.getLogger(Carta.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Erro ao gerar imagem!");
+        }
+    }
+
+    public CartaMagica(String nome, String set, int id, Game.TipoTrap efeito, String imgPath, String descricao) {
+        super(id, set, nome, descricao);
+        this.tipoEfeitoMagico = TipoEfeitoMagico.TRAP;
+        this.tipoTrap = efeito;
+        this.configurarEfeitos();
+
+        try {
+            String temp;
+            temp = GetCardImage.httpGetImage(this, imgPath);
+            this.setImageSrc(temp);
+        } catch (Exception ex) {
+            Logger.getLogger(Carta.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Erro ao gerar imagem!");
+        }
     }
 
     private void configurarEfeitos() {

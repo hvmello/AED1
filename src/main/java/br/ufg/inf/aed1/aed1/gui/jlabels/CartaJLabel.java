@@ -2,7 +2,7 @@
 package br.ufg.inf.aed1.aed1.gui.jlabels;
 
 import br.ufg.inf.aed1.aed1.carta.Carta;
-import gui.utils.ImageEditor;
+import br.ufg.inf.aed1.aed1.gui.utils.ImageEditor;
 import java.awt.Point;
 import javax.swing.Icon;
 import javax.swing.JLabel;

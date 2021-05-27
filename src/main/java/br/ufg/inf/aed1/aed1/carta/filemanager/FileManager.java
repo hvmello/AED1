@@ -87,6 +87,10 @@ public class FileManager {
         ListaDeCartas todasCartas = new ListaDeCartas(); //TODO SETAR O MAXIMO DE CARTAS QUANDO O O PACOTE DE PROJETO ESTIVER PRONTO
         Carta cartaLida;
 
+        if (cartaFiles == null) {
+            return todasCartas;
+        }
+        
         try {
             for (String file : cartaFiles) {
                 fileInStream = new FileInputStream(CARTAS_PATH + "/" + file);

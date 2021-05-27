@@ -8,7 +8,7 @@ package br.ufg.inf.aed1.aed1.gui.jlabels;
 import br.ufg.inf.aed1.aed1.carta.*;
 import br.ufg.inf.aed1.aed1.gameplay.*;
 import br.ufg.inf.aed1.aed1.gui.mouse.*;
-import br.ufg.inf.aed1.aed1.gameplay.Mesa;
+import br.ufg.inf.aed1.aed1.gui.utils.ImageEditor;
 
 import com.towel.swing.img.JImagePanel;
 import gui.utils.AdvancedBevelBorder;
@@ -288,14 +288,12 @@ public class InGameInterface extends JFrame {
 
                 if (cartaMon.isModoAtaque()) {
                     cartaMon.setModoCarta(CartaMonstro.ModoCarta.ATAQUE_PARA_CIMA);
-                    label.setIcon(new RotatedIcon(
-                            getRedimensionado(cartaMon.getImageSrc(), dimensaoCarta),
+                    label.setIcon(new RotatedIcon(ImageEditor.getRedimensionado(cartaMon.getImageSrc(), dimensaoCarta),
                             0.0
                     ));
                 } else {
                     cartaMon.setModoCarta(CartaMonstro.ModoCarta.DEFESA_PARA_CIMA);
-                    label.setIcon(new RotatedIcon(
-                            getRedimensionado(cartaMon.getImageSrc(), dimensaoCarta),
+                    label.setIcon(new RotatedIcon(ImageEditor.getRedimensionado(cartaMon.getImageSrc(), dimensaoCarta),
                             -90.0
                     ));
                 }
@@ -304,14 +302,12 @@ public class InGameInterface extends JFrame {
 
                 if (cartaMon.isModoAtaque()) {
                     cartaMon.setModoCarta(CartaMonstro.ModoCarta.ATAQUE_PARA_BAIXO);
-                    label.setIcon(new RotatedIcon(
-                            getRedimensionado("./src/Interface/Pics/cartaParaBaixo.png", dimensaoCarta),
+                    label.setIcon(new RotatedIcon(ImageEditor.getRedimensionado("./src/Interface/Pics/cartaParaBaixo.png", dimensaoCarta),
                             0.0
                     ));
                 } else {
                     cartaMon.setModoCarta(CartaMonstro.ModoCarta.DEFESA_PARA_BAIXO);
-                    label.setIcon(new RotatedIcon(
-                            getRedimensionado("./src/Interface/Pics/cartaParaBaixo.png", dimensaoCarta),
+                    label.setIcon(new RotatedIcon(ImageEditor.getRedimensionado("./src/Interface/Pics/cartaParaBaixo.png", dimensaoCarta),
                             -90.0
                     ));
                 }
@@ -627,7 +623,7 @@ public class InGameInterface extends JFrame {
             int resultado = playerAtual.ataca(indexCartaSelecionada, playerInimigo, indexCartaAtual);
 
             cartasQueJaAtacaram[indexCartaSelecionada] = true;
-            playerAtual.mesaJLabel.cartasMonstros[indexCartaSelecionada].setDisabledIcon(loadGrayScaled(cartaSelecionada.getImageSrc(), dimensaoCarta.width, dimensaoCarta.height));
+            playerAtual.mesaJLabel.cartasMonstros[indexCartaSelecionada].setDisabledIcon(ImageEditor.loadGrayScaled(cartaSelecionada.getImageSrc(), dimensaoCarta.width, dimensaoCarta.height));
             playerAtual.mesaJLabel.cartasMonstros[indexCartaSelecionada].setEnabled(false);
 
             if (resultado == Player.WIN || resultado == Player.DRAW) {
@@ -685,7 +681,7 @@ public class InGameInterface extends JFrame {
         } else if (novoEstado == EstadoJogo.Mao_Mesa1) {
             vetorLabelAtual = playerAtual.mesaJLabel.cartasMonstros;
             CartaJLabel label = vetorLabelAtual[indexCartaAtual];
-            RotatedIcon iconeRotacionavel = new RotatedIcon(getRedimensionado(cartaSelecionada.getImageSrc(), dimensaoCarta), RotatedIcon.Rotate.ABOUT_CENTER);
+            RotatedIcon iconeRotacionavel = new RotatedIcon(ImageEditor.getRedimensionado(cartaSelecionada.getImageSrc(), dimensaoCarta), RotatedIcon.Rotate.ABOUT_CENTER);
 
             iconeAnterior = label.getIcon();
             label.setIcon(iconeRotacionavel);
@@ -702,7 +698,7 @@ public class InGameInterface extends JFrame {
             CartaJLabel label = vetorLabelAtual[indexCartaAtual];
 
             iconeAnterior = label.getIcon();
-            label.setIcon(getRedimensionado(cartaSelecionada.getImageSrc(), dimensaoCarta));
+            label.setIcon(ImageEditor.getRedimensionado(cartaSelecionada.getImageSrc(), dimensaoCarta));
             label.setLocation(label.getX() + 15, label.getY() - 15);
 
             inputListener.getActionMap().put(InputKeys.LEFT_KEY, leftKey_MaoMesaAction);

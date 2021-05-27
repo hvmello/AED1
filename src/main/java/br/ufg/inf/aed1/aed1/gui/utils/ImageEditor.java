@@ -1,4 +1,4 @@
-package gui.utils;
+package br.ufg.inf.aed1.aed1.gui.utils;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;

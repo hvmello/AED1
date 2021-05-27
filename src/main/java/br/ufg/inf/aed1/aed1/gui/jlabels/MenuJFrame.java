@@ -23,46 +23,49 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-class ComponentManager{
-    public static void setAllCentralized(Container cont, Class classe){
-        for(Component comp: cont.getComponents()){
-                if(classe.isInstance(comp)){
-                    try {
-                        Method metodo = classe.getMethod("setHorizontalAlignment", new Class[] { int.class });
-                        metodo.invoke(classe.cast(comp), SwingConstants.CENTER);
-                    } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                        Logger.getLogger(ComponentManager.class.getName()).log(Level.SEVERE, null, ex);
-                    } 
+class ComponentManager {
+
+    public static void setAllCentralized(Container cont, Class classe) {
+        for (Component comp : cont.getComponents()) {
+            if (classe.isInstance(comp)) {
+                try {
+                    Method metodo = classe.getMethod("setHorizontalAlignment", new Class[]{int.class});
+                    metodo.invoke(classe.cast(comp), SwingConstants.CENTER);
+                } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                    Logger.getLogger(ComponentManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if(comp instanceof Container){
-                    setAllCentralized((Container)comp, classe);
-                }
+            }
+            if (comp instanceof Container) {
+                setAllCentralized((Container) comp, classe);
+            }
         }
     }
 }
 
-class myCellRenderer extends DefaultListCellRenderer{
+class myCellRenderer extends DefaultListCellRenderer {
+
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus){
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         setComponentOrientation(list.getComponentOrientation());
-        super.getListCellRendererComponent(list,value,index,isSelected, cellHasFocus);
-        Carta object = (Carta)value;
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        Carta object = (Carta) value;
         //String text = String.format("%-8.8s  %4.4s - %3d", object.getNome(),object.getSet(), object.getId());
-        
-        setText( object.getNome());
+
+        setText(object.getNome());
         return this;
     }
 }
 
-class myDeckCellRenderer extends DefaultListCellRenderer{
+class myDeckCellRenderer extends DefaultListCellRenderer {
+
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus){
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         setComponentOrientation(list.getComponentOrientation());
-        super.getListCellRendererComponent(list,value,index,isSelected, cellHasFocus);
-        Deck object = (Deck)value;
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        Deck object = (Deck) value;
         //String text = String.format("%-8.8s  %4.4s - %3d", object.getNome(),object.getSet(), object.getId());
-        
-        setText( object.getNome());
+
+        setText(object.getNome());
         return this;
     }
 }
@@ -74,10 +77,9 @@ public class MenuJFrame extends javax.swing.JFrame {
      */
     public MenuJFrame() {
         initComponents();
-        
+
         //n ta funcionando n sei pq, mas deveria
         //ComponentManager.setAllCentralized(this, JButton.class);
-        
         NovoJogoJPanel.setVisible(false);
         EditarDeckJPanel.setVisible(false);
         NovoDeckJPanel.setVisible(false);
@@ -88,10 +90,9 @@ public class MenuJFrame extends javax.swing.JFrame {
         ListaCartas2JList.setCellRenderer(new myCellRenderer());
         ListaDecks1JComboBox.setRenderer(new myDeckCellRenderer());
         ListaDecks2JComboBox.setRenderer(new myDeckCellRenderer());
-        
+
         icone.setImage(icone.getImage().getScaledInstance(ImagemCartajLabel.getWidth(), ImagemCartajLabel.getHeight(), Image.SCALE_SMOOTH));
 
-        
         this.setLocationRelativeTo(null);
     }
 
@@ -145,7 +146,7 @@ public class MenuJFrame extends javax.swing.JFrame {
         VoltarNovaCartaBtn = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        tiposAtributoJComboBox = new javax.swing.JComboBox<>();
+        tipoAtributoJComboBox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         EstrelasJComboBox = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -531,7 +532,7 @@ public class MenuJFrame extends javax.swing.JFrame {
             }
         });
 
-        tiposMonstroJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(CartaMonstro.TiposCarta.values() ));
+        tiposMonstroJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(CartaMonstro.TipoMonstro.values() ));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Tipo Carta");
@@ -549,7 +550,7 @@ public class MenuJFrame extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Atributo");
 
-        tiposAtributoJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(CartaMonstro.TiposAtributo.values() ));
+        tipoAtributoJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(CartaMonstro.TipoAtributo.values() ));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Estrelas");
@@ -577,7 +578,7 @@ public class MenuJFrame extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Tipo Magia");
 
-        TipoMagiaJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>( CartaMagica.TipoEfeito.values() ));
+        TipoMagiaJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>( CartaMagica.TipoEfeitoMagico.values() ));
         TipoMagiaJComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 TipoMagiaJComboBoxItemStateChanged(evt);
@@ -684,7 +685,7 @@ public class MenuJFrame extends javax.swing.JFrame {
                                                     .addComponent(jLabel12)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(DEFTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(tiposAtributoJComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(tipoAtributoJComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(tiposMonstroJComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(TipoTrapJComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                     .addGroup(NovaCartaJPanelLayout.createSequentialGroup()
@@ -733,7 +734,7 @@ public class MenuJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(NovaCartaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(tiposAtributoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tipoAtributoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(NovaCartaJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(EstrelasJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -918,7 +919,7 @@ public class MenuJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NovoJogoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoJogoBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         NovoJogoJPanel.setVisible(true);
     }//GEN-LAST:event_NovoJogoBtnActionPerformed
 
@@ -927,7 +928,7 @@ public class MenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_SairActionPerformed
 
     private void EditarBaralhoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarBaralhoBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         EditarDeckJPanel.setVisible(true);
     }//GEN-LAST:event_EditarBaralhoBtnActionPerformed
 
@@ -944,12 +945,12 @@ public class MenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_NovoJogoBtnMouseClicked
 
     private void PartidaLocalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PartidaLocalBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         JogoLocalSelecionaDeckJPanel.setVisible(true);
     }//GEN-LAST:event_PartidaLocalBtnActionPerformed
 
     private void Voltar_NovoJogoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Voltar_NovoJogoBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         jPanel1.setVisible(true);
     }//GEN-LAST:event_Voltar_NovoJogoBtnActionPerformed
 
@@ -958,31 +959,31 @@ public class MenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_PartidaOnlineGuestBtnActionPerformed
 
     private void NovaCartaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovaCartaBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         NovaCartaJPanel.setVisible(true);
         ImagemCartajLabel1.setIcon(icone);
-        
+
         CriarCartaBtn.setEnabled(false);
-        
+
         tipoCartaTxt = "Carta Monstro";
         TipoMagiaJComboBox.setEnabled(false);
         TipoTrapJComboBox.setEnabled(false);
         TipoCampoJComboBox.setEnabled(false);
 
         tiposMonstroJComboBox.setEnabled(true);
-        tiposAtributoJComboBox.setEnabled(true);
+        tipoAtributoJComboBox.setEnabled(true);
         EstrelasJComboBox.setEnabled(true);
         ATKTxtField.setEnabled(true);
         DEFTxtField.setEnabled(true);
     }//GEN-LAST:event_NovaCartaBtnActionPerformed
 
     private void Voltar_EditarDeckBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Voltar_EditarDeckBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         jPanel1.setVisible(true);
     }//GEN-LAST:event_Voltar_EditarDeckBtnActionPerformed
 
     private void NovoDeckBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoDeckBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         ImagemCartajLabel.setIcon(icone);
         qntCartasAdicionadas = 0;
         QntCartasAdicionadasCriaDeckJLabel.setText("0");
@@ -998,19 +999,19 @@ public class MenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaCartasJListMouseClicked
 
     private void Voltar_NovoDeckBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Voltar_NovoDeckBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         EditarDeckJPanel.setVisible(true);
     }//GEN-LAST:event_Voltar_NovoDeckBtnActionPerformed
 
     private void AdicionarCriaDeckBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarCriaDeckBtnActionPerformed
         Carta cartaSelecionada = ListaCartasJList.getSelectedValue();
-        if(ListaCartas2JList.getModel() instanceof DefaultListModel && qntCartasAdicionadas < Deck.DECK_SIZE ){
-            DefaultListModel modelo = (DefaultListModel)ListaCartas2JList.getModel();
+        if (ListaCartas2JList.getModel() instanceof DefaultListModel && qntCartasAdicionadas < Deck.DECK_SIZE) {
+            DefaultListModel modelo = (DefaultListModel) ListaCartas2JList.getModel();
             modelo.addElement(cartaSelecionada);
             qntCartasAdicionadas++;
-            QntCartasAdicionadasCriaDeckJLabel.setText(qntCartasAdicionadas+"");
+            QntCartasAdicionadasCriaDeckJLabel.setText(qntCartasAdicionadas + "");
         }
-        if(qntCartasAdicionadas == Deck.DECK_SIZE){
+        if (qntCartasAdicionadas == Deck.DECK_SIZE) {
             CriarDeckCriaDeckBtn.setEnabled(true);
         }
 
@@ -1018,11 +1019,11 @@ public class MenuJFrame extends javax.swing.JFrame {
 
     private void RemoverCriaDeckBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverCriaDeckBtnActionPerformed
         Carta cartaSelecionada = ListaCartas2JList.getSelectedValue();
-        if(ListaCartas2JList.getModel() instanceof DefaultListModel){
-            DefaultListModel modelo = (DefaultListModel)ListaCartas2JList.getModel();
-            if(modelo.removeElement(cartaSelecionada)){
+        if (ListaCartas2JList.getModel() instanceof DefaultListModel) {
+            DefaultListModel modelo = (DefaultListModel) ListaCartas2JList.getModel();
+            if (modelo.removeElement(cartaSelecionada)) {
                 qntCartasAdicionadas--;
-                QntCartasAdicionadasCriaDeckJLabel.setText(qntCartasAdicionadas+"");
+                QntCartasAdicionadasCriaDeckJLabel.setText(qntCartasAdicionadas + "");
             }
         }
     }//GEN-LAST:event_RemoverCriaDeckBtnActionPerformed
@@ -1038,47 +1039,47 @@ public class MenuJFrame extends javax.swing.JFrame {
         CriarDeckCriaDeckBtn.setEnabled(false);
         String nome = NomeDeckTxtFiled.getText();
         Deck deck = new Deck(nome);
-        for(int i=0;i< Deck.DECK_SIZE;i++){
+        for (int i = 0; i < Deck.DECK_SIZE; i++) {
             Carta carta;
             carta = ListaCartas2JList.getModel().getElementAt(i);
             deck.addCarta(carta);
         }
-        
+
         FileManager.writeDeck(deck);
         AED1.todosOsDecks.add(deck);
-        ((DefaultComboBoxModel)ListaDecks1JComboBox.getModel()).addElement(deck);
-        ((DefaultComboBoxModel)ListaDecks2JComboBox.getModel()).addElement(deck);
-        JOptionPane.showMessageDialog(null, "Deck "+nome+" Criado com sucesso!", "",JOptionPane.INFORMATION_MESSAGE);
+        ((DefaultComboBoxModel) ListaDecks1JComboBox.getModel()).addElement(deck);
+        ((DefaultComboBoxModel) ListaDecks2JComboBox.getModel()).addElement(deck);
+        JOptionPane.showMessageDialog(null, "Deck " + nome + " Criado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_CriarDeckCriaDeckBtnActionPerformed
 
     private void VoltarNovaCartaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarNovaCartaBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         EditarDeckJPanel.setVisible(true);
     }//GEN-LAST:event_VoltarNovaCartaBtnActionPerformed
 
     private void TipoCartaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoCartaBtnActionPerformed
-        
-        if(TipoCartaBtn.getText().equals("Carta Monstro")){
+
+        if (TipoCartaBtn.getText().equals("Carta Monstro")) {
             tipoCartaTxt = "Carta Magica";
             TipoMagiaJComboBox.setEnabled(true);
             //TipoTrapJComboBox.setEnabled(true);
             //TipoCampoJComboBox.setEnabled(true);
-            
+
             tiposMonstroJComboBox.setEnabled(false);
-            tiposAtributoJComboBox.setEnabled(false);
+            tipoAtributoJComboBox.setEnabled(false);
             EstrelasJComboBox.setEnabled(false);
             ATKTxtField.setEnabled(false);
             DEFTxtField.setEnabled(false);
         }
-        if(TipoCartaBtn.getText().equals("Carta Magica")){
+        if (TipoCartaBtn.getText().equals("Carta Magica")) {
             tipoCartaTxt = "Carta Monstro";
-            
+
             TipoMagiaJComboBox.setEnabled(false);
             TipoTrapJComboBox.setEnabled(false);
             TipoCampoJComboBox.setEnabled(false);
-            
+
             tiposMonstroJComboBox.setEnabled(true);
-            tiposAtributoJComboBox.setEnabled(true);
+            tipoAtributoJComboBox.setEnabled(true);
             EstrelasJComboBox.setEnabled(true);
             ATKTxtField.setEnabled(true);
             DEFTxtField.setEnabled(true);
@@ -1087,88 +1088,91 @@ public class MenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_TipoCartaBtnActionPerformed
 
     private void SetCartaTxtFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SetCartaTxtFieldKeyReleased
-        if(podeCriarCarta()) CriarCartaBtn.setEnabled(true);
+        if (podeCriarCarta())
+            CriarCartaBtn.setEnabled(true);
     }//GEN-LAST:event_SetCartaTxtFieldKeyReleased
 
     private void idCartaTxtFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idCartaTxtFieldKeyReleased
-        if(podeCriarCarta()) CriarCartaBtn.setEnabled(true);
+        if (podeCriarCarta())
+            CriarCartaBtn.setEnabled(true);
     }//GEN-LAST:event_idCartaTxtFieldKeyReleased
 
     private void nomeCartaTxtFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeCartaTxtFieldKeyReleased
-        if(podeCriarCarta()) CriarCartaBtn.setEnabled(true);
+        if (podeCriarCarta())
+            CriarCartaBtn.setEnabled(true);
     }//GEN-LAST:event_nomeCartaTxtFieldKeyReleased
 
     private void ATKTxtFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ATKTxtFieldKeyReleased
-        if(podeCriarCarta()) CriarCartaBtn.setEnabled(true);
+        if (podeCriarCarta())
+            CriarCartaBtn.setEnabled(true);
     }//GEN-LAST:event_ATKTxtFieldKeyReleased
 
     private void DEFTxtFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DEFTxtFieldKeyReleased
-        if(podeCriarCarta()) CriarCartaBtn.setEnabled(true);
+        if (podeCriarCarta())
+            CriarCartaBtn.setEnabled(true);
     }//GEN-LAST:event_DEFTxtFieldKeyReleased
 
     private void CriarCartaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CriarCartaBtnActionPerformed
-        if(tipoCartaTxt.equals("Carta Monstro")){
+        if (tipoCartaTxt.equals("Carta Monstro")) {
             int atk = Integer.parseInt(ATKTxtField.getText());
             int def = Integer.parseInt(DEFTxtField.getText());
             int id = Integer.parseInt(idCartaTxtField.getText());
-            String tipoMonstro = ((TiposCarta)tiposMonstroJComboBox.getSelectedItem()).name();
-            String atributo = ((TiposAtributo)tiposAtributoJComboBox.getSelectedItem()).name();
-                   
+            String tipoMonstro = ((CartaMonstro.TipoMonstro) tiposMonstroJComboBox.getSelectedItem()).name();
+            String atributo = ((CartaMonstro.TipoAtributo) tipoAtributoJComboBox.getSelectedItem()).name();
+
             CartaMonstro novaCarta = new CartaMonstro(nomeCartaTxtField.getText(), atk, def, tipoMonstro, atributo, SetCartaTxtField.getText(), id, imgPathTxtField.getText(), DescricaoJTextArea.getText());
-            
+           
             ImageIcon icone = new ImageIcon(novaCarta.getImageSrc());
             icone.setImage(icone.getImage().getScaledInstance(ImagemCartajLabel1.getWidth(), ImagemCartajLabel1.getHeight(), Image.SCALE_SMOOTH));
             ImagemCartajLabel1.setIcon(icone);
-            
-            ((DefaultListModel)ListaCartasJList.getModel()).addElement(novaCarta);
-            ATPGC.todasAsCartas.addCarta(novaCarta);
+
+            ((DefaultListModel) ListaCartasJList.getModel()).addElement(novaCarta);
+            AED1.todasAsCartas.addCarta(novaCarta);
             FileManager.writeCarta(novaCarta);
-            JOptionPane.showMessageDialog(null, "Carta "+nomeCartaTxtField.getText()+" Criada com sucesso!", "",JOptionPane.INFORMATION_MESSAGE);
-            
+            JOptionPane.showMessageDialog(null, "Carta " + nomeCartaTxtField.getText() + " Criada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+
         }
-        if(tipoCartaTxt.equals("Carta Magica")){
+        if (tipoCartaTxt.equals("Carta Magica")) {
 
             int id = Integer.parseInt(idCartaTxtField.getText());
-            CartaMagica.TipoEfeitoMagico tipoMagia = ((CartaMagica.TipoEfeitoMagico)TipoMagiaJComboBox.getSelectedItem());
+            CartaMagica.TipoEfeitoMagico tipoMagia = ((CartaMagica.TipoEfeitoMagico) TipoMagiaJComboBox.getSelectedItem());
             CartaMagica novaCarta = null;
-            
-            if(tipoMagia == CartaMagica.TipoEfeitoMagico.CAMPO){
-                novaCarta = new CartaMagica(nomeCartaTxtField.getText(),SetCartaTxtField.getText(), id, (Game.TipoCampo)TipoCampoJComboBox.getSelectedItem(), imgPathTxtField.getText(), DescricaoJTextArea.getText());
+
+            if (tipoMagia == CartaMagica.TipoEfeitoMagico.CAMPO) {
+                novaCarta = new CartaMagica(nomeCartaTxtField.getText(), SetCartaTxtField.getText(), id, (Game.TipoCampo) TipoCampoJComboBox.getSelectedItem(), imgPathTxtField.getText(), DescricaoJTextArea.getText());
             }
-            if(tipoMagia == CartaMagica.TipoEfeito.Trap){
-                novaCarta = new CartaMagica(nomeCartaTxtField.getText(),SetCartaTxtField.getText(), id, (Game.TipoTrap)TipoTrapJComboBox.getSelectedItem(), imgPathTxtField.getText(), DescricaoJTextArea.getText());
+            if (tipoMagia == CartaMagica.TipoEfeitoMagico.TRAP) {
+                novaCarta = new CartaMagica(nomeCartaTxtField.getText(), SetCartaTxtField.getText(), id, (Game.TipoTrap) TipoTrapJComboBox.getSelectedItem(), imgPathTxtField.getText(), DescricaoJTextArea.getText());
             }
-            
-                   
-            
+
             ImageIcon icone = new ImageIcon(novaCarta.getImageSrc());
             icone.setImage(icone.getImage().getScaledInstance(ImagemCartajLabel1.getWidth(), ImagemCartajLabel1.getHeight(), Image.SCALE_SMOOTH));
             ImagemCartajLabel1.setIcon(icone);
-            
-            ((DefaultListModel)ListaCartasJList.getModel()).addElement(novaCarta);
-            ATPGC.todasAsCartas.addCarta(novaCarta);
+
+            ((DefaultListModel) ListaCartasJList.getModel()).addElement(novaCarta);
+            AED1.todasAsCartas.addCarta(novaCarta);
             FileManager.writeCarta(novaCarta);
-            JOptionPane.showMessageDialog(null, "Carta "+nomeCartaTxtField.getText()+" Criada com sucesso!", "",JOptionPane.INFORMATION_MESSAGE);
-            
+            JOptionPane.showMessageDialog(null, "Carta " + nomeCartaTxtField.getText() + " Criada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+
         }
     }//GEN-LAST:event_CriarCartaBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(seletorDeArquivo.showOpenDialog(NovaCartaJPanel) == JFileChooser.APPROVE_OPTION){
+        if (seletorDeArquivo.showOpenDialog(NovaCartaJPanel) == JFileChooser.APPROVE_OPTION) {
             String path = seletorDeArquivo.getSelectedFile().getAbsolutePath();
             imgPathTxtField.setText(path);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void VoltarJogoLocalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarJogoLocalBtnActionPerformed
-        ((JButton)evt.getSource()).getParent().setVisible(false);
+        ((JButton) evt.getSource()).getParent().setVisible(false);
         NovoJogoJPanel.setVisible(true);
     }//GEN-LAST:event_VoltarJogoLocalBtnActionPerformed
 
     private void IniciarJogoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarJogoBtnActionPerformed
         DeckJogavel deckP1 = new DeckJogavel(AED1.todosOsDecks.get(0));
-        DeckJogavel deckP2 =  new DeckJogavel ((Deck)ListaDecks2JComboBox.getSelectedItem());
-        
+        DeckJogavel deckP2 = new DeckJogavel((Deck) ListaDecks2JComboBox.getSelectedItem());
+
         AED1.game.inicializa(deckP1, deckP2);
         /*
         System.out.println(deckP1.getNome());
@@ -1176,22 +1180,22 @@ public class MenuJFrame extends javax.swing.JFrame {
         for(Carta carta: deckP1.cartas){
             System.out.println(carta);
         }*/
-        
+
         InGameInterface interfaceJogo = new InGameInterface(AED1.game);
         interfaceJogo.start();
-        
+
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_IniciarJogoBtnActionPerformed
 
     private void TipoMagiaJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoMagiaJComboBoxItemStateChanged
         JComboBox comboBox = (JComboBox) evt.getSource();
-        
+
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if(  ((CartaMagica.TipoEfeito)comboBox.getSelectedItem()) == CartaMagica.TipoEfeito.Campo ){
+            if (((CartaMagica.TipoEfeitoMagico) comboBox.getSelectedItem()) == CartaMagica.TipoEfeitoMagico.CAMPO) {
                 TipoCampoJComboBox.setEnabled(true);
                 TipoTrapJComboBox.setEnabled(false);
             }
-            if(  ((CartaMagica.TipoEfeito)comboBox.getSelectedItem()) == CartaMagica.TipoEfeito.Trap ){
+            if (((CartaMagica.TipoEfeitoMagico) comboBox.getSelectedItem()) == CartaMagica.TipoEfeitoMagico.TRAP) {
                 TipoTrapJComboBox.setEnabled(true);
                 TipoCampoJComboBox.setEnabled(false);
             }
@@ -1200,10 +1204,11 @@ public class MenuJFrame extends javax.swing.JFrame {
             TipoTrapJComboBox.setEnabled(false);
             TipoCampoJComboBox.setEnabled(false);
         }
-        
-        if(podeCriarCarta())
+
+        if (podeCriarCarta()) {
             CriarCartaBtn.setEnabled(true);
-        
+        }
+
 
     }//GEN-LAST:event_TipoMagiaJComboBoxItemStateChanged
 
@@ -1246,36 +1251,47 @@ public class MenuJFrame extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    
-    public boolean podeCriarCarta(){
+
+    public boolean podeCriarCarta() {
 
         System.out.println("verificando se pode criar carta");
-        if(SetCartaTxtField.getText().equals("")){ System.out.println("set");return false;}
-        if(idCartaTxtField.getText().equals("") ) {
-            try{ Integer.parseInt(idCartaTxtField.getText()); }
-            catch(NumberFormatException ex){ return false; }
+        if (SetCartaTxtField.getText().equals("")) {
+            System.out.println("set");
+            return false;
         }
-        if(nomeCartaTxtField.getText().equals("")) { System.out.println("Nome");return false;}
-        
-        if(tipoCartaTxt.equals("Carta Monstro")){
-            try{ Integer.parseInt(ATKTxtField.getText()); }
-            catch(NumberFormatException ex){ return false; }
-            
-            try{ Integer.parseInt(DEFTxtField.getText()); }
-            catch(NumberFormatException ex){ return false; }
+        if (idCartaTxtField.getText().equals("")) {
+            try {
+                Integer.parseInt(idCartaTxtField.getText());
+            } catch (NumberFormatException ex) {
+                return false;
+            }
+        }
+        if (nomeCartaTxtField.getText().equals("")) {
+            System.out.println("Nome");
+            return false;
+        }
+
+        if (tipoCartaTxt.equals("Carta Monstro")) {
+            try {
+                Integer.parseInt(ATKTxtField.getText());
+            } catch (NumberFormatException ex) {
+                return false;
+            }
+
+            try {
+                Integer.parseInt(DEFTxtField.getText());
+            } catch (NumberFormatException ex) {
+                return false;
+            }
         }
         return true;
     }
-    
-    
 
     String tipoCartaTxt = "Carta Monstro";
     ImageIcon icone = new ImageIcon(getClass().getResource("/Interface/Pics/cartaParaBaixo.png"));
     int qntCartasAdicionadas;
-    
-    private JFileChooser seletorDeArquivo =  new JFileChooser();
+
+    private JFileChooser seletorDeArquivo = new JFileChooser();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ATKTxtField;
     private javax.swing.JButton AdicionarCriaDeckBtn;
@@ -1311,7 +1327,7 @@ public class MenuJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField SetCartaTxtField;
     private javax.swing.JComboBox<Game.TipoCampo> TipoCampoJComboBox;
     private javax.swing.JButton TipoCartaBtn;
-    private javax.swing.JComboBox<CartaMagica.TipoEfeito> TipoMagiaJComboBox;
+    private javax.swing.JComboBox<CartaMagica.TipoEfeitoMagico> TipoMagiaJComboBox;
     private javax.swing.JComboBox<Game.TipoTrap> TipoTrapJComboBox;
     private javax.swing.JButton VoltarJogoLocalBtn;
     private javax.swing.JButton VoltarNovaCartaBtn;
@@ -1346,7 +1362,7 @@ public class MenuJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nomeCartaTxtField;
-    private javax.swing.JComboBox<CartaMonstro.TiposAtributo> tiposAtributoJComboBox;
-    private javax.swing.JComboBox<CartaMonstro.TiposCarta> tiposMonstroJComboBox;
+    private javax.swing.JComboBox<CartaMonstro.TipoAtributo> tipoAtributoJComboBox;
+    private javax.swing.JComboBox<CartaMonstro.TipoMonstro> tiposMonstroJComboBox;
     // End of variables declaration//GEN-END:variables
 }

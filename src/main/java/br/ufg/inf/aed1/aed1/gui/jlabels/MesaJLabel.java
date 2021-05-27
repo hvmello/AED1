@@ -4,7 +4,7 @@ package br.ufg.inf.aed1.aed1.gui.jlabels;
 import br.ufg.inf.aed1.aed1.carta.CartaMagica;
 import br.ufg.inf.aed1.aed1.carta.CartaMonstro;
 import br.ufg.inf.aed1.aed1.gameplay.Mesa;
-import gui.utils.ImageEditor;
+import br.ufg.inf.aed1.aed1.gui.utils.ImageEditor;
 
 import javax.swing.Icon;
 

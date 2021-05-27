@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import sun.net.www.http.HttpClient;
+//import sun.net.www.http.HttpClient;
 
 public class GetCardImage {
     

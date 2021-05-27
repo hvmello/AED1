@@ -53,12 +53,33 @@ public class CartaMonstro extends Carta implements Serializable {
         this.tipoAtributo = tipoAtributo;
 
         String imgSrcFinal;
-        
+
         try {
             imgSrcFinal = GetCardImage.httpGetImage(this, imageSrc);
             this.setImageSrc(imgSrcFinal);
         } catch (Exception exception) {
             Logger.getLogger(Carta.class.getName()).log(Level.SEVERE, null, exception);
+        }
+    }
+
+    public CartaMonstro(String nome, int ATK, int DEF, String tipo, String atributo, String set, int id, String imgPath, String descricao) {
+        super(id, set, nome, descricao);
+        String imageSrcFinal;
+
+        this.ATK = ATK;
+        this.DEF = DEF;
+        try {
+            this.setTipoMonstro(TipoMonstro.valueOf(tipo));
+            this.tipoAtributo = TipoAtributo.valueOf(atributo);
+        } catch (IllegalArgumentException ex) {
+            System.err.print(ex);
+        }
+
+        try {
+            imageSrcFinal = GetCardImage.httpGetImage(this, imgPath);
+            this.setImageSrc(imageSrcFinal);
+        } catch (Exception ex) {
+            Logger.getLogger(Carta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -77,7 +98,7 @@ public class CartaMonstro extends Carta implements Serializable {
             modoCarta = ModoCarta.ATAQUE_PARA_BAIXO;
         }
     }
-    
+
     public void girarCarta() {
         switch (modoCarta) {
             case ATAQUE_PARA_BAIXO:
@@ -104,13 +125,17 @@ public class CartaMonstro extends Carta implements Serializable {
     public boolean isModoDefesa() {
         return modoCarta == ModoCarta.DEFESA_PARA_BAIXO || modoCarta == ModoCarta.DEFESA_PARA_CIMA;
     }
-    
+
     public boolean isParaCima() {
         return modoCarta == ModoCarta.ATAQUE_PARA_CIMA || modoCarta == ModoCarta.DEFESA_PARA_CIMA;
     }
-    
+
     public boolean isParaBaixo() {
         return modoCarta == ModoCarta.ATAQUE_PARA_BAIXO || modoCarta == ModoCarta.DEFESA_PARA_BAIXO;
+    }
+    
+    public void setTipoMonstro(TipoMonstro tipoMonstro) {
+        this.tipoMonstro = tipoMonstro;
     }
 
     public TipoMonstro getTipoMonstro() {
@@ -144,7 +169,7 @@ public class CartaMonstro extends Carta implements Serializable {
     public int getATK() {
         return ATK;
     }
-    
+
     public void setATK(int ATK) {
         this.ATK = ATK;
     }
@@ -152,7 +177,7 @@ public class CartaMonstro extends Carta implements Serializable {
     public int getDEF() {
         return DEF;
     }
-    
+
     public void setDEF(int DEF) {
         this.DEF = DEF;
     }
