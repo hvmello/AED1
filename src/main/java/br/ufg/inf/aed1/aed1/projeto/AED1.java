@@ -2,11 +2,11 @@ package br.ufg.inf.aed1.aed1.projeto;
 
 import br.ufg.inf.aed1.aed1.carta.filemanager.FileManager;
 import br.ufg.inf.aed1.aed1.carta.ListaDeCartas;
-import br.ufg.inf.aed1.aed1.carta.*; 
-import br.ufg.inf.aed1.aed1.gameplay.*; 
+import br.ufg.inf.aed1.aed1.carta.*;
+import br.ufg.inf.aed1.aed1.gameplay.*;
 import br.ufg.inf.aed1.aed1.gui.jlabels.MenuJFrame;
-import br.ufg.inf.aed1.aed1.network.*; 
-import br.ufg.inf.aed1.aed1.gui.utils.*; 
+import br.ufg.inf.aed1.aed1.network.*;
+import br.ufg.inf.aed1.aed1.gui.utils.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,52 +17,49 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class AED1 {
-    
+
     public static final int MAX_CARTAS = 100;
-    public static  ListaDeCartas todasAsCartas = new ListaDeCartas(MAX_CARTAS);
-    public static  ArrayList<CartaMagica> todasAsCartasMagicas = new ArrayList<CartaMagica>(MAX_CARTAS);
-    public static  ArrayList<CartaMonstro> todasAsCartasMonstros = new ArrayList<CartaMonstro>(MAX_CARTAS);
-    public static  List<Deck> todosOsDecks = new ArrayList<>();
+    public static ListaDeCartas todasAsCartas = new ListaDeCartas(MAX_CARTAS);
+    public static ArrayList<CartaMagica> todasAsCartasMagicas = new ArrayList<CartaMagica>(MAX_CARTAS);
+    public static ArrayList<CartaMonstro> todasAsCartasMonstros = new ArrayList<CartaMonstro>(MAX_CARTAS);
+    public static List<Deck> todosOsDecks = new ArrayList<>();
     public static Game game = new Game();
     private static final GameOnline gameOnline = new GameOnline();
-    
-    
-  
+
     public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");        
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
 
-        
-        /******CARREGANDO CARTAS SALVAS********/
-
+        /**
+         * ****CARREGANDO CARTAS SALVAS*******
+         */
         System.out.println("Carregando todas as cartas");
         todasAsCartas = FileManager.readAllCartas();
-        
+
         /*if (todasAsCartas.length == 0) {
             JOptionPane.showMessageDialog(null, "Nenhuma carta salva.", "ERRO!", JOptionPane.ERROR_MESSAGE);
             
             return;
         }*/
-        
-        for(int i=0;i<todasAsCartas.length;i++){        //imprime todas as cartas carregadas
+        for (int i = 0; i < todasAsCartas.length; i++) {        //imprime todas as cartas carregadas
             Carta carta = todasAsCartas.getCartaAtIndex(i);
-            if(carta instanceof CartaMonstro){
-                CartaMonstro aux = (CartaMonstro)carta;
-                System.out.println(aux.getNome() +" "+aux.getSet()+"-"+aux.getId()+" "+aux.getATK()+"/"+aux.getDEF()+" "+aux.getImageSrc());
+            if (carta instanceof CartaMonstro) {
+                CartaMonstro aux = (CartaMonstro) carta;
+                System.out.println(aux.getNome() + " " + aux.getSet() + "-" + aux.getId() + " " + aux.getATK() + "/" + aux.getDEF() + " " + aux.getImageSrc());
             }
-            if(carta instanceof CartaMagica){
-                CartaMagica aux = (CartaMagica)carta;
-                System.out.println(aux.getNome() +" "+aux.getSet()+"-"+aux.getId()+" "+aux.getTipoEfeitoMagico()+"/"+" "+aux.getImageSrc());
+            if (carta instanceof CartaMagica) {
+                CartaMagica aux = (CartaMagica) carta;
+                System.out.println(aux.getNome() + " " + aux.getSet() + "-" + aux.getId() + " " + aux.getTipoEfeitoMagico() + "/" + " " + aux.getImageSrc());
             }
         }
         /*FIM*/
-        
-        
-        /******CARREGANDO DECKS SALVOS********/
+
+        /**
+         * ****CARREGANDO DECKS SALVOS*******
+         */
         System.out.println("Carregando todos os decks");
         todosOsDecks = FileManager.readAllDecks(todasAsCartas);
-        
-        
-        for(int i=0;i<todosOsDecks.size();i++){
+
+        for (int i = 0; i < todosOsDecks.size(); i++) {
             Deck deck = todosOsDecks.get(i);
             System.out.println(deck.getNome());
             /* imprime todas as cartas do deck
@@ -72,11 +69,11 @@ public class AED1 {
            }*/
         }
         /*FIM*/
-        
+
         MenuJFrame.main(args);
-        
-        int input=0;
-        do{
+
+        int input = 0;
+        do {
             int subInput;
             System.out.println("1. Novo Jogo");
             System.out.println("2. Carregar Perfil");
@@ -84,10 +81,10 @@ public class AED1 {
             System.out.println("4. Opcões");
             System.out.println("0. Sair");
             //input = scanner.nextInt();
-            
-            switch(input){
+
+            switch (input) {
                 case 1:
-                    do{
+                    do {
                         System.out.println("1. Jogar multiplayer Local");
                         System.out.println("2. Jogar multiplayer Online");
                         System.out.println("0. Voltar");
@@ -102,18 +99,16 @@ public class AED1 {
                             case 0:
 
                         }
-                    }while(subInput != 0);
-                    
-                    
-                    
-                break;
-                
+                    } while (subInput != 0);
+
+                    break;
+
                 case 2:
-                break;
+                    break;
                 case 3:
-                    
+
                     /*aqui deve limpar a tela para abrir novo submenu*/
-                    do{
+                    do {
                         System.out.println("1. Editar um baralho existente");
                         System.out.println("2. Criar novo baralho");
                         System.out.println("3. Criar nova carta Monstro");
@@ -128,51 +123,44 @@ public class AED1 {
                                 criaDeckTxt();
                                 break;
                             case 3:
-                                try{
-                                    criaCartaMonstro();
-                                }catch(Exception ex){
-                                    System.err.println(ex);
-                                }
+                                try {
+                                criaCartaMonstro();
+                            } catch (Exception ex) {
+                                System.err.println(ex);
+                            }
                             break;
                             case 4:
-                                try{
-                                    criaCartaMagica();
-                                }catch(Exception ex){
-                                    System.err.println(ex);
-                                }
+                                try {
+                                criaCartaMagica();
+                            } catch (Exception ex) {
+                                System.err.println(ex);
+                            }
 
                             case 0:
 
                         }
-                    }while(subInput != 0);
-                    
-                break;
+                    } while (subInput != 0);
+
+                    break;
             }
-            
-        }while(input != 0);
-        
-        
+
+        } while (input != 0);
+
         System.out.println("Salvando todas as cartas");
         FileManager.writeAllCartas(todasAsCartas);
 
         System.out.println("Salvando todas os decks");
         FileManager.writeAllDecks(todosOsDecks);
-        
-        System.out.println("num de cartas: " + todasAsCartas.length);
-        System.out.println("num de decks: " + todosOsDecks.size());  
-        
-        /************fim*************/
-        
 
-        
-        
-        
-        
-        
-/*********************TESTES*******************************/
-        
-        
-        
+        System.out.println("num de cartas: " + todasAsCartas.length);
+        System.out.println("num de decks: " + todosOsDecks.size());
+
+        /**
+         * **********fim************
+         */
+        /**
+         * *******************TESTES******************************
+         */
         //CartaMagica cartaMagTeste = new CartaMagica("Fake Trap", "TEST", 1, Game.TipoTrap.Miss, "http://uploads2.yugioh.com/card_images/2092/detail/1380.jpg?1385102986");
         /*
         Game partida = new Game();
@@ -183,10 +171,9 @@ public class AED1 {
         cartaCampo.ativaEfeito(partida, null, -1);
         
         System.out.println(partida.campo);
-        */
-        
-        /* testando conexão do server com cliente*/
-/*
+         */
+ /* testando conexão do server com cliente*/
+ /*
         ServidorTCP serverTest = new ServidorTCP();
         ClienteTCP clientTest = new ClienteTCP();
         
@@ -262,30 +249,27 @@ public class AED1 {
             clientTest.close();
         }
 
-    */    
-
+         */
     }
-    
-    public static void jogaLocal(){
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");        
 
-        DeckJogavel deckP1,deckP2;
-        int escolha,i=0;
+    public static void jogaLocal() {
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
+
+        DeckJogavel deckP1, deckP2;
+        int escolha, i = 0;
 
         System.out.println("Jogador 1, escolha o deck que deseja jogar:");
-        for(Deck deck : todosOsDecks){
-            System.out.println(i+". "+deck.getNome());
+        for (Deck deck : todosOsDecks) {
+            System.out.println(i + ". " + deck.getNome());
             i++;
         }
         escolha = scanner.nextInt();
         deckP1 = new DeckJogavel(todosOsDecks.get(escolha));
 
-
-
         System.out.println("Jogador 2, escolha o deck que deseja jogar:");
-        i=0;
-        for(Deck deck : todosOsDecks){
-            System.out.println(i+". "+deck.getNome());
+        i = 0;
+        for (Deck deck : todosOsDecks) {
+            System.out.println(i + ". " + deck.getNome());
             i++;
         }
         escolha = scanner.nextInt();
@@ -294,112 +278,109 @@ public class AED1 {
         System.out.println("iniciando partida");
         game.jogaPartida(deckP1, deckP2);
     }
-    
-    public static void jogaOnline() throws IOException, ClassNotFoundException{
+
+    public static void jogaOnline() throws IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        Player playerVencedor=null;
-        
-        
+        Player playerVencedor = null;
+
         System.out.println("1. Criar Partida");
         System.out.println("2. Conectar-se a uma Partida");
         System.out.println("0. voltar");
-        switch(scanner.nextInt()){
-            case 1: 
+        switch (scanner.nextInt()) {
+            case 1:
                 playerVencedor = jogaOnlineHost();
-        
-            break;
+
+                break;
             case 2:
                 playerVencedor = jogaOnlineGuest();
 
-            break;
+                break;
             case 0:
-                
+
         }
-        
-        if(playerVencedor != null){
-            System.out.println(" O jogador "+playerVencedor.nickName+" venceu!!!");
+
+        if (playerVencedor != null) {
+            System.out.println(" O jogador " + playerVencedor.nickName + " venceu!!!");
         }
-        
+
     }
-    
-    public static Player jogaOnlineHost() throws ClassNotFoundException{
+
+    public static Player jogaOnlineHost() throws ClassNotFoundException {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         DeckJogavel deckP1;
-        Player playerVencedor=null;
-        int escolha,i=0;
-        
+        Player playerVencedor = null;
+        int escolha, i = 0;
+
         ServidorTCP partidaHost = new ServidorTCP();
-        
+
         try {
-            System.out.println("Aguardando conexão...(lim "+ServidorTCP.TIME_OUT/1000 +"seg)");
+            System.out.println("Aguardando conexão...(lim " + ServidorTCP.TIME_OUT / 1000 + "seg)");
             partidaHost.initialize();
-        }catch (java.io.InterruptedIOException e) {
+        } catch (java.io.InterruptedIOException e) {
             //System.err.println( "Timed Out ("+ServidorTCP.TimeOut+" ms)!" );
-            JOptionPane.showMessageDialog(null, "Tempo exedido ("+ServidorTCP.TIME_OUT+" ms)!", "Erro de conexão", JOptionPane.WARNING_MESSAGE, UIManager.getIcon("OptionPane.warningIcon"));
+            JOptionPane.showMessageDialog(null, "Tempo exedido (" + ServidorTCP.TIME_OUT + " ms)!", "Erro de conexão", JOptionPane.WARNING_MESSAGE, UIManager.getIcon("OptionPane.warningIcon"));
             try {
                 partidaHost.close();
             } catch (IOException ex) {
                 Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
             }
-              return null;
-        }catch (IOException ex) {
-            System.err.println( ex.getClass()+"Erro! "+ex.getCause() );
+            return null;
+        } catch (IOException ex) {
+            System.err.println(ex.getClass() + "Erro! " + ex.getCause());
         }
 
         System.out.println("Escolha o deck que deseja jogar:");
-        for(Deck deck : todosOsDecks){
-            System.out.println(i+". "+deck.getNome());
+        for (Deck deck : todosOsDecks) {
+            System.out.println(i + ". " + deck.getNome());
             i++;
         }
         escolha = scanner.nextInt();
         deckP1 = new DeckJogavel(todosOsDecks.get(escolha));
-        try{
+        try {
             playerVencedor = gameOnline.jogaPartida(deckP1, partidaHost);
-        }catch(IOException ex){
-            System.err.println( "Conexão perdida! " );
+        } catch (IOException ex) {
+            System.err.println("Conexão perdida! ");
         }
         try {
             partidaHost.close();
         } catch (IOException ex) {
             Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return playerVencedor;
-        
+
     }
-    
-    public static Player jogaOnlineGuest(){
+
+    public static Player jogaOnlineGuest() {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         DeckJogavel deckP1;
-        Player playerVencedor=null;
-        int escolha,i=0;
-        
-        
-        
-                ClienteTCP partidaGuest = new ClienteTCP();
-                System.out.println("Digite o ip do Host da partida");
-                for(String ip:partidaGuest.getNetworkIP()){
-                    System.out.println(ip+" foi encontrado na rede");
-                }
-                try {
-                    partidaGuest.connect(scanner.nextLine());
-                } catch (IOException ex) {
-                    System.err.println( "Esse IP não possui um socket aguardando conexão! " );
-                    return null ;
-                }
-                
-                System.out.println("Escolha o deck que deseja jogar:");
-                for(Deck deck : todosOsDecks){
-                    System.out.println(i+". "+deck.getNome());
-                    i++;
-                }
-                escolha = scanner.nextInt();
-                deckP1 = new DeckJogavel(todosOsDecks.get(escolha));
-                try{
-                    playerVencedor = gameOnline.jogaPartida(deckP1, partidaGuest);
-                }catch(IOException ex){
-                    System.err.println( "Conexão perdida! " );
-                } catch (ClassNotFoundException ex) {
+        Player playerVencedor = null;
+        int escolha, i = 0;
+
+        ClienteTCP partidaGuest = new ClienteTCP();
+        System.out.println("Digite o ip do Host da partida");
+        for (String ip : partidaGuest.getNetworkIP()) {
+            System.out.println(ip + " foi encontrado na rede");
+        }
+        try {
+            partidaGuest.connect(scanner.nextLine());
+        } catch (IOException ex) {
+            System.err.println("Esse IP não possui um socket aguardando conexão! ");
+            return null;
+        }
+
+        System.out.println("Escolha o deck que deseja jogar:");
+        for (Deck deck : todosOsDecks) {
+            System.out.println(i + ". " + deck.getNome());
+            i++;
+        }
+        escolha = scanner.nextInt();
+        deckP1 = new DeckJogavel(todosOsDecks.get(escolha));
+        try {
+            playerVencedor = gameOnline.jogaPartida(deckP1, partidaGuest);
+        } catch (IOException ex) {
+            System.err.println("Conexão perdida! ");
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
@@ -407,135 +388,154 @@ public class AED1 {
         } catch (IOException ex) {
             Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return playerVencedor;
     }
-    
-    
-    public static void criaCartaMonstro() throws Exception{
+
+    public static void criaCartaMonstro() throws Exception {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         String nome, tipoMonstro, set, path, tipoAtributo, descricao;
         int atk, def, id;
-        
-        System.out.print("Nome: ");   nome = scanner.nextLine();
-        System.out.print("Set: ");    set = scanner.next();
-        System.out.print("Descricao: ");    descricao = scanner.next();
-        
-        do{
-            System.out.print("Id:  ");    id = scanner.nextInt();
+
+        System.out.print("Nome: ");
+        nome = scanner.nextLine();
+        System.out.print("Set: ");
+        set = scanner.next();
+        System.out.print("Descricao: ");
+        descricao = scanner.next();
+
+        do {
+            System.out.print("Id:  ");
+            id = scanner.nextInt();
             ListaDeCartas cartasDoSet = todasAsCartas.getSetCartas(set);
-            if(cartasDoSet.length > 0 && cartasDoSet.getCartaById(id) != null) 
+            if (cartasDoSet.length > 0 && cartasDoSet.getCartaById(id) != null) {
                 throw new Exception("Já existe uma carta com esse ID neste set");
-            else    
+            } else {
                 break;
-        }while(true);
-            
-        System.out.print("Atk: ");    atk = scanner.nextInt();
-        System.out.print("Def: ");    def = scanner.nextInt();
+            }
+        } while (true);
+
+        System.out.print("Atk: ");
+        atk = scanner.nextInt();
+        System.out.print("Def: ");
+        def = scanner.nextInt();
         scanner.nextLine();//limpando o buffer
-        System.out.print("Tipo Monstro: ");   tipoMonstro = scanner.nextLine(); 
-        System.out.print("Tipo Atributo: ");   tipoAtributo = scanner.nextLine();
-        System.out.print("Url da Imagem: "); path= scanner.nextLine();
-        
-        todasAsCartas.addCarta(new CartaMonstro(id, set, nome, descricao, atk, def, 
-                CartaMonstro.TipoMonstro.valueOf(tipoMonstro), CartaMonstro.TipoAtributo.valueOf(tipoAtributo), path)); 
+        System.out.print("Tipo Monstro: ");
+        tipoMonstro = scanner.nextLine();
+        System.out.print("Tipo Atributo: ");
+        tipoAtributo = scanner.nextLine();
+        System.out.print("Url da Imagem: ");
+        path = scanner.nextLine();
+
+        todasAsCartas.addCarta(new CartaMonstro(id, set, nome, descricao, atk, def,
+                CartaMonstro.TipoMonstro.valueOf(tipoMonstro), CartaMonstro.TipoAtributo.valueOf(tipoAtributo), path));
     }
-    
-   
-    
-    public static void criaCartaMagica() throws Exception{
+
+    public static void criaCartaMagica() throws Exception {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        String nome, tipoMagicaStr,tipoSubMagicaStr, set, path, descricao;
-     
+        String nome, tipoMagicaStr, tipoSubMagicaStr, set, path, descricao;
+
         int id;
-        
-        System.out.print("Nome: ");   nome = scanner.nextLine();
-        System.out.print("Set: ");    set = scanner.next();
-        
-        do{
-            System.out.print("Id:  ");    id = scanner.nextInt();
+
+        System.out.print("Nome: ");
+        nome = scanner.nextLine();
+        System.out.print("Set: ");
+        set = scanner.next();
+
+        do {
+            System.out.print("Id:  ");
+            id = scanner.nextInt();
             ListaDeCartas cartasDoSet = todasAsCartas.getSetCartas(set);
-            if(cartasDoSet.length > 0 && cartasDoSet.getCartaById(id) != null) 
+            if (cartasDoSet.length > 0 && cartasDoSet.getCartaById(id) != null) {
                 throw new Exception("Já existe uma carta com esse ID neste set");
-            else    
+            } else {
                 break;
-        }while(true);
-            
-        System.out.print("Tipo de carta magica: "); 
+            }
+        } while (true);
+
+        System.out.print("Tipo de carta magica: ");
         scanner.nextLine();//limpando o buffer
         tipoMagicaStr = scanner.nextLine();
-        if(tipoMagicaStr.equals("Campo"))   System.out.print("Tipo do Campo: "); 
-        if(tipoMagicaStr.equals("Trap"))    System.out.print("Tipo da Trap: ");
+        if (tipoMagicaStr.equals("Campo")) {
+            System.out.print("Tipo do Campo: ");
+        }
+        if (tipoMagicaStr.equals("Trap")) {
+            System.out.print("Tipo da Trap: ");
+        }
         tipoSubMagicaStr = scanner.nextLine();
-        
-        System.out.println("Decricao: "); descricao = scanner.nextLine();
-        System.out.print("Url da Imagem: "); path= scanner.nextLine();
-        
-        if(tipoMagicaStr.equals( CartaMagica.TipoEfeitoMagico.CAMPO.name()) )
+
+        System.out.println("Decricao: ");
+        descricao = scanner.nextLine();
+        System.out.print("Url da Imagem: ");
+        path = scanner.nextLine();
+
+        if (tipoMagicaStr.equals(CartaMagica.TipoEfeitoMagico.CAMPO.name())) {
             todasAsCartas.addCarta(new CartaMagica(Game.TipoCampo.valueOf(tipoSubMagicaStr), id, set, nome, path, ""));
-        if(tipoMagicaStr.equals( CartaMagica.TipoEfeitoMagico.TRAP.name()) )
+        }
+        if (tipoMagicaStr.equals(CartaMagica.TipoEfeitoMagico.TRAP.name())) {
             todasAsCartas.addCarta(new CartaMagica(Game.TipoTrap.valueOf(tipoSubMagicaStr), id, set, nome, path, ""));
+        }
     }
-    
+
     //User story criar deck - 2º sprint
-    public static void criaDeckTxt(){
+    public static void criaDeckTxt() {
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         String nome;
         Deck deck;
         int idCarta, tipoCarta;
 
-        System.out.print("Nome: ");   nome = scanner.nextLine();
-        for(Deck deckIt: todosOsDecks){
-            if(deckIt.getNome().equals(nome)){
+        System.out.print("Nome: ");
+        nome = scanner.nextLine();
+        for (Deck deckIt : todosOsDecks) {
+            if (deckIt.getNome().equals(nome)) {
                 System.err.println("Esse Deck já existe!");
                 return;
             }
         }
         deck = new Deck(nome);
 
-        for( int i=0; i< Deck.DECK_SIZE;i++){
+        for (int i = 0; i < Deck.DECK_SIZE; i++) {
             Carta carta;
             CartaMagica cartaMag;
             CartaMonstro cartaMon;
-            
-            //if(scanner.nextInt() == 0){
-                System.out.printf(" SET- ID   ATK  DEF  - Nome\n");
-                //System.out.println(" SET-ID    Tipo - Efeito ");
-                for(int j=0; j<todasAsCartas.length; j++){
-                    carta = todasAsCartas.getCartaAtIndex(j);
-                    if(carta instanceof CartaMonstro){
-                        cartaMon = (CartaMonstro)carta;
-                        System.out.printf("%4s-%3d   %4d %4d - %s\n", cartaMon.getSet(), cartaMon.getId(), cartaMon.getATK(), cartaMon.getDEF(), cartaMon.getNome() );
-                    }
-                    if(carta instanceof CartaMagica){
-                        cartaMag = (CartaMagica)carta;
-                        System.out.printf("%4s-%3d   %5s - %s\n", cartaMag.getSet(), cartaMag.getId(), cartaMag.getTipoEfeitoMagico(), cartaMag.getNome() );
-                    }
-                }
 
-                System.out.println("Informe o id das cartas que deseja adicionar ao deck");
-                idCarta = scanner.nextInt();
-                carta = todasAsCartas.getCartaById(idCarta);
-                if(carta != null){
-                    deck.addCarta(carta);
-                    System.out.println(carta.getNome()+" adicionado(a)");
-                }else{
-                    System.out.println("Id de carta não existe!");
-                    i--;
+            //if(scanner.nextInt() == 0){
+            System.out.printf(" SET- ID   ATK  DEF  - Nome\n");
+            //System.out.println(" SET-ID    Tipo - Efeito ");
+            for (int j = 0; j < todasAsCartas.length; j++) {
+                carta = todasAsCartas.getCartaAtIndex(j);
+                if (carta instanceof CartaMonstro) {
+                    cartaMon = (CartaMonstro) carta;
+                    System.out.printf("%4s-%3d   %4d %4d - %s\n", cartaMon.getSet(), cartaMon.getId(), cartaMon.getATK(), cartaMon.getDEF(), cartaMon.getNome());
                 }
+                if (carta instanceof CartaMagica) {
+                    cartaMag = (CartaMagica) carta;
+                    System.out.printf("%4s-%3d   %5s - %s\n", cartaMag.getSet(), cartaMag.getId(), cartaMag.getTipoEfeitoMagico(), cartaMag.getNome());
+                }
+            }
+
+            System.out.println("Informe o id das cartas que deseja adicionar ao deck");
+            idCarta = scanner.nextInt();
+            carta = todasAsCartas.getCartaById(idCarta);
+            if (carta != null) {
+                deck.addCarta(carta);
+                System.out.println(carta.getNome() + " adicionado(a)");
+            } else {
+                System.out.println("Id de carta não existe!");
+                i--;
+            }
 
         }
-        
-        todosOsDecks.add(deck);
-        
-        System.out.println("Deck "+deck.getNome()+" criado com sucesso!");
-    }
-    
-    
 
-    
-    public void editaDeck(Deck deck) throws Exception{
-        if(true) throw new UnsupportedOperationException("Not supported yet.");
+        todosOsDecks.add(deck);
+
+        System.out.println("Deck " + deck.getNome() + " criado com sucesso!");
+    }
+
+    public void editaDeck(Deck deck) throws Exception {
+        if (true) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
         /*
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         Carta carta;
@@ -552,7 +552,7 @@ public class AED1 {
             
             
         }while(index != -1);
-        */
+         */
     }
-    
+
 }

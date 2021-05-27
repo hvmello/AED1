@@ -65,7 +65,7 @@ class myDeckCellRenderer extends DefaultListCellRenderer {
         Deck object = (Deck) value;
         //String text = String.format("%-8.8s  %4.4s - %3d", object.getNome(),object.getSet(), object.getId());
 
-        setText(object.getNome());
+        if (object != null) setText(object.getNome());
         return this;
     }
 }
@@ -380,7 +380,12 @@ public class MenuJFrame extends javax.swing.JFrame {
         });
 
         Carta[] listaTodasCartasCriaDeck = new Carta[AED1.todasAsCartas.length];
-        System.arraycopy( AED1.todasAsCartas.getCartasArray(), 0, listaTodasCartasCriaDeck, 0, listaTodasCartasCriaDeck.length );
+
+        if (AED1.todasAsCartas.length > 0) {
+            System.arraycopy(AED1.todasAsCartas.getCartasArray(), 0, listaTodasCartasCriaDeck, 0, listaTodasCartasCriaDeck.length);
+        }
+
+
         ListaCartasJList.setModel( new javax.swing.DefaultListModel<Carta>() );
         ListaCartasJList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1156,8 +1161,12 @@ public class MenuJFrame extends javax.swing.JFrame {
             ImagemCartajLabel1.setIcon(icone);
 
             ((DefaultListModel) ListaCartasJList.getModel()).addElement(novaCarta);
+            
+            System.out.println("Nome da carta criada: " + novaCarta.getNome());
+            
             AED1.todasAsCartas.addCarta(novaCarta);
             FileManager.writeCarta(novaCarta);
+            
             JOptionPane.showMessageDialog(null, "Carta " + nomeCartaTxtField.getText() + " Criada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
 
         }

@@ -27,6 +27,15 @@ public /*abstract*/ class ListaDeCartas implements Cloneable, Serializable {
      * @param newCarta a Carta a ser adicionada em `cartas[]`
      */
     public void addCarta(Carta newCarta) {
+        
+        // Caso `cartas[]` esteja vazia
+        if (length == 0) {
+            cartas[0] = newCarta;
+            length++;
+            
+            return;
+        }
+        
         int j;
 
         /* 
