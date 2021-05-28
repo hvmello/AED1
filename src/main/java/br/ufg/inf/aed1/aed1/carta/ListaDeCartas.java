@@ -28,7 +28,7 @@ public /*abstract*/ class ListaDeCartas implements Cloneable, Serializable {
      */
     public void addCarta(Carta newCarta) {
         
-        System.out.println("Chegou no método de adicionar carta");
+        System.out.println("Adição de carta em ListaDeCartas...");
         
         // Caso `cartas[]` esteja vazia
         if (length == 0) {
@@ -179,6 +179,15 @@ public /*abstract*/ class ListaDeCartas implements Cloneable, Serializable {
     public void setCartasArray(Carta cartas[]) {
         this.cartas = cartas;
         this.length = (short) cartas.length;
+        
+        /*
+         * `Arrays.sort()` utiliza o algoritmo QuickSort com dois pivôs criado
+         * por Vladimir Yaroslavskiy, Jon Bentley, e Joshua Bloch. Seu tempo de
+         * de execução tem complexidade assintótica de O(n lg(n)) e tem desempenho
+         * final superior ao QuickSort de um pivô em vários conjuntos de dados cuja
+         * complexidade é quadrática.
+         * 
+         */
         Arrays.sort(this.cartas);
     }
 

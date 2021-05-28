@@ -33,14 +33,6 @@ public class AED1 {
     public List<Deck> todosOsDecks = new ArrayList<>();
     public Game game = new Game();/*/
     
-    /*public static void clearCLI() {
-        try {
-            Runtime.getRuntime().exec("clear");
-        } catch (IOException ex) {
-            Logger.getLogger(AED1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
-
     public static void main(String[] args) throws Exception {
 
         Scanner scanner = new Scanner(System.in, "ISO-8859-1");
@@ -122,9 +114,8 @@ public class AED1 {
                     break;
                 case 3:
 
-                    /*aqui deve limpar a tela para abrir novo submenu*/
+                    // TODO: limpar a tela para abrir novo submenu
                     do {
-                        System.out.close();
                         System.out.println("1. Editar um baralho existente");
                         System.out.println("2. Criar novo baralho");
                         System.out.println("3. Criar nova carta Monstro");
@@ -220,7 +211,7 @@ public class AED1 {
             if(testeCarta instanceof CartaMagica){
                 CartaMagica cartaMag = (CartaMagica)testeCarta;
                 System.out.println(cartaMag.getNome()+" "+cartaMag.getSet()+"-"+cartaMag.getId());
-                System.out.println(cartaMag.getSubEfeitoStr()+" "+cartaMag.getImageSrc());
+                System.out.println(cartaMag.getSubEfeititoToString()+" "+cartaMag.getImageSrc());
                 System.out.println(cartaMag.getDescricao());
             }
             
@@ -256,7 +247,7 @@ public class AED1 {
             if(testeCarta instanceof CartaMagica){
                 CartaMagica cartaMag = (CartaMagica)testeCarta;
                 System.out.println(cartaMag.getNome()+" "+cartaMag.getSet()+"-"+cartaMag.getId());
-                System.out.println(cartaMag.getSubEfeitoStr()+" "+cartaMag.getImageSrc());
+                System.out.println(cartaMag.getSubEfeititoToString()+" "+cartaMag.getImageSrc());
                 System.out.println(cartaMag.getDescricao());
             }
             

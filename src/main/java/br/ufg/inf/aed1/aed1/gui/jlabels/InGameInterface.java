@@ -568,7 +568,7 @@ public class InGameInterface extends JFrame {
                 //tentar colocar uma animação de ativando o campo seria massa
 
                 ((CartaMagica) cartaSelecionada).ativarEfeito(gameBackEnd, null, -1);
-                System.out.println("Campo alterado para " + ((CartaMagica) cartaSelecionada).getSubEfeitoStr());
+                System.out.println("Campo alterado para " + ((CartaMagica) cartaSelecionada).getSubEfeititoToString());
                 playerAtual.mesa.removeMagica(indexCartaAtual);
                 playerAtual.updateMagicaIcon(indexCartaAtual);
 
